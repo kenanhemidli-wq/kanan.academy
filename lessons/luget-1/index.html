@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JE6HXHN7B9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JE6HXHN7B9');
+</script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>English Word Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --background-beige: #f9f5eb;
+  --panel-bg: #ffffff;
+  --ink: #2b211a;
+  --teal: #1b7365;
+  --teal-dark: #114d43;
+  --coral: #e05326;
+  --mustard: #e6a119;
+  --border-color: #d1c0a5;
+}
+*{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+body{
+  margin:0; min-height:100vh;
+  background: var(--background-beige);
+  font-family:'Nunito', sans-serif; color:var(--ink); padding: 16px 12px 60px;
+}
+.wrap{ max-width:1100px; margin:0 auto; }
+h1,h2,h3{ font-family:'Baloo 2', sans-serif; margin:0; }
+.top-title{ font-size:clamp(26px,5vw,36px); font-weight:800; text-align:center; margin-bottom:4px; color: var(--teal-dark); }
+.top-sub{ text-align:center; color:#6b5b4e; font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:1px; margin-bottom:20px; }
+
+/* Stepper Tracker */
+.stepper{ display:flex; justify-content:center; align-items:center; margin-bottom:24px; width:100%; overflow-x:auto; padding: 4px 0; }
+.step-node{ display:flex; flex-direction:column; align-items:center; gap:4px; }
+.step-circle{
+  width:36px; height:36px; border-radius:50%; background:#fff; border:2px solid var(--border-color);
+  display:flex; align-items:center; justify-content:center; font-family:'Baloo 2',sans-serif; font-weight:800;
+  color:var(--border-color); transition:all .3s; font-size:15px;
+}
+.step-label{ font-size:11px; font-weight:700; color:var(--border-color); text-transform:uppercase; }
+.step-node.active .step-circle{ background:var(--teal); border-color:var(--teal); color:#fff; }
+.step-node.active .step-label{ color:var(--teal-dark); }
+.step-node.done .step-circle{ background:var(--mustard); border-color:var(--mustard); color:#fff; }
+.step-node.done .step-label{ color:var(--mustard); }
+.step-line{ width:clamp(25px, 6vw, 60px); height:3px; background:var(--border-color); margin:0 4px 16px; border-radius:2px; }
+.step-node.done + .step-line, .step-node.active + .step-line{ background:var(--mustard); }
+
+/* System Panels */
+.panel{ display:none; }
+.panel.active{ display:block; animation:fadein .3s ease-out; }
+@keyframes fadein{ from{ opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
+.card{ background:var(--panel-bg); border-radius:16px; padding:18px; box-shadow:0 10px 25px rgba(0,0,0,0.06); border: 1px solid rgba(209,192,165,0.4); }
+.heading-lang { font-size: 14px; color: var(--teal); font-weight: 700; text-transform: uppercase; margin-bottom: 2px; display: block; }
+.panel-title { font-size: 22px; font-weight: 800; line-height: 1.2; color: var(--ink); }
+.panel-explanation { color: #5c4d41; margin: 6px 0 16px 0; font-size: 14px; font-weight: 600; line-height: 1.4; }
+
+/* Step 1 Styles: Learn Cards with Flip Interaction */
+.learn-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:16px; margin-top:16px; }
+.flip-card-container { perspective: 1000px; height: 290px; }
+.flip-card-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+.flip-card-container.flipped .flip-card-inner { transform: rotateY(180deg); }
+.word-card-front, .word-card-back { position: absolute; inset: 0; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius:14px; padding:16px; border:2.5px solid var(--border-color); background:#fff; display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center; }
+.word-card-back { transform: rotateY(180deg); background: #fdfaf3; border-color: var(--mustard); }
+.wicon-badge{ width:85px; height:85px; margin:0 auto; display:flex; align-items:center; justify-content:center; }
+.wicon { width: 100%; height: 100%; display: block; }
+.w-word{ font-family:'Baloo 2',sans-serif; font-weight:800; font-size:22px; color: var(--ink); margin-top: 4px; }
+.w-phonetic{ font-size:13px; color:#7e6d5c; font-style:italic; margin-bottom: 6px; }
+.w-sentence{ font-size:13px; color:#4a3e35; line-height:1.4; font-weight: 600; }
+.card-actions-row { width: 100%; display: flex; justify-content: center; gap: 10px; margin-top: 6px; }
+.speak-btn, .translate-card-btn {
+  border:0; background:var(--teal); color:#fff; height:34px; padding: 0 12px; border-radius:999px;
+  cursor:pointer; font-size:13px; font-weight: 700; display:flex; align-items:center; justify-content:center; gap: 4px;
+}
+.translate-card-btn { background: var(--mustard); }
+.speak-btn:hover{ background:var(--teal-dark); }
+
+/* Step 2 Styles: Fixed Mobile-First Side-by-Side Matching */
+.match-header{ display:flex; justify-content:between; align-items:center; margin-bottom:14px; width: 100%; justify-content: space-between; }
+.round-pill{ background:var(--ink); color:#fff; font-family:'Baloo 2',sans-serif; font-weight:800; padding:4px 12px; border-radius:999px; font-size:13px; }
+.match-cols{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; width: 100%; }
+.match-list{ display:grid; gap:10px; align-content: start; }
+.match-tile{
+  background:#fff; border:2px solid var(--border-color); border-radius:12px; padding:8px;
+  cursor:pointer; display:flex; align-items:center; justify-content: center; font-weight:700; min-height:75px; transition:all .15s; text-align: center; font-size: 15px; word-break: break-word;
+}
+.match-tile .wicon { max-height: 55px; width: auto; }
+.match-tile.selected{ border-color:var(--teal); background:#e6f4f1; box-shadow: 0 0 0 2px var(--teal); }
+.match-tile.matched{ opacity:.25; pointer-events:none; border-color:transparent; background: #f0f0f0; }
+.match-tile.wrong{ animation:shake .3s; border-color:var(--coral); background:#fdebe6; }
+@keyframes shake{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-4px);} 75%{transform:translateX(4px);} }
+
+/* Step 3 Styles: Mobile-First Click-to-Place Drag & Drop Logic */
+.wordbank{ display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; background: #f5eedf; padding: 12px; border-radius: 12px; min-height: 50px; }
+.wb-item{ background:#fff; border:1.5px solid var(--border-color); border-radius:999px; padding:5px 12px; font-size:13px; font-weight:700; cursor: pointer; user-select: none; box-shadow: 0 2px 4px rgba(0,0,0,0.04); transition: transform 0.2s; }
+.wb-item:active { transform: scale(0.95); }
+.wb-item.used { opacity: 0.3; pointer-events: none; background: #e0e0e0; }
+.story-text{ font-size:16px; line-height: 2.3; text-align: justify; color: var(--ink); }
+.blank-box{
+  display: inline-flex; align-items: center; justify-content: center;
+  border-bottom: 2px solid var(--ink); background:#fff; font-weight:700; font-size:14px; 
+  min-width:90px; height: 28px; margin: 0 4px; padding: 0 8px; vertical-align: middle; border-radius: 4px 4px 0 0; cursor: pointer; color: var(--teal-dark); transition: all 0.2s;
+}
+.blank-box.filled { border-bottom-color: var(--teal); background: #eef7f5; }
+.blank-box.correct{ background: #e4f2ee; border: 2px solid var(--teal); border-radius: 4px; color: var(--teal-dark); }
+.blank-box.wrong{ background: #fdebe6; border: 2px solid var(--coral); border-radius: 4px; color: var(--coral); }
+.story-controls{ margin-top:20px; display:flex; gap:12px; align-items:center; }
+.story-score{ font-family:'Baloo 2',sans-serif; font-weight:800; color:var(--teal-dark); font-size: 16px; }
+
+/* Step 4 Styles: Jigsaw Puzzle Reward Layer */
+main.jig-main{ display:grid; grid-template-columns:1.3fr 1fr; gap:16px; align-items:start; }
+@media(max-width:800px){ main.jig-main{ grid-template-columns:1fr; } }
+.puzzle-canvas{ position:relative; width:100%; aspect-ratio:800/640; border-radius:12px; overflow:hidden; background: #eae2d5; }
+.puzzle-canvas .reward-image, .puzzle-canvas .piece-overlay{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+.piece{ transition:opacity .5s ease, transform .5s ease; transform-box:fill-box; transform-origin:center; }
+.piece.revealed{ opacity:0; transform:scale(.6) rotate(12deg); pointer-events:none; }
+.piece path{ stroke:#ffffff; stroke-width:2; }
+.piece circle{ fill:#ffffff; opacity:.9; }
+.piece text{ font-family:'Baloo 2', sans-serif; font-weight:800; fill:var(--ink); }
+.sparkle{ position:absolute; font-size:24px; pointer-events:none; animation:sparkle-pop .8s ease forwards; }
+@keyframes sparkle-pop{ 0%{opacity:0; transform:translate(-50%,-50%) scale(.4);} 30%{opacity:1; transform:translate(-50%,-80%) scale(1.2);} 100%{opacity:0; transform:translate(-50%,-140%) scale(0);} }
+.stat-row{ display:flex; gap:8px; margin-bottom:12px; }
+.stat-row .box{ flex:1; background:#fff; border-radius:10px; padding:8px; text-align:center; border:1.5px solid var(--border-color); }
+.stat-row .box strong{ display:block; font-family:'Baloo 2',sans-serif; font-size:20px; color: var(--ink); }
+.stat-row .box small{ font-size:10px; font-weight: 700; text-transform:uppercase; color:#7a6a58; }
+.word{ font-family:'Baloo 2', sans-serif; font-size:28px; font-weight:800; margin-bottom:4px; color: var(--teal-dark); }
+.flip-note{ font-size:12px; color:#6b5b4e; margin-bottom:12px; font-weight: 600; }
+.flip-note b{ color:var(--teal); }
+.options{ display:grid; gap:8px; }
+.opt-row{ display:flex; gap:6px; align-items:stretch; }
+.opt-select{ flex:1; position:relative; min-height:54px; perspective:700px; cursor:pointer; background:none; border:0; padding:0; font-family:'Nunito', sans-serif; }
+.flip-inner{ position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .4s; }
+.opt-row.flipped .flip-inner{ transform:rotateY(180deg); }
+.face{ position:absolute; inset:0; display:flex; align-items:center; padding:10px 12px; border-radius:10px; border:2px solid var(--border-color); background:#fff; font-size:13.5px; font-weight:700; text-align:left; color:var(--ink); backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+.face.az{ transform:rotateY(180deg); background:#fdf7ec; border-color: var(--mustard); }
+.opt-row.correct .face{ background:#e4f2ee; border-color:var(--teal); color: var(--teal-dark); }
+.opt-row.wrong .face{ background:#fdebe6; border-color:var(--coral); }
+.flip-toggle{ flex:0 0 40px; border-radius:10px; border:2px solid var(--border-color); background:#fff; cursor:pointer; font-size:15px; color:var(--teal); display: flex; align-items: center; justify-content: center; }
+.flip-toggle.active{ background:var(--mustard); border-color:var(--mustard); color:#fff; transform:rotate(180deg); }
+.hint{ margin-top:10px; font-size:13px; font-style:italic; color:#6b5b4e; min-height:18px; line-height:1.4; font-weight: 600; }
+.hint .az{ display:block; font-style:normal; color:var(--teal); font-weight:700; margin-top: 2px; }
+.feedback{ margin-top:8px; font-weight:700; font-size:13.5px; min-height:20px; }
+.feedback.good{ color:var(--teal); }
+.feedback.bad{ color:var(--coral); }
+.complete-overlay{ position:absolute; inset:0; display:none; align-items:center; justify-content:center; background:rgba(43,33,26,0.7); text-align:center; padding:16px; border-radius:12px; z-index: 10; }
+.complete-overlay.show{ display:flex; }
+.complete-box{ background:var(--background-beige); border-radius:16px; padding:24px; max-width:300px; width: 100%; border: 2px solid var(--mustard); }
+.complete-box h3{ font-size:22px; margin:0 0 6px; color: var(--ink); }
+.complete-box p{ margin:0 0 16px; font-size:14px; color:#5c4d41; font-weight: 600; }
+
+/* Control Buttons styling */
+button.primary{
+  padding:12px 20px; border:0; border-radius:12px; background:var(--teal); color:#fff;
+  font-family:'Baloo 2',sans-serif; font-weight:800; font-size:15px; cursor:pointer; letter-spacing:.2px;
+  box-shadow: 0 4px 6px rgba(27,115,101,0.15);
+}
+button.primary:hover:not(:disabled){ background:var(--teal-dark); }
+button.primary:disabled{ opacity:.4; cursor:not-allowed; box-shadow: none; }
+button.secondary{
+  padding:11px 16px; border:2px solid var(--border-color); border-radius:12px; background:#fff; color:var(--ink);
+  font-family:'Baloo 2',sans-serif; font-weight:800; font-size:14px; cursor:pointer;
+}
+.step-actions{ margin-top:20px; display:flex; justify-content:flex-end; gap:8px; width: 100%; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top-title">English Word Lab</div>
+  <div class="top-sub">Öyrən · Birləşdir · Yaz · Oyna</div>
+
+  <div class="stepper" id="stepper"></div>
+
+  <!-- STEP 1: LEARN -->
+  <section class="panel" id="panel-1">
+    <div class="card">
+      <span class="heading-lang">Mərhələ 1 · Sözləri Öyrən</span>
+      <h2 class="panel-title">Step 1 · Learn the words</h2>
+      <p class="panel-explanation">Sözü eşitmək üçün 🔊 toxun. Tərcümə üçün ⇄ düyməsini sıxın.<br>Tap 🔊 to hear the word. Tap ⇄ to see translation.</p>
+      <div class="learn-grid" id="learnGrid"></div>
+    </div>
+    <div class="step-actions"><button class="primary" id="toStep2">Davam et / Continue →</button></div>
+  </section>
+
+  <!-- STEP 2: MATCH -->
+  <section class="panel" id="panel-2">
+    <div class="card">
+      <div class="match-header">
+        <div>
+          <span class="heading-lang">Mərhələ 2 · Şəkli Tap</span>
+          <h2 class="panel-title">Step 2 · Picture Match</h2>
+        </div>
+        <div class="round-pill"><span id="roundNum">1</span> / 4</div>
+      </div>
+      <p class="panel-explanation">Şəklə toxun, sonra uyğun gələn ingilis dili sözünü seç.<br>Tap a picture, then tap its English word.</p>
+      <div class="match-cols">
+        <div class="match-list" id="picCol"></div>
+        <div class="match-list" id="wordCol"></div>
+      </div>
+    </div>
+    <div class="step-actions">
+      <button class="secondary" id="backTo1">← Geri</button>
+      <button class="primary" id="toStep3" disabled>Davam et / Continue →</button>
+    </div>
+  </section>
+
+  <!-- STEP 3: STORY -->
+  <section class="panel" id="panel-3">
+    <div class="card">
+      <span class="heading-lang">Mərhələ 3 · Hekayəni Tamamla</span>
+      <h2 class="panel-title">Step 3 · Complete the Story</h2>
+      <p class="panel-explanation">Sözə toxun, sonra hekayədəki düzgün boşluğa toxun.<br>Tap a word, then tap the correct empty space in the story.</p>
+      <div class="wordbank" id="wordbank"></div>
+      <div class="story-text" id="storyText"></div>
+      <div class="story-controls">
+        <button class="primary" id="checkStory">Yoxla / Check Story</button>
+        <span class="story-score" id="storyScore"></span>
+      </div>
+    </div>
+    <div class="step-actions">
+      <button class="secondary" id="backTo2">← Geri</button>
+      <button class="primary" id="toStep4" disabled>Davam et / Continue →</button>
+    </div>
+  </section>
+
+  <!-- STEP 4: JIGSAW -->
+  <section class="panel" id="panel-4">
+    <div class="card" style="margin-bottom:14px;">
+      <span class="heading-lang">Mərhələ 4 · Tapmaca Mükafatı</span>
+      <h2 class="panel-title">Step 4 · Puzzle Reward</h2>
+      <p class="panel-explanation">Sözlərin mənasını taparaq tapmacanı açın. Çətin gəlsə, ⇄ düyməsinə sıxın.<br>Answer definitions to open pieces. Tap ⇄ for Azerbaijani help.</p>
+    </div>
+    <main class="jig-main">
+      <div class="card" style="padding:10px;">
+        <div class="puzzle-canvas" id="puzzleCanvas">
+          <div class="reward-image" id="rewardImage"></div>
+          <svg class="piece-overlay" id="pieceOverlay" viewBox="0 0 800 640" preserveAspectRatio="none"></svg>
+          <div class="complete-overlay" id="completeOverlay">
+            <div class="complete-box">
+              <h3>Təbriklər! 🎉</h3>
+              <p>Bütün mərhələləri tamamladınız!<br>You completed the whole lesson!</p>
+              <button class="primary" id="restartAllBtn" style="width: 100%;">Yenidən başla / Restart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:12px;">
+          <div class="stat-row">
+            <div class="box"><strong id="statCorrect">0</strong><small>Düzgün / Ok</small></div>
+            <div class="box"><strong id="statFirstTry">0</strong><small>İlk cəhd</small></div>
+            <div class="box"><strong id="statLeft">20</strong><small>Qaldı / Left</small></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="word" id="wordEl"></div>
+          <div class="flip-note">Kömək üçün sətirdəki <b>⇄</b> işarəsinə toxunun.</div>
+          <div class="options" id="optionsEl"></div>
+          <div class="hint" id="hintEl"></div>
+          <div class="feedback" id="feedbackEl"></div>
+          <button class="primary" id="nextBtn" style="width:100%; margin-top:12px;" disabled>Növbəti / Next →</button>
+        </div>
+      </div>
+    </main>
+  </section>
+</div>
+
+<script>
+/* ================= REALISTIC VIBRANT VECTOR ICONS (INLINE SVGS) ================= */
+const ICONS = {
+  apple: `<svg viewBox="0 0 64 64" class="wicon"><circle cx="32" cy="36" r="20" fill="#e63946"/><circle cx="24" cy="30" r="14" fill="#ff4d6d" opacity="0.4"/><path d="M32 18c-2-4-1-8 2-10 0 0 3 3 1 7z" fill="#70e000"/><path d="M32 18v-6" stroke="#4a3e35" stroke-width="3" stroke-linecap="round"/></svg>`,
+  chair: `<svg viewBox="0 0 64 64" class="wicon"><path d="M20 32h24v12H20z" fill="#dd9f22"/><path d="M20 16h24v16H20z" fill="#b57c15"/><path d="M22 32V52M42 32V52M24 32v20M40 32v20" stroke="#8c5e07" stroke-width="4" stroke-linecap="round"/></svg>`,
+  book: `<svg viewBox="0 0 64 64" class="wicon"><path d="M12 14h36v36H12z" fill="#1b7365"/><path d="M16 10h36v36H16z" fill="#2a9d8f"/><path d="M16 46h36v4H16z" fill="#e0e0e0"/><circle cx="34" cy="28" r="8" fill="#fff" opacity="0.2"/></svg>`,
+  water: `<svg viewBox="0 0 64 64" class="wicon"><path d="M32 8C32 8 48 28 48 42a16 16 0 1 1-32 0c0-14 16-34 16-34z" fill="#4ea8de"/><path d="M26 36c-2 4 0 8 4 8" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg>`,
+  dog: `<svg viewBox="0 0 64 64" class="wicon"><circle cx="32" cy="34" r="18" fill="#e9c46a"/><path d="M16 20c0 0-4 10 2 14z" fill="#e76f51"/><path d="M48 20c0 0 4 10-2 14z" fill="#e76f51"/><circle cx="26" cy="30" r="2.5" fill="#2b211a"/><circle cx="38" cy="30" r="2.5" fill="#2b211a"/><ellipse cx="32" cy="38" rx="4" ry="2.5" fill="#2b211a"/></svg>`,
+  house: `<svg viewBox="0 0 64 64" class="wicon"><path d="M10 32h44v24H10z" fill="#e9c46a"/><path d="M6 32 L32 10 L58 32z" fill="#e76f51"/><rect x="26" y="42" width="12" height="14" fill="#f4a261"/><circle cx="30" cy="50" r="1.5" fill="#2b211a"/></svg>`,
+  car: `<svg viewBox="0 0 64 64" class="wicon"><rect x="10" y="28" width="44" height="18" rx="6" fill="#e63946"/><path d="M16 28l6-12h20l6 12z" fill="#a8dadc"/><circle cx="20" cy="46" r="7" fill="#1d3557"/><circle cx="44" cy="46" r="7" fill="#1d3557"/></svg>`,
+  sun: `<svg viewBox="0 0 64 64" class="wicon"><circle cx="32" cy="32" r="15" fill="#ffb703"/><path d="M32 6v6M32 52v6M6 32h6M52 32h6M14 14l5 5M45 45l5 5M45 14l-5 5M19 45l-5 5" stroke="#fb8500" stroke-width="4" stroke-linecap="round"/></svg>`,
+  rain: `<svg viewBox="0 0 64 64" class="wicon"><path d="M18 32a10 10 0 0 1 18-4 8 8 0 0 1 14 6 9 9 0 0 1-7 9H18z" fill="#bde0fe"/><path d="M22 46l-2 8M32 46l-2 8M42 46l-2 8" stroke="#4ea8de" stroke-width="3" stroke-linecap="round"/></svg>`,
+  friend: `<svg viewBox="0 0 64 64" class="wicon"><circle cx="22" cy="24" r="9" fill="#f4a261"/><path d="M10 48c0-6 5-10 12-10s12 4 12 10z" fill="#e76f51"/><circle cx="42" cy="24" r="9" fill="#e9c46a"/><path d="M30 48c0-6 5-10 12-10s12 4 12 10z" fill="#2a9d8f"/></svg>`,
+  happy: `<svg viewBox="0 0 64 64" class="wicon"><circle cx="32" cy="32" r="20" fill="#ffb703"/><circle cx="25" cy="26" r="2.5" fill="#2b211a"/><circle cx="39" cy="26" r="2.5" fill="#2b211a"/><path d="M20 38q12 10 24 0" fill="none" stroke="#2b211a" stroke-width="3.5" stroke-linecap="round"/></svg>`,
+  big: `<svg viewBox="0 0 64 64" class="wicon"><rect x="8" y="8" width="48" height="48" rx="8" fill="#2a9d8f"/><text x="32" y="38" font-family="'Baloo 2', sans-serif" font-weight="800" font-size="20" fill="#fff" text-anchor="middle">BIG</text></svg>`,
+  small: `<svg viewBox="0 0 64 64" class="wicon"><rect x="22" y="22" width="20" height="20" rx="4" fill="#e76f51"/><circle cx="32" cy="32" r="2" fill="#fff"/></svg>`,
+  run: `<svg viewBox="0 0 64 64" class="wicon"><circle cx="36" cy="14" r="5" fill="#2b211a"/><path d="M36 19l-6 12 8 4 2 12M26 31l-10 4M38 27l8-4" fill="none" stroke="#e63946" stroke-width="4" stroke-linecap="round"/></svg>`,
+  eat: `<svg viewBox="0 0 64 64" class="wicon"><path d="M22 10v16M17 10v10a5 5 0 0 0 10 0V10M22 26v20" stroke="#2a9d8f" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M42 10c-3 0-5 5-5 12s2 10 5 10v14" stroke="#e76f51" stroke-width="4" stroke-linecap="round" fill="none"/></svg>`,
+  sleep: `<svg viewBox="0 0 64 64" class="wicon"><path d="M42 14a16 16 0 1 0 10 24 12 12 0 0 1-10-24z" fill="#457b9d"/><text x="44" y="20" font-family="sans-serif" font-weight="bd" font-size="12" fill="#a8dadc">Z</text><text x="52" y="14" font-family="sans-serif" font-weight="bd" font-size="9" fill="#a8dadc">z</text></svg>`,
+  school: `<svg viewBox="0 0 64 64" class="wicon"><path d="M12 28h40v24H12z" fill="#e9c46a"/><path d="M32 10L6 28h52z" fill="#e63946"/><rect x="27" y="40" width="10" height="12" fill="#1b7365"/></svg>`,
+  table: `<svg viewBox="0 0 64 64" class="wicon"><rect x="8" y="22" width="48" height="6" rx="2" fill="#f4a261"/><path d="M14 28v22M50 28v22" stroke="#e76f51" stroke-width="5" stroke-linecap="round"/></svg>`,
+  door: `<svg viewBox="0 0 64 64" class="wicon"><rect x="18" y="10" width="28" height="46" rx="4" fill="#e76f51"/><circle cx="38" cy="34" r="2.5" fill="#ffb703"/></svg>`,
+  window: `<svg viewBox="0 0 64 64" class="wicon"><rect x="12" y="12" width="40" height="40" rx="4" fill="#a8dadc" stroke="#457b9d" stroke-width="4"/><path d="M32 12v40M12 32h40" stroke="#457b9d" stroke-width="3"/></svg>`
+};
+
+function iconSvg(key){ return ICONS[key] || ''; }
+
+/* ================= WORD TRANSLATIONS & METADATA ================= */
+const WORDS = [
+ { word:"Apple", icon:"apple", phonetic:"AP-uhl", translation:"Alma", sentenceEN:"She ate a red apple.", sentenceAZ:"O, qırmızı alma yedi.",
+   options:[{en:"A round fruit that is red or green", az:"Alma", correct:true},{en:"A yellow long fruit", az:"Banan", correct:false},{en:"An underground vegetable", az:"Kartof", correct:false}]},
+ { word:"Chair", icon:"chair", phonetic:"CHAIR", translation:"Stul", sentenceEN:"Please sit on this chair.", sentenceAZ:"Zəhmət olmasa, bu stulda otur.",
+   options:[{en:"Furniture you sit on", az:"Stul", correct:true},{en:"Furniture you sleep on", az:"Çarpayı", correct:false},{en:"A room where you cook", az:"Mətbəx", correct:false}]},
+ { word:"Book", icon:"book", phonetic:"BUK", translation:"Kitab", sentenceEN:"He is reading a book.", sentenceAZ:"O, kitab oxuyur.",
+   options:[{en:"Pages with words that you read", az:"Kitab", correct:true},{en:"A tool used to write", az:"Qələm", correct:false},{en:"A water bottle", az:"Butulka", correct:false}]},
+ { word:"Water", icon:"water", phonetic:"WAW-ter", translation:"Su", sentenceEN:"Can I have some water?", sentenceAZ:"Mənə bir az su verə bilərsənmi?",
+   options:[{en:"A clean liquid you drink", az:"Su", correct:true},{en:"A hot drink from leaves", az:"Çay", correct:false},{en:"A sweet frozen treat", az:"Dondurma", correct:false}]},
+ { word:"Dog", icon:"dog", phonetic:"DAWG", translation:"İt", sentenceEN:"My dog loves to play.", sentenceAZ:"Mənim itim oynamağı sevir.",
+   options:[{en:"A pet animal that barks", az:"İt", correct:true},{en:"A pet animal that says meow", az:"Pişik", correct:false},{en:"A large wild animal", az:"Fil", correct:false}]},
+ { word:"House", icon:"house", phonetic:"HOWS", translation:"Ev", sentenceEN:"They live in a small house.", sentenceAZ:"Onlar kiçik bir evdə yaşayırlar.",
+   options:[{en:"A building where people live", az:"Ev", correct:true},{en:"A shop that sells items", az:"Mağaza", correct:false},{en:"A place where children learn", az:"Məktəb", correct:false}]},
+ { word:"Car", icon:"car", phonetic:"KAHR", translation:"Maşın", sentenceEN:"We drove in a new car.", sentenceAZ:"Biz yeni maşınla getdik.",
+   options:[{en:"A vehicle with four wheels", az:"Maşın", correct:true},{en:"A vehicle that flies", az:"Təyyarə", correct:false},{en:"A vehicle with two wheels", az:"Velosiped", correct:false}]},
+ { word:"Sun", icon:"sun", phonetic:"SUHN", translation:"Günəş", sentenceEN:"The sun is bright today.", sentenceAZ:"Bu gün günəş parlaqdır.",
+   options:[{en:"The star that gives light in day", az:"Günəş", correct:true},{en:"The moon in the night", az:"Ay", correct:false},{en:"A small sky star", az:"Ulduz", correct:false}]},
+ { word:"Rain", icon:"rain", phonetic:"RAYN", translation:"Yağış", sentenceEN:"Water is falling, it is rain.", sentenceAZ:"Su düşür, bu yağışdır.",
+   options:[{en:"Water that falls from clouds", az:"Yağış", correct:true},{en:"Frozen white winter water", az:"Qar", correct:false},{en:"Strong storm wind", az:"Külək", correct:false}]},
+ { word:"Friend", icon:"friend", phonetic:"FREND", translation:"Dost", sentenceEN:"She is my best friend.", sentenceAZ:"O, mənim ən yaxşı dostumdur.",
+   options:[{en:"A person you like and trust", az:"Dost", correct:true},{en:"A teacher at school", az:"Müəllim", correct:false},{en:"A family cousin", az:"Qohum", correct:false}]},
+ { word:"Happy", icon:"happy", phonetic:"HAP-ee", translation:"Xoşbəxt", sentenceEN:"The kids are happy.", sentenceAZ:"Uşaqlar xoşbəxtdirlər.",
+   options:[{en:"Feeling good and joyful", az:"Xoşbəxt", correct:true},{en:"Feeling tired and sleepy", az:"Yorğun", correct:false},{en:"Feeling angry", az:"Əsəbi", correct:false}]},
+ { word:"Big", icon:"big", phonetic:"BIG", translation:"Böyük", sentenceEN:"That is a big mountain.", sentenceAZ:"Bu, böyük bir dağdır.",
+   options:[{en:"Large in size", az:"Böyük", correct:true},{en:"Very small in size", az:"Kiçik", correct:false},{en:"Light weight", az:"Yüngül", correct:false}]},
+ { word:"Small", icon:"small", phonetic:"SMAWL", translation:"Kiçik", sentenceEN:"The baby cat is small.", sentenceAZ:"Balaca pişik kiçikdir.",
+   options:[{en:"Little in size", az:"Kiçik", correct:true},{en:"Very large in size", az:"Böyük", correct:false},{en:"Very tall", az:"Hündür", correct:false}]},
+ { word:"Run", icon:"run", phonetic:"RUHN", translation:"Qaçmaq", sentenceEN:"I run in the park.", sentenceAZ:"Mən parkda qaçıram.",
+   options:[{en:"To move fast using legs", az:"Qaçmaq", correct:true},{en:"To walk slowly", az:"Yerimək", correct:false},{en:"To move in water", az:"Üzmək", correct:false}]},
+ { word:"Eat", icon:"eat", phonetic:"EET", translation:"Yemək", sentenceEN:"We eat fresh dinner.", sentenceAZ:"Biz təzə şam yeməyi yeyirik.",
+   options:[{en:"To consume food items", az:"Yemək", correct:true},{en:"To consume drinks", az:"İçmək", correct:false},{en:"To cook meals", az:"Bişirmək", correct:false}]},
+ { word:"Sleep", icon:"sleep", phonetic:"SLEEP", translation:"Yatmaq", sentenceEN:"Babies sleep many hours.", sentenceAZ:"Körpələr çox saat yatırlar.",
+   options:[{en:"To rest with eyes closed", az:"Yatmaq", correct:true},{en:"To sit on a seat", az:"Oturmaq", correct:false},{en:"To think deeply", az:"Düşünmək", correct:false}]},
+ { word:"School", icon:"school", phonetic:"SKOOL", translation:"Məktəb", sentenceEN:"Children walk to school.", sentenceAZ:"Uşaqlar məktəbə piyada gedirlər.",
+   options:[{en:"A place where children learn", az:"Məktəb", correct:true},{en:"A place to buy food", az:"Mağaza", correct:false},{en:"A sport stadium", az:"Stadion", correct:false}]},
+ { word:"Table", icon:"table", phonetic:"TAY-buhl", translation:"Masa", sentenceEN:"Put plates on the table.", sentenceAZ:"Boşqabları masanın üstünə qoy.",
+   options:[{en:"Furniture to place things on", az:"Masa", correct:true},{en:"A single chair seat", az:"Stul", correct:false},{en:"A sleeping bed", az:"Çarpayı", correct:false}]},
+ { word:"Door", icon:"door", phonetic:"DOR", translation:"Qapı", sentenceEN:"Please close the door.", sentenceAZ:"Zəhmət olmasa, qapını bağla.",
+   options:[{en:"You open it to enter a room", az:"Qapı", correct:true},{en:"A transparent window glass", az:"Pəncərə", correct:false},{en:"A floor carpet", az:"Xalça", correct:false}]},
+ { word:"Window", icon:"window", phonetic:"WIN-doh", translation:"Pəncərə", sentenceEN:"Open the window for air.", sentenceAZ:"Hava üçün pəncərəni aç.",
+   options:[{en:"You look through it to see out", az:"Pəncərə", correct:true},{en:"An entrance wooden door", az:"Qapı", correct:false},{en:"A flat room floor", az:"Döşəmə", correct:false}]}
+];
+
+const STORY_SEGMENTS = [
+ "Every morning, the ", {b:"sun"}, " comes up and Mia wakes up in her ", {b:"house"}, ". She gets out of her ", {b:"big"},
+ " bed and looks out the ", {b:"window"}, ". Today the sky is grey, so it might ", {b:"rain"}, " soon. Mia walks to the kitchen and sits on a ",
+ {b:"chair"}, " next to the ", {b:"table"}, ". She wants to ", {b:"eat"}, " a red ", {b:"apple"}, " for breakfast, so she drinks a glass of ",
+ {b:"water"}, " too. Her ", {b:"dog"}, " waits by the ", {b:"door"}, ". It wants to ", {b:"run"}, " in the yard. Mia picks up her ",
+ {b:"book"}, " and walks to ", {b:"school"}, " with her best ", {b:"friend"}, ". They are both ", {b:"happy"}, " today. At school, Mia sits at a ",
+ {b:"small"}, " desk near the window. After school, Mia and her friend get into a ", {b:"car"}, " and go home. In the evening, Mia is tired, so she goes to ",
+ {b:"sleep"}, " early."
+];
+
+/* ================= UTILITY ACTIONS ================= */
+function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function speak(text){
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US'; u.rate = 0.85;
+  window.speechSynthesis.speak(u);
+}
+
+/* ================= STEPPER CONTROL SYSTEM ================= */
+const STEP_LABELS = ['Öyrən','Birləşdir','Hekayə','Tapmaca'];
+let currentStep = 1;
+function renderStepper(){
+  const el = document.getElementById('stepper');
+  el.innerHTML='';
+  STEP_LABELS.forEach((label,i)=>{
+    const n=i+1;
+    const node=document.createElement('div');
+    node.className='step-node'+(n===currentStep?' active':'')+(n<currentStep?' done':'');
+    node.innerHTML=`<div class="step-circle">${n<currentStep?'✓':n}</div><div class="step-label">${label}</div>`;
+    el.appendChild(node);
+    if(n<STEP_LABELS.length){ const line=document.createElement('div'); line.className='step-line'; el.appendChild(line); }
+  });
+}
+function goToStep(n){
+  currentStep=n;
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+n).classList.add('active');
+  renderStepper();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ================= STEP 1: LEARN (FLIP INTERACTIONS) ================= */
+function buildLearnStep(){
+  const grid = document.getElementById('learnGrid');
+  grid.innerHTML='';
+  WORDS.forEach(w=>{
+    const wrapper = document.createElement('div');
+    wrapper.className = 'flip-card-container';
+    wrapper.innerHTML = `
+      <div class="flip-card-inner">
+        <div class="word-card-front">
+          <div class="wicon-badge">${iconSvg(w.icon)}</div>
+          <div class="w-word">${w.word}</div>
+          <div class="w-phonetic">/${w.phonetic}/</div>
+          <div class="w-sentence">${w.sentenceEN}</div>
+          <div class="card-actions-row">
+            <button class="speak-btn">🔊 Səs</button>
+            <button class="translate-card-btn">⇄ Tərcümə</button>
+          </div>
+        </div>
+        <div class="word-card-back">
+          <div class="wicon-badge">${iconSvg(w.icon)}</div>
+          <div class="w-word" style="color: var(--mustard);">${w.translation}</div>
+          <div class="w-phonetic">Azərbaycan dili</div>
+          <div class="w-sentence" style="color: #6b5b4e;">${w.sentenceAZ}</div>
+          <div class="card-actions-row">
+            <button class="translate-card-btn" style="background: var(--teal);">← Original</button>
+          </div>
+        </div>
+      </div>`;
+    
+    wrapper.querySelector('.speak-btn').onclick = (e) => { e.stopPropagation(); speak(w.word); };
+    wrapper.querySelectorAll('.translate-card-btn').forEach(btn => {
+      btn.onclick = (e) => { e.stopPropagation(); wrapper.classList.toggle('flipped'); };
+    });
+    grid.appendChild(wrapper);
+  });
+}
+
+/* ================= STEP 2: STABLE MOBILE SIDE-BY-SIDE MATCHING ================= */
+const ROUNDS = [WORDS.slice(0,5), WORDS.slice(5,10), WORDS.slice(10,15), WORDS.slice(15,20)];
+let roundIndex = 0;
+let selectedPic = null;
+let matchedCount = 0;
+
+function buildMatchRound(){
+  document.getElementById('roundNum').textContent = roundIndex+1;
+  const words = ROUNDS[roundIndex];
+  const pics = shuffle(words);
+  const texts = shuffle(words);
+  matchedCount = 0;
+  selectedPic = null;
+
+  const picCol = document.getElementById('picCol');
+  const wordCol = document.getElementById('wordCol');
+  picCol.innerHTML=''; wordCol.innerHTML='';
+
+  pics.forEach(w=>{
+    const tile=document.createElement('div');
+    tile.className='match-tile'; tile.dataset.word=w.word;
+    tile.innerHTML = iconSvg(w.icon);
+    tile.onclick = ()=>selectPic(tile, w);
+    picCol.appendChild(tile);
+  });
+  texts.forEach(w=>{
+    const tile=document.createElement('div');
+    tile.className='match-tile'; tile.dataset.word=w.word;
+    tile.textContent = w.word;
+    tile.onclick = ()=>selectWord(tile, w);
+    wordCol.appendChild(tile);
+  });
+}
+
+function selectPic(tile, w){
+  if(tile.classList.contains('matched')) return;
+  document.querySelectorAll('#picCol .match-tile').forEach(t=>t.classList.remove('selected'));
+  tile.classList.add('selected');
+  selectedPic = { tile, w };
+}
+function selectWord(tile, w){
+  if(tile.classList.contains('matched') || !selectedPic) return;
+  if(selectedPic.w.word === w.word){
+    selectedPic.tile.classList.add('matched');
+    tile.classList.add('matched');
+    matchedCount++;
+    selectedPic = null;
+    if(matchedCount === ROUNDS[roundIndex].length){
+      setTimeout(()=>{
+        if(roundIndex < ROUNDS.length-1){
+          roundIndex++;
+          buildMatchRound();
+        } else {
+          document.getElementById('toStep3').disabled = false;
+        }
+      }, 500);
+    }
+  } else {
+    tile.classList.add('wrong');
+    selectedPic.tile.classList.add('wrong');
+    setTimeout(()=>{
+      tile.classList.remove('wrong');
+      selectedPic.tile.classList.remove('wrong','selected');
+      selectedPic=null;
+    }, 350);
+  }
+}
+
+/* ================= STEP 3: MOBILE INTERACTIVE SELECTION STORY ================= */
+let chosenBankWord = null;
+let chosenBankElement = null;
+
+function buildStoryStep(){
+  const bank = document.getElementById('wordbank');
+  bank.innerHTML='';
+  chosenBankWord = null;
+  chosenBankElement = null;
+
+  shuffle(WORDS).forEach(w=>{
+    const chip=document.createElement('span');
+    chip.className='wb-item';
+    chip.textContent = w.word;
+    chip.onclick = () => {
+      document.querySelectorAll('.wb-item').forEach(c=>c.style.borderColor='var(--border-color)');
+      if(chip.classList.contains('used')) return;
+      chosenBankWord = w.word;
+      chosenBankElement = chip;
+      chip.style.borderColor = 'var(--teal)';
+    };
+    bank.appendChild(chip);
+  });
+
+  const storyEl = document.getElementById('storyText');
+  storyEl.innerHTML='';
+  STORY_SEGMENTS.forEach(seg=>{
+    if(typeof seg === 'string'){
+      storyEl.appendChild(document.createTextNode(seg));
+    } else {
+      const slot=document.createElement('div');
+      slot.className='blank-box';
+      slot.dataset.answer = seg.b;
+      slot.textContent = '...';
+      slot.onclick = () => {
+        if(slot.classList.contains('correct')) return;
+        
+        // If slot already has a word, return it to the active pool
+        const existingWord = slot.dataset.currentWord;
+        if(existingWord){
+          document.querySelectorAll('.wb-item').forEach(c => {
+            if(c.textContent === existingWord) c.classList.remove('used');
+          });
+        }
+
+        // Apply chosen bank item
+        if(chosenBankWord){
+          slot.textContent = chosenBankWord;
+          slot.dataset.currentWord = chosenBankWord;
+          slot.classList.add('filled');
+          chosenBankElement.classList.add('used');
+          chosenBankWord = null;
+          chosenBankElement = null;
+        } else {
+          slot.textContent = '...';
+          slot.removeAttribute('data-currentWord');
+          slot.classList.remove('filled','wrong');
+        }
+      };
+      storyEl.appendChild(slot);
+    }
+  });
+  document.getElementById('storyScore').textContent='';
+  document.getElementById('toStep4').disabled = true;
+}
+
+document.getElementById('checkStory').onclick = ()=>{
+  const slots = document.querySelectorAll('.blank-box');
+  let correct=0;
+  slots.forEach(slot=>{
+    const val = (slot.dataset.currentWord || '').toLowerCase();
+    const ans = slot.dataset.answer.toLowerCase();
+    if(val === ans){
+      slot.className = 'blank-box correct';
+      correct++;
+    } else {
+      slot.className = 'blank-box wrong';
+    }
+  });
+  document.getElementById('storyScore').textContent = `${correct} / ${slots.length} düzgün / correct`;
+  document.getElementById('toStep4').disabled = correct !== slots.length;
+};
+
+/* ================= STEP 4: VECTOR JIGSAW MECHANIC LAYER ================= */
+const COLS=5, ROWS=4, CW=800, CH=640;
+const cw=CW/COLS, ch=CH/ROWS;
+
+function buildEdges(){
+  const rnd=()=> Math.random()<0.5 ? -1 : 1;
+  const hEdges=Array.from({length:ROWS},()=>Array.from({length:COLS-1},rnd));
+  const vEdges=Array.from({length:ROWS-1},()=>Array.from({length:COLS},rnd));
+  return { hEdges, vEdges };
+}
+function tabCurve(x1,y1,x2,y2,sign){
+  if(sign===0) return `L ${x2} ${y2}`;
+  const dx=x2-x1, dy=y2-y1, len=Math.hypot(dx,dy);
+  const ux=dx/len, uy=dy/len, nx=-uy, ny=ux;
+  const depth=len*0.22*sign;
+  const pt=(t,off)=>({ x:x1+ux*len*t+nx*off, y:y1+uy*len*t+ny*off });
+  const a=pt(0.35,0), cp1=pt(0.40,depth*0.9), b=pt(0.5,depth), cp2=pt(0.60,depth*0.9), c=pt(0.65,0);
+  return `L ${a.x.toFixed(2)} ${a.y.toFixed(2)} Q ${cp1.x.toFixed(2)} ${cp1.y.toFixed(2)} ${b.x.toFixed(2)} ${b.y.toFixed(2)} Q ${cp2.x.toFixed(2)} ${cp2.y.toFixed(2)} ${c.x.toFixed(2)} ${c.y.toFixed(2)} L ${x2} ${y2}`;
+}
+function piecePath(r,c,edges){
+  const { hEdges, vEdges } = edges;
+  const x=c*cw, y=r*ch;
+  const top    = r===0 ? 0 : -vEdges[r-1][c];
+  const right  = c===COLS-1 ? 0 : hEdges[r][c];
+  const bottom = r===ROWS-1 ? 0 : vEdges[r][c];
+  const left   = c===0 ? 0 : -hEdges[r][c-1];
+  let d=`M ${x} ${y} `;
+  d+=tabCurve(x,y, x+cw,y, top)+' ';
+  d+=tabCurve(x+cw,y, x+cw,y+ch, right)+' ';
+  d+=tabCurve(x+cw,y+ch, x,y+ch, bottom)+' ';
+  d+=tabCurve(x,y+ch, x,y, left)+' Z';
+  return d;
+}
+const PIECE_COLORS=['#e76f51','#2a9d8f','#f4a261','#264653'];
+function buildPieceOverlay(){
+  const edges=buildEdges();
+  const svg=document.getElementById('pieceOverlay');
+  svg.innerHTML='';
+  let idx=0;
+  for(let r=0;r<ROWS;r++){
+    for(let c=0;c<COLS;c++){
+      const cx=c*cw+cw/2, cy=r*ch+ch/2;
+      const g=document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('class','piece'); g.setAttribute('data-index', idx);
+      const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('d', piecePath(r,c,edges));
+      path.setAttribute('fill', PIECE_COLORS[(r+c)%PIECE_COLORS.length]);
+      const circle=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      circle.setAttribute('cx',cx); circle.setAttribute('cy',cy); circle.setAttribute('r',17);
+      const text=document.createElementNS('http://www.w3.org/2000/svg','text');
+      text.setAttribute('x',cx); text.setAttribute('y',cy+6); text.setAttribute('text-anchor','middle'); text.setAttribute('font-size','18');
+      text.textContent = idx+1;
+      g.appendChild(path); g.appendChild(circle); g.appendChild(text);
+      svg.appendChild(g);
+      idx++;
+    }
+  }
+}
+function buildRewardImage(){
+  document.getElementById('rewardImage').innerHTML = `
+  <svg viewBox="0 0 800 640" preserveAspectRatio="none" width="100%" height="100%">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1f7a6c"/><stop offset="55%" stop-color="#dd9f22"/><stop offset="100%" stop-color="#f3d9a4"/>
+      </linearGradient>
+      <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#f3d9a4"/><stop offset="100%" stop-color="#b7d9cf"/>
+      </linearGradient>
+    </defs>
+    <rect x="0" y="0" width="800" height="640" fill="url(#sky)"/>
+    <circle cx="400" cy="330" r="70" fill="#fbf5e8" opacity="0.85"/>
+    <polygon points="0,380 160,230 300,380" fill="#155950" opacity="0.9"/>
+    <polygon points="180,400 380,210 560,400" fill="#1f7a6c" opacity="0.9"/>
+    <polygon points="480,390 650,260 800,390" fill="#155950" opacity="0.85"/>
+    <rect x="0" y="400" width="800" height="240" fill="url(#lake)"/>
+  </svg>`;
+}
+
+let tasks=[], current=0, revealed=0, stats={correct:0, firstTry:0}, firstAttemptOnThis=true;
+
+function startJigsaw(){
+  tasks = shuffle(WORDS);
+  current=0; revealed=0; stats={correct:0, firstTry:0};
+  buildPieceOverlay();
+  document.getElementById('completeOverlay').classList.remove('show');
+  updateJigStats();
+  renderJigQuestion();
+}
+function updateJigStats(){
+  document.getElementById('statCorrect').textContent = stats.correct;
+  document.getElementById('statFirstTry').textContent = stats.firstTry;
+  document.getElementById('statLeft').textContent = 20 - revealed;
+}
+function renderJigQuestion(){
+  firstAttemptOnThis = true;
+  const task = tasks[current];
+  document.getElementById('wordEl').textContent = task.word;
+  document.getElementById('hintEl').innerHTML='';
+  document.getElementById('feedbackEl').textContent='';
+  document.getElementById('feedbackEl').className='feedback';
+  document.getElementById('nextBtn').disabled = true;
+
+  const options = shuffle(task.options);
+  const box = document.getElementById('optionsEl');
+  box.innerHTML='';
+  options.forEach(opt=>{
+    const row=document.createElement('div'); row.className='opt-row';
+    const selectBtn=document.createElement('button'); selectBtn.className='opt-select';
+    selectBtn.innerHTML = `<div class="flip-inner"><div class="face en">${opt.en}</div><div class="face az">${opt.az}</div></div>`;
+    selectBtn.onclick = ()=>chooseJig(row, selectBtn, opt, task);
+    const flipBtn=document.createElement('button'); flipBtn.className='flip-toggle'; flipBtn.type='button';
+    flipBtn.textContent='⇄';
+    flipBtn.onclick=(e)=>{ e.stopPropagation(); row.classList.toggle('flipped'); flipBtn.classList.toggle('active'); };
+    row.appendChild(selectBtn); row.appendChild(flipBtn);
+    box.appendChild(row);
+  });
+}
+function chooseJig(row, selectBtn, opt, task){
+  if(opt.correct){
+    row.classList.add('correct');
+    document.querySelectorAll('.opt-row').forEach(r=>r.classList.add('disabled'));
+    document.querySelectorAll('.opt-select').forEach(b=>b.disabled=true);
+    document.querySelectorAll('.flip-toggle').forEach(b=>b.disabled=true);
+    document.getElementById('feedbackEl').textContent='Əla! Bir hissə açıldı. / Nice job!';
+    document.getElementById('feedbackEl').className='feedback good';
+    stats.correct++;
+    if(firstAttemptOnThis) stats.firstTry++;
+    revealJigPiece(current);
+    document.getElementById('nextBtn').disabled=false;
+  } else {
+    row.classList.add('wrong'); selectBtn.disabled=true; firstAttemptOnThis=false;
+    document.getElementById('feedbackEl').textContent='Yenidən yoxlayın / Try again.';
+    document.getElementById('feedbackEl').className='feedback bad';
+    document.getElementById('hintEl').innerHTML = `Hint: "${task.sentenceEN}"<span class="az">Tərcümə: ${task.sentenceAZ}</span>`;
+  }
+  updateJigStats();
+}
+function revealJigPiece(idx){
+  const g=document.querySelector(`.piece[data-index="${idx}"]`);
+  if(!g) return;
+  g.classList.add('revealed'); revealed++;
+  const canvas=document.getElementById('puzzleCanvas');
+  const rect=canvas.getBoundingClientRect();
+  const col=idx%COLS, row=Math.floor(idx/COLS);
+  const px=((col+0.5)/COLS)*rect.width, py=((row+0.5)/ROWS)*rect.height;
+  const spark=document.createElement('div'); spark.className='sparkle'; spark.textContent='✨';
+  spark.style.left=px+'px'; spark.style.top=py+'px';
+  canvas.appendChild(spark); setTimeout(()=>spark.remove(),800);
+  if(revealed>=20){ setTimeout(()=>document.getElementById('completeOverlay').classList.add('show'),500); }
+}
+document.getElementById('nextBtn').onclick = ()=>{ current=(current+1)%tasks.length; if(revealed<20) renderJigQuestion(); };
+
+/* ================= COMPONENT NAVIGATION WIRING ================= */
+document.getElementById('toStep2').onclick = ()=>{ roundIndex=0; buildMatchRound(); goToStep(2); };
+document.getElementById('backTo1').onclick = ()=> goToStep(1);
+document.getElementById('toStep3').onclick = ()=>{ buildStoryStep(); goToStep(3); };
+document.getElementById('backTo2').onclick = ()=> goToStep(2);
+document.getElementById('toStep4').onclick = ()=>{ buildRewardImage(); startJigsaw(); goToStep(4); };
+document.getElementById('backTo2').onclick = ()=> goToStep(2);
+document.getElementById('restartAllBtn').onclick = ()=>{ goToStep(1); };
+
+/* ================= INITIALIZATION ENTRY POINT ================= */
+buildLearnStep();
+renderStepper();
+goToStep(1);
+</script>
+</body>
+</html>
