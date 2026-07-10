@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H5JRTCHBYD"></script>
+<script src="/kanan.academy/analytics.js"></script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Kanan Academy - Word Lab 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --background-beige: #f9f5eb;
+  --panel-bg: #ffffff;
+  --ink: #2b211a;
+  --teal: #1b7365;
+  --teal-dark: #114d43;
+  --coral: #e05326;
+  --mustard: #e6a119;
+  --border-color: #d1c0a5;
+}
+*{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+body{
+  margin:0; min-height:100vh;
+  background: var(--background-beige);
+  font-family:'Nunito', sans-serif; color:var(--ink); padding: 16px 12px 60px;
+}
+.wrap{ max-width:1100px; margin:0 auto; }
+h1,h2,h3{ font-family:'Baloo 2', sans-serif; margin:0; }
+.top-title{ font-size:clamp(26px,5vw,36px); font-weight:800; text-align:center; margin-bottom:4px; color: var(--teal-dark); }
+.top-sub{ text-align:center; color:#6b5b4e; font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:1px; margin-bottom:20px; }
+
+/* Stepper Tracker */
+.stepper{ display:flex; justify-content:center; align-items:center; margin-bottom:24px; width:100%; overflow-x:auto; padding: 4px 0; }
+.step-node{ display:flex; flex-direction:column; align-items:center; gap:4px; min-width: 65px; }
+.step-circle{
+  width:36px; height:36px; border-radius:50%; background:#fff; border:2px solid var(--border-color);
+  display:flex; align-items:center; justify-content:center; font-family:'Baloo 2',sans-serif; font-weight:800;
+  color:var(--border-color); transition:all .3s; font-size:15px;
+}
+.step-label{ font-size:11px; font-weight:700; color:var(--border-color); text-transform:uppercase; text-align:center; white-space: nowrap; }
+.step-node.active .step-circle{ background:var(--teal); border-color:var(--teal); color:#fff; }
+.step-node.active .step-label{ color:var(--teal-dark); }
+.step-node.done .step-circle{ background:var(--mustard); border-color:var(--mustard); color:#fff; }
+.step-node.done .step-label{ color:var(--mustard); }
+.step-line{ width:clamp(15px, 4vw, 45px); height:3px; background:var(--border-color); margin:0 2px 16px; border-radius:2px; flex-shrink: 0; }
+.step-node.done + .step-line, .step-node.active + .step-line{ background:var(--mustard); }
+
+/* System Panels */
+.panel{ display:none; }.panel.active{ display:block; animation:fadein .3s ease-out; }
+@keyframes fadein{ from{ opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
+.card{ background:var(--panel-bg); border-radius:16px; padding:18px; box-shadow:0 10px 25px rgba(0,0,0,0.06); border: 1px solid rgba(209,192,165,0.4); }
+.heading-lang { font-size: 14px; color: var(--teal); font-weight: 700; text-transform: uppercase; margin-bottom: 2px; display: block; }
+.panel-title { font-size: 22px; font-weight: 800; line-height: 1.2; color: var(--ink); }
+.panel-explanation { color: #5c4d41; margin: 6px 0 16px 0; font-size: 14px; font-weight: 600; line-height: 1.4; }
+
+/* Step 1 Styles: Learn Cards */
+.learn-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:16px; margin-top:16px; }
+.flip-card-container { perspective: 1000px; height: 260px; }
+.flip-card-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+.flip-card-container.flipped .flip-card-inner { transform: rotateY(180deg); }
+.word-card-front, .word-card-back { position: absolute; inset: 0; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius:14px; padding:16px; border:2.5px solid var(--border-color); background:#fff; display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center; }
+.word-card-back { transform: rotateY(180deg); background: #fdfaf3; border-color: var(--mustard); }
+.audio-badge-ui { width: 60px; height: 60px; background: #eef7f5; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--teal); }
+.w-word{ font-family:'Baloo 2',sans-serif; font-weight:800; font-size:24px; color: var(--ink); margin-top: 4px; }
+.w-sentence{ font-size:13px; color:#4a3e35; line-height:1.4; font-weight: 600; }
+.card-actions-row { width: 100%; display: flex; justify-content: center; gap: 10px; margin-top: 6px; }
+.speak-btn, .translate-card-btn { border:0; background:var(--teal); color:#fff; height:34px; padding: 0 12px; border-radius: 999px; cursor:pointer; font-size:13px; font-weight: 700; display:flex; align-items:center; justify-content:center; gap: 4px;}
+.translate-card-btn { background: var(--mustard); }
+
+/* Step 2 Styles: Matching */
+.match-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; width: 100%; }
+.round-pill{ background:var(--ink); color:#fff; font-family:'Baloo 2',sans-serif; font-weight:800; padding:4px 12px; border-radius:999px; font-size:13px; }
+.match-cols{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; width: 100%; }
+.match-list{ display:grid; gap:10px; align-content: start; }
+.match-tile{ background:#fff; border:2px solid var(--border-color); border-radius:12px; padding:8px; cursor:pointer; display:flex; align-items:center; justify-content: center; font-weight:700; min-height:65px; transition:all .15s; text-align: center; font-size: 15px; word-break: break-word;}
+.match-tile.selected{ border-color:var(--teal); background:#e6f4f1; box-shadow: 0 0 0 2px var(--teal); }
+.match-tile.matched{ opacity:.25; pointer-events:none; border-color:transparent; background: #f0f0f0; }
+.match-tile.wrong{ animation:shake .3s; border-color:var(--coral); background:#fdebe6; }
+@keyframes shake{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-4px);} 75%{transform:translateX(4px);} }
+
+/* Step 3 Styles: Drag and Drop Story Module */
+.word-bank { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 16px 0; min-height: 80px; padding: 14px; background: #f3ece1; border-radius: 12px; border: 2px dashed var(--border-color); max-height: 220px; overflow-y: auto; }
+.draggable-word { background-color: var(--teal); color: white; padding: 3px 9px; border-radius: 16px; cursor: pointer; user-select: none; font-weight: 700; font-size: 11px; box-shadow: 0 3px 6px rgba(0,0,0,0.1); transition: all 0.2s; }
+.draggable-word.selected { background-color: var(--mustard); transform: scale(1.05); }
+.story-text-container { background: #fdfbf7; border: 1.5px solid var(--border-color); border-radius: 14px; padding: 20px; line-height: 2.5; font-size: 15px; font-weight: 600; color: #3d3128; margin-bottom: 16px; text-align: justify; }
+.drop-zone { display: inline-block; min-width: 95px; height: 26px; border-bottom: 2px solid var(--ink); margin: 0 3px; vertical-align: middle; text-align: center; background-color: rgba(209,192,165,0.15); border-radius: 4px; transition: all 0.2s; }
+.drop-zone.hover { background-color: #e6f4f1; border-bottom-color: var(--teal); }
+.drop-zone .draggable-word { margin: -10px 0 0 0; display: block; text-align: center; }
+.drop-zone.correct { border-bottom-color: var(--teal); background-color: #e4f2ee; box-shadow: 0 0 0 2px var(--teal); border-radius: 6px; }
+.drop-zone.incorrect { border-bottom-color: var(--coral); background-color: #f8c9bd; box-shadow: 0 0 0 3px var(--coral); border-radius: 6px; }
+.translation-box { background-color: #fcf6e8; padding: 14px; border-left: 4px solid var(--mustard); border-radius: 4px; margin-top: 16px; font-size: 13.5px; line-height: 1.6; color: #524337; }
+.story-actions { display: flex; gap: 10px; margin-top: 14px; }
+
+/* Step 4 Styles: Listen & Write */
+.writing-container { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; margin-bottom: 16px; }
+.writing-row { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; background: #fdfbf7; padding: 10px; border-radius: 12px; border: 1.5px solid var(--border-color); }
+.listen-ui-btn { background: var(--teal); color: #fff; border: 0; border-radius: 8px; padding: 8px 14px; font-family: 'Baloo 2', sans-serif; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+.spelling-input { width: 100%; padding: 10px; border: 2px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 15px; font-weight: 700; outline: none; }
+.spelling-input.correct { border-color: var(--teal); background: #e4f2ee; color: var(--teal-dark); }
+.spelling-input.wrong { border-color: var(--coral); background: #fdebe6; color: var(--coral); }
+.score-display-text { font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 16px; color: var(--teal-dark); margin-left: auto; display: block; margin-top: 10px; }
+
+/* Step 5 Styles: Jigsaw Puzzle */
+main.jig-main{ display:grid; grid-template-columns:1.3fr 1fr; gap:16px; align-items:start; }
+@media(max-width:800px){ main.jig-main{ grid-template-columns:1fr; } }
+.puzzle-canvas{ position:relative; width:100%; aspect-ratio:800/640; border-radius:12px; overflow:hidden; background: #eae2d5; }
+.puzzle-canvas .reward-image, .puzzle-canvas .piece-overlay{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+.puzzle-canvas .reward-image { background-image: url('https://images.unsplash.com/photo-1736608332755-d0a1be241cee?auto=format&fit=crop&q=80&w=1200'); background-size: cover; background-position: center; }
+.piece{ transition:opacity .5s ease, transform .5s ease; transform-box:fill-box; transform-origin:center; }
+.piece.revealed{ opacity:0; transform:scale(.6) rotate(12deg); pointer-events:none; }
+.piece path{ stroke:#ffffff; stroke-width:2; }
+.piece circle{ fill:#ffffff; opacity:.9; }
+.piece text{ font-family:'Baloo 2', sans-serif; font-weight:800; fill:var(--ink); }
+.stat-row{ display:flex; gap:8px; margin-bottom:12px; }
+.stat-row .box{ flex:1; background:#fff; border-radius:10px; padding:8px; text-align:center; border:1.5px solid var(--border-color); }
+.stat-row .box strong{ display:block; font-family:'Baloo 2',sans-serif; font-size:20px; color: var(--ink); }
+.stat-row .box small{ font-size:10px; font-weight: 700; text-transform:uppercase; color:#7a6a58; }
+.word{ font-family:'Baloo 2', sans-serif; font-size:28px; font-weight:800; margin-bottom:4px; color: var(--teal-dark); }
+.flip-note { font-size:12px; color:#6b5b4e; margin-bottom:12px; font-weight: 600; }
+.options{ display:grid; gap:8px; }
+.opt-row{ display:flex; gap:6px; align-items:stretch; }
+.opt-select{ flex:1; position:relative; min-height:54px; perspective:700px; cursor:pointer; background:none; border:0; padding:0; font-family:'Nunito', sans-serif; }
+.flip-inner{ position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .4s; }
+.opt-row.flipped .flip-inner{ transform:rotateY(180deg); }
+.face{ position:absolute; inset:0; display:flex; align-items:center; padding:10px 12px; border-radius:10px; border:2px solid var(--border-color); background:#fff; font-size:13.5px; font-weight:700; text-align:left; color:var(--ink); backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+.face.az{ transform:rotateY(180deg); background:#fdf7ec; border-color: var(--mustard); }
+.opt-row.correct .face{ background:#e4f2ee; border-color:var(--teal); color: var(--teal-dark); }
+.opt-row.wrong .face{ background:#fdebe6; border-color:var(--coral); }
+.flip-toggle{ flex:0 0 40px; border-radius:10px; border:2px solid var(--border-color); background:#fff; cursor:pointer; font-size:15px; color:var(--teal); display: flex; align-items: center; justify-content: center; }
+.flip-toggle.active{ background:var(--mustard); border-color:var(--mustard); color:#fff; transform:rotate(180deg); }
+.hint{ margin-top:10px; font-size:13px; font-style:italic; color:#6b5b4e; min-height:18px; line-height:1.4; font-weight: 600; }
+.feedback{ margin-top:8px; font-weight:700; font-size:13.5px; min-height:20px; }
+.feedback.good{ color:var(--teal); }.feedback.bad{ color:var(--coral); }
+.complete-overlay{ position:absolute; inset:0; display:none; align-items:center; justify-content:center; background:rgba(43,33,26,0.7); text-align:center; padding:16px; border-radius:12px; z-index: 10; }
+.complete-overlay.show{ display:flex; }
+.complete-box{ background:var(--background-beige); border-radius:16px; padding:24px; max-width:300px; width: 100%; border: 2px solid var(--mustard); }
+.complete-box h3{ font-size:22px; margin:0 0 6px; color: var(--ink); }
+
+/* Buttons */
+button.primary{ padding:12px 20px; border:0; border-radius:12px; background:var(--teal); color:#fff; font-family:'Baloo 2',sans-serif; font-weight:800; font-size:15px; cursor:pointer; box-shadow: 0 4px 6px rgba(27,115,101,0.15);}
+button.primary:hover:not(:disabled){ background:var(--teal-dark); }
+button.primary:disabled{ opacity:.4; cursor:not-allowed; box-shadow: none; }
+button.secondary{ padding:11px 16px; border:2px solid var(--border-color); border-radius:12px; background:#fff; color:var(--ink); font-family:'Baloo 2',sans-serif; font-weight:800; font-size:14px; cursor:pointer;}
+.step-actions{ margin-top:20px; display:flex; justify-content:flex-end; gap:8px; width: 100%; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="/kanan.academy/index.html" style="display: inline-block; margin-bottom: 16px; padding: 8px 18px; background-color: #1b6fa8; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-family: 'Baloo 2', sans-serif; font-size: 14px;">Ana Səhifə</a>
+  <div class="top-title">English Word Lab</div>
+  <div class="top-sub">Öyrən · Birləşdir · Oxu · Yaz · Oyna</div>
+
+  <div class="stepper" id="stepper"></div>
+
+  <!-- STEP 1: LEARN -->
+  <section class="panel" id="panel-1">
+    <div class="card">
+      <span class="heading-lang">Mərhələ 1 · Sözləri Öyrən</span>
+      <h2 class="panel-title">Step 1 · Learn the words</h2>
+      <p class="panel-explanation">Sözü eşitmək üçün 🔊 toxun. Tərcümə üçün ⇄ düyməsini sıxın.</p>
+      <div class="learn-grid" id="learnGrid"></div>
+    </div>
+    <div class="step-actions"><button class="primary" id="toStep2">Davam et / Continue →</button></div>
+  </section>
+
+  <!-- STEP 2: MATCH -->
+  <section class="panel" id="panel-2">
+    <div class="card">
+      <div class="match-header">
+        <div>
+          <span class="heading-lang">Mərhələ 2 · Sözü Birləşdir</span>
+          <h2 class="panel-title">Step 2 · Vocabulary Match</h2>
+        </div>
+        <div class="round-pill"><span id="roundNum">1</span> / 4</div>
+      </div>
+      <p class="panel-explanation">İngiliscə sözə toxun, sonra onun düzgün azərbaycanca tərcüməsini seç.</p>
+      <div class="match-cols">
+        <div class="match-list" id="picCol"></div>
+        <div class="match-list" id="wordCol"></div>
+      </div>
+    </div>
+    <div class="step-actions">
+      <button class="secondary" id="backTo1">← Geri</button>
+      <button class="primary" id="toStep3" disabled>Davam et / Continue →</button>
+    </div>
+  </section>
+
+  <!-- STEP 3: INTERACTIVE DRAG & DROP STORY (20 BLANKS) -->
+  <section class="panel" id="panel-3">
+    <div class="card">
+      <span class="heading-lang">Mərhələ 3 · Hekayə Tapmacası</span>
+      <h2 class="panel-title">Step 3 · Drag & Drop Story</h2>
+      <p class="panel-explanation">Kompüterdə sözləri sürüşdürüb boşluqlara buraxın. Telefonda isə əvvəlcə mavi söz qutusuna, sonra mətndəki boş xəttə toxunun. (Cəmi 20 boşluq)</p>
+      
+      <!-- Word Bank -->
+      <div class="word-bank" id="hekayeWordBank"></div>
+      
+      <!-- Story Box -->
+      <div class="story-text-container" id="storyBox">
+        Last <span class="drop-zone" data-word="Monday"></span>, our manager called an important <span class="drop-zone" data-word="meeting"></span> to talk <span class="drop-zone" data-word="about"></span> the new project. Nobody knew <span class="drop-zone" data-word="why"></span> the <span class="drop-zone" data-word="deadline"></span> had suddenly moved closer, but everyone understood that the client <span class="drop-zone" data-word="required"></span> a finished product <span class="drop-zone" data-word="without"></span> delay.<br><br>
+
+        My colleague, <span class="drop-zone" data-word="whose"></span> experience with this kind of software was limited, felt nervous <span class="drop-zone" data-word="under"></span> the pressure. Still, we <span class="drop-zone" data-word="developed"></span> a plan together and quickly <span class="drop-zone" data-word="agreed"></span> on the next steps.<br><br>
+
+        For the first week, we <span class="drop-zone" data-word="used"></span> every free hour we had. The plan <span class="drop-zone" data-word="included"></span> three main stages, and my <span class="drop-zone" data-word="parents"></span> always told me that a <span class="drop-zone" data-word="couple"></span> of quiet mornings can be more useful than a whole noisy day, so I woke up early and <span class="drop-zone" data-word="wore"></span> my old lucky jacket for good luck. Autumn is my favourite <span class="drop-zone" data-word="season"></span>, and outside the window the leaves were falling gently.<br><br>
+
+        By the end of the month, we had almost reached our goal. We <span class="drop-zone" data-word="hoped"></span> that after nearly a <span class="drop-zone" data-word="century"></span> of slow progress in our industry, this project could finally bring something new. Our director <span class="drop-zone" data-word="expected"></span> great results, and we were determined not to disappoint her.
+      </div>
+      
+      <!-- Translation Details -->
+      <div class="translation-box">
+        <strong>Azərbaycanca Tərcüməsi:</strong>
+        <p style="margin:6px 0 0 0;">Keçən bazar ertəsi menecerimiz yeni layihə haqqında danışmaq üçün vacib bir görüş çağırdı. Heç kim son tarixin niyə birdən-birə yaxınlaşdığını bilmirdi, amma hamı başa düşürdü ki, müştəri gecikmədən hazır məhsul tələb edir.<br><br>Təcrübəsi bu cür proqram təminatında məhdud olan həmkarım təzyiq altında narahat hiss etdi. Buna baxmayaraq, biz birlikdə bir plan hazırladıq və növbəti addımlar barədə tez razılaşdıq.<br><br>İlk həftə biz bütün boş vaxtımızdan istifadə etdik. Plan üç əsas mərhələni əhatə edirdi və valideynlərim mənə həmişə deyirdi ki, bir cüt sakit səhər bütün səs-küylü gündən daha faydalı ola bilər, ona görə erkən oyandım və uğur gətirən köhnə gödəkçəmi geyindim. Payız mənim sevimli mövsümümdür və pəncərədən kənarda yarpaqlar yavaş-yavaş tökülürdü.<br><br>Ayın sonuna qədər biz demək olar ki, məqsədimizə çatmışdıq. Ümid edirdik ki, sənayemizdə demək olar ki, bir əsrlik yavaş inkişafdan sonra bu layihə nəhayət yeni bir şey gətirəcək. Direktorumuz əla nəticələr gözləyirdi və biz onu məyus etməmək üçün qətiyyətli idik.</p>
+      </div>
+
+      <div class="story-actions">
+        <button class="primary" id="checkStoryBtn">Yoxla / Check Answers</button>
+        <button class="secondary" id="resetStoryBtn">Yenidən Başla / Reset</button>
+      </div>
+    </div>
+    <div class="step-actions">
+      <button class="secondary" id="backTo2_from3">← Geri</button>
+      <button class="primary" id="toStep4" disabled>Davam et / Continue →</button>
+    </div>
+  </section>
+
+  <!-- STEP 4: LISTEN & WRITE -->
+  <section class="panel" id="panel-4">
+    <div class="card">
+      <span class="heading-lang">Mərhələ 4 · Dinlə və Yaz</span>
+      <h2 class="panel-title">Step 4 · Listen & Write</h2>
+      <p class="panel-explanation">Tələffüzü dinləyin və ingiliscə sözün düzgün yazılışını daxil edin.</p>
+      <div class="writing-container" id="writingContainer"></div>
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+        <button class="primary" id="checkSpellingBtn">Yoxla / Check Answers</button>
+        <span class="score-display-text" id="writingScoreDisplay"></span>
+      </div>
+    </div>
+    <div class="step-actions">
+      <button class="secondary" id="backTo3">← Geri</button>
+      <button class="primary" id="toStep5" disabled>Davam et / Continue →</button>
+    </div>
+  </section>
+
+  <!-- STEP 5: JIGSAW -->
+  <section class="panel" id="panel-5">
+    <div class="card" style="margin-bottom:14px;">
+      <span class="heading-lang">Mərhələ 5 · Tapmaca Mükafatı</span>
+      <h2 class="panel-title">Step 5 · Puzzle Reward</h2>
+      <p class="panel-explanation">Sözlərin mənasını taparaq tapmacanı açın. Çətin gəlsə, ⇄ düyməsinə sıxın.</p>
+    </div>
+    <main class="jig-main">
+      <div class="card" style="padding:10px;">
+        <div class="puzzle-canvas" id="puzzleCanvas">
+          <div class="reward-image" id="rewardImage"></div>
+          <svg class="piece-overlay" id="pieceOverlay" viewBox="0 0 800 640" preserveAspectRatio="none"></svg>
+          <div class="complete-overlay" id="completeOverlay">
+            <div class="complete-box">
+              <h3>Təbriklər! 🎉</h3>
+              <p>Bütün mərhələləri tamamladınız!</p>
+              <button class="primary" id="restartAllBtn" style="width: 100%;">Yenidən başla / Restart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:12px;">
+          <div class="stat-row">
+            <div class="box"><strong id="statCorrect">0</strong><small>Düzgün / Ok</small></div>
+            <div class="box"><strong id="statFirstTry">0</strong><small>İlk cəhd</small></div>
+            <div class="box"><strong id="statLeft">20</strong><small>Qaldı / Left</small></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="word" id="wordEl"></div>
+          <div class="flip-note">Kömək üçün sətirdəki <b>⇄</b> işarəsinə toxunun.</div>
+          <div class="options" id="optionsEl"></div>
+          <div class="hint" id="hintEl"></div>
+          <div class="feedback" id="feedbackEl"></div>
+          <button class="primary" id="nextBtn" style="width:100%; margin-top:12px;" disabled>Növbəti / Next →</button>
+        </div>
+      </div>
+    </main>
+  </section>
+</div>
+
+<script>
+/* ================= WORD LIST & DATA ================= */
+const WORDS = [
+  { word:"whose", translation:"kimin", sentenceEN:"Whose bag is this on the table?", sentenceAZ:"Bu, stolun üstündəki kimin çantasıdır?", options:[{en:"Used to ask who something belongs to", az:"kiməsə aid olduğunu soruşmaq üçün işlədilir", correct:true},{en:"Used to ask about time", az:"vaxt haqqında soruşmaq üçün işlədilir", correct:false},{en:"Used to describe a place", az:"yeri təsvir etmək üçün işlədilir", correct:false}] },
+  { word:"why", translation:"niyə", sentenceEN:"Why are you so quiet today?", sentenceAZ:"Niyə bu gün belə sakitsən?", options:[{en:"A question word asking for the reason", az:"səbəb soruşan sual sözü", correct:true},{en:"A word that means 'where'", az:"'harada' mənasını verən söz", correct:false},{en:"A word used to say goodbye", az:"sağollaşmaq üçün işlədilən söz", correct:false}] },
+  { word:"without", translation:"-sız/-siz, olmadan", sentenceEN:"I can't imagine life without music.", sentenceAZ:"Musiqisiz həyatı təsəvvür edə bilmirəm.", options:[{en:"Not having or using something", az:"bir şeyə malik olmadan / istifadə etmədən", correct:true},{en:"Having too much of something", az:"bir şeydən həddindən artıq olmaq", correct:false},{en:"Being very close to something", az:"bir şeyə çox yaxın olmaq", correct:false}] },
+  { word:"about", translation:"haqqında / təxminən", sentenceEN:"This book is about ancient history.", sentenceAZ:"Bu kitab qədim tarix haqqındadır.", options:[{en:"Concerning a topic, or approximately", az:"bir mövzu ilə bağlı, və ya təxminən", correct:true},{en:"Exactly and precisely", az:"dəqiq və tam olaraq", correct:false},{en:"Never or not at all", az:"heç vaxt / heç", correct:false}] },
+  { word:"under", translation:"altında", sentenceEN:"The cat is sleeping under the table.", sentenceAZ:"Pişik stolun altında yatır.", options:[{en:"In a position below something", az:"bir şeyin aşağı hissəsində", correct:true},{en:"In a position above something", az:"bir şeyin üstündə", correct:false},{en:"Right next to something", az:"bir şeyin düz yanında", correct:false}] },
+  { word:"use", translation:"istifadə etmək", sentenceEN:"You can use my pen if you like.", sentenceAZ:"İstəsən mənim qələmimdən istifadə edə bilərsən.", options:[{en:"To do something with an object for a purpose", az:"bir məqsədlə əşyadan istifadə etmək", correct:true},{en:"To throw something away", az:"bir şeyi atmaq", correct:false},{en:"To hide something carefully", az:"bir şeyi diqqətlə gizlətmək", correct:false}] },
+  { word:"include", translation:"daxil etmək / əhatə etmək", sentenceEN:"The price includes breakfast.", sentenceAZ:"Qiymətə səhər yeməyi daxildir.", options:[{en:"To have something as a part of a whole", az:"bütövün bir hissəsi kimi daxil etmək", correct:true},{en:"To remove something from a list", az:"siyahıdan bir şeyi çıxarmaq", correct:false},{en:"To repeat something twice", az:"bir şeyi iki dəfə təkrarlamaq", correct:false}] },
+  { word:"expect", translation:"gözləmək / ummaq", sentenceEN:"We expect good news tomorrow.", sentenceAZ:"Sabah yaxşı xəbər gözləyirik.", options:[{en:"To think something will happen", az:"bir şeyin baş verəcəyini düşünmək", correct:true},{en:"To be surprised by something", az:"bir şeydən təəccüblənmək", correct:false},{en:"To forget about something completely", az:"bir şeyi tamamilə unutmaq", correct:false}] },
+  { word:"require", translation:"tələb etmək", sentenceEN:"This job requires good communication skills.", sentenceAZ:"Bu iş yaxşı ünsiyyət bacarığı tələb edir.", options:[{en:"To need something as necessary", az:"zəruri olaraq bir şeyə ehtiyac duymaq", correct:true},{en:"To offer something as a gift", az:"bir şeyi hədiyyə olaraq təklif etmək", correct:false},{en:"To dislike something strongly", az:"bir şeyi çox bəyənməmək", correct:false}] },
+  { word:"hope", translation:"ümid etmək", sentenceEN:"I hope you feel better soon.", sentenceAZ:"Ümid edirəm tezliklə yaxşı olacaqsan.", options:[{en:"To wish that something good will happen", az:"yaxşı bir şeyin baş verəcəyini arzulamaq", correct:true},{en:"To be certain about the future", az:"gələcəkdən tam əmin olmaq", correct:false},{en:"To feel angry about a result", az:"bir nəticədən qəzəblənmək", correct:false}] },
+  { word:"develop", translation:"inkişaf etdirmək", sentenceEN:"The company wants to develop a new app.", sentenceAZ:"Şirkət yeni bir tətbiq inkişaf etdirmək istəyir.", options:[{en:"To grow or make something more advanced", az:"böyümək və ya bir şeyi daha inkişaf etmiş hala gətirmək", correct:true},{en:"To destroy something completely", az:"bir şeyi tamamilə məhv etmək", correct:false},{en:"To copy something exactly", az:"bir şeyi eynilə köçürmək", correct:false}] },
+  { word:"agree", translation:"razılaşmaq", sentenceEN:"Do you agree with my plan?", sentenceAZ:"Mənim planımla razısan?", options:[{en:"To have the same opinion as someone", az:"kiminləsə eyni fikirdə olmaq", correct:true},{en:"To argue strongly against someone", az:"kiminləsə şiddətlə mübahisə etmək", correct:false},{en:"To ask a question repeatedly", az:"sualı dəfələrlə təkrar vermək", correct:false}] },
+  { word:"wear", translation:"geyinmək", sentenceEN:"She likes to wear bright colours.", sentenceAZ:"O, parlaq rəngləri geyinməyi sevir.", options:[{en:"To have clothes or accessories on your body", az:"geyim və ya aksesuarı bədəndə daşımaq", correct:true},{en:"To wash clothes carefully", az:"geyimi diqqətlə yumaq", correct:false},{en:"To buy new clothes", az:"yeni geyim almaq", correct:false}] },
+  { word:"parent", translation:"valideyn", sentenceEN:"Both of my parents work in education.", sentenceAZ:"Hər iki valideynim təhsil sahəsində işləyir.", options:[{en:"A mother or a father", az:"ana və ya ata", correct:true},{en:"A close friend from school", az:"məktəbdən yaxın dost", correct:false},{en:"A person who teaches at a university", az:"universitetdə dərs deyən şəxs", correct:false}] },
+  { word:"couple", translation:"cüt / bir neçə", sentenceEN:"A couple of friends came to visit me.", sentenceAZ:"Bir neçə dostum məni görməyə gəldi.", options:[{en:"Two people or things, or a small number", az:"iki nəfər/şey, və ya kiçik say", correct:true},{en:"A very large group of people", az:"çox böyük insan qrupu", correct:false},{en:"A single person alone", az:"tək bir nəfər", correct:false}] },
+  { word:"season", translation:"mövsüm", sentenceEN:"Summer is my favourite season.", sentenceAZ:"Yay mənim sevimli mövsümümdür.", options:[{en:"One of the four periods of the year", az:"ilin dörd dövründən biri", correct:true},{en:"A type of festival", az:"bir növ bayram", correct:false},{en:"A short holiday trip", az:"qısa tətil səfəri", correct:false}] },
+  { word:"century", translation:"əsr", sentenceEN:"This castle was built in the fifteenth century.", sentenceAZ:"Bu qala on beşinci əsrdə tikilib.", options:[{en:"A period of one hundred years", az:"yüz illik dövr", correct:true},{en:"A period of ten years", az:"on illik dövr", correct:false},{en:"A period of one thousand years", az:"min illik dövr", correct:false}] },
+  { word:"meeting", translation:"görüş / iclas", sentenceEN:"We have a meeting at nine o'clock.", sentenceAZ:"Saat doqquzda görüşümüz var.", options:[{en:"A gathering of people to discuss something", az:"bir şeyi müzakirə etmək üçün insanların toplanması", correct:true},{en:"A short walk in the park", az:"parkda qısa gəzinti", correct:false},{en:"A type of written report", az:"bir növ yazılı hesabat", correct:false}] },
+  { word:"deadline", translation:"son tarix", sentenceEN:"The deadline for the report is Friday.", sentenceAZ:"Hesabatın son tarixi cümə günüdür.", options:[{en:"The latest time by which something must be finished", az:"bir işin bitməli olduğu son vaxt", correct:true},{en:"The first day of a project", az:"layihənin ilk günü", correct:false},{en:"A short break during work", az:"iş zamanı qısa fasilə", correct:false}] },
+  { word:"Monday", translation:"bazar ertəsi", sentenceEN:"The shop is closed on Monday.", sentenceAZ:"Mağaza bazar ertəsi bağlıdır.", options:[{en:"The first day of the working week", az:"iş həftəsinin ilk günü", correct:true},{en:"A day used only for holidays", az:"yalnız bayramlar üçün istifadə olunan gün", correct:false},{en:"The very last day of the year", az:"ilin ən son günü", correct:false}] }
+];
+
+// Exact 20 words required for the story bank to match the new 20 drop-zones
+const STORY_STRICT_WORDS = [
+  "Monday", "meeting", "about", "why", "deadline",
+  "required", "without", "whose", "under", "developed",
+  "agreed", "used", "included", "parents", "couple",
+  "wore", "season", "hoped", "century", "expected"
+];
+
+/* ================= UTILITIES ================= */
+function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function speak(text){ if(!('speechSynthesis' in window)) return; window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = 'en-US'; u.rate = 0.85; window.speechSynthesis.speak(u);}
+
+/* ================= STEPPER CONFIG ================= */
+const STEP_LABELS = ['Öyrən','Birləşdir','Hekayə','Yaz','Tapmaca'];
+let currentStep = 1;
+function renderStepper(){
+  const el = document.getElementById('stepper'); el.innerHTML='';
+  STEP_LABELS.forEach((label,i)=>{
+    const n=i+1;
+    const node=document.createElement('div');
+    node.className='step-node'+(n===currentStep?' active':'')+(n<currentStep?' done':'');
+    node.innerHTML=`<div class="step-circle">${n<currentStep?'✓':n}</div><div class="step-label">${label}</div>`;
+    el.appendChild(node);
+    if(n<STEP_LABELS.length){ const line=document.createElement('div'); line.className='step-line'; el.appendChild(line); }
+  });
+}
+function goToStep(n){
+  currentStep=n;
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+n).classList.add('active');
+  renderStepper();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ================= STEP 1: LEARN ================= */
+function buildLearnStep(){
+  const grid = document.getElementById('learnGrid'); grid.innerHTML='';
+  // Display all active words in grid view
+  WORDS.forEach(w=>{
+    const wrapper = document.createElement('div');
+    wrapper.className = 'flip-card-container';
+    wrapper.innerHTML = `
+      <div class="flip-card-inner">
+        <div class="word-card-front">
+          <div class="audio-badge-ui">🔊</div>
+          <div class="w-word">${w.word}</div>
+          <div class="w-sentence">${w.sentenceEN}</div>
+          <div class="card-actions-row">
+            <button class="speak-btn">🔊 Səs</button>
+            <button class="translate-card-btn">⇄ Tərcümə</button>
+          </div>
+        </div>
+        <div class="word-card-back">
+          <div class="audio-badge-ui" style="background:#fff3cd; color:var(--mustard);">⇄</div>
+          <div class="w-word" style="color:var(--mustard); font-size:19px;">${w.translation}</div>
+          <div class="w-sentence">${w.sentenceAZ}</div>
+          <div class="card-actions-row">
+            <button class="translate-card-btn" style="background:var(--teal)">⇄ Orijinal</button>
+          </div>
+        </div>
+      </div>`;
+    const inner = wrapper.querySelector('.flip-card-inner');
+    wrapper.querySelector('.speak-btn').addEventListener('click',(e)=>{ e.stopPropagation(); speak(w.word); });
+    wrapper.querySelectorAll('.translate-card-btn').forEach(b=>{
+      b.addEventListener('click',(e)=>{ e.stopPropagation(); wrapper.classList.toggle('flipped'); });
+    });
+    grid.appendChild(wrapper);
+  });
+}
+
+/* ================= STEP 2: MATCH ================= */
+let matchRound = 1; 
+let selectedTile = null;
+let matchedCountInRound = 0;
+const WORDS_PER_ROUND = 5;
+
+function buildMatchRound(){
+  const picCol = document.getElementById('picCol'); picCol.innerHTML='';
+  const wordCol = document.getElementById('wordCol'); wordCol.innerHTML='';
+  document.getElementById('roundNum').textContent = matchRound;
+  
+  const startIndex = (matchRound - 1) * WORDS_PER_ROUND;
+  const roundWords = WORDS.slice(startIndex, startIndex + WORDS_PER_ROUND);
+  
+  const leftItems = shuffle(roundWords);
+  const rightItems = shuffle(roundWords);
+  
+  leftItems.forEach(item=>{
+    const tile = document.createElement('div');
+    tile.className = 'match-tile';
+    tile.textContent = item.word;
+    tile.dataset.word = item.word;
+    tile.dataset.type = 'eng';
+    tile.addEventListener('click', ()=>handleTileClick(tile));
+    picCol.appendChild(tile);
+  });
+  
+  rightItems.forEach(item=>{
+    const tile = document.createElement('div');
+    tile.className = 'match-tile';
+    tile.textContent = item.translation;
+    tile.dataset.word = item.word;
+    tile.dataset.type = 'az';
+    tile.addEventListener('click', ()=>handleTileClick(tile));
+    wordCol.appendChild(tile);
+  });
+}
+
+function handleTileClick(tile){
+  if(tile.classList.contains('matched')) return;
+  if(selectedTile === tile) { tile.classList.remove('selected'); selectedTile = null; return; }
+  
+  if(!selectedTile){
+    selectedTile = tile; tile.classList.add('selected');
+  } else {
+    if(selectedTile.dataset.type !== tile.dataset.type && selectedTile.dataset.word === tile.dataset.word){
+      selectedTile.classList.remove('selected');
+      selectedTile.classList.add('matched');
+      tile.classList.add('matched');
+      selectedTile = null; matchedCountInRound++;
+      if(matchedCountInRound === WORDS_PER_ROUND){
+        setTimeout(()=>{
+          if(matchRound < 4){
+            matchRound++; matchedCountInRound=0; buildMatchRound();
+          } else {
+            document.getElementById('toStep3').disabled = false;
+          }
+        }, 600);
+      }
+    } else {
+      const first = selectedTile;
+      first.classList.remove('selected'); first.classList.add('wrong');
+      tile.classList.add('wrong'); selectedTile = null;
+      setTimeout(()=>{ first.classList.remove('wrong'); tile.classList.remove('wrong'); }, 400);
+    }
+  }
+}
+
+/* ================= STEP 3: DRAG & DROP STORY LOGIC ================= */
+let selectedStoryWordMobile = null;
+const bankEl = document.getElementById("hekayeWordBank");
+
+function initStoryGame() {
+  bankEl.innerHTML = '';
+  selectedStoryWordMobile = null;
+  const shuffled = shuffle(STORY_STRICT_WORDS);
+  
+  shuffled.forEach(word => {
+    const wordEl = document.createElement("div");
+    wordEl.className = "draggable-word";
+    wordEl.draggable = true;
+    wordEl.textContent = word;
+    wordEl.dataset.text = word;
+    
+    // Desktop dragging
+    wordEl.addEventListener("dragstart", (e) => {
+      e.dataTransfer.setData("text/plain", e.target.dataset.text);
+      setTimeout(() => e.target.style.opacity = "0.4", 0);
+    });
+    wordEl.addEventListener("dragend", (e) => e.target.style.opacity = "1");
+    
+    // Mobile clicking
+    wordEl.addEventListener("click", handleStoryMobileSelect);
+    bankEl.appendChild(wordEl);
+  });
+
+  const zones = document.querySelectorAll("#storyBox .drop-zone");
+  zones.forEach(zone => {
+    zone.innerHTML = '';
+    zone.className = "drop-zone";
+    
+    // Desktop drop events
+    zone.addEventListener("dragover", (e) => { e.preventDefault(); zone.classList.add("hover"); });
+    zone.addEventListener("dragleave", () => zone.classList.remove("hover"));
+    zone.addEventListener("drop", handleStoryDrop);
+    
+    // Mobile placement
+    zone.addEventListener("click", handleStoryMobilePlace);
+  });
+
+  bankEl.addEventListener("dragover", (e) => e.preventDefault());
+  bankEl.addEventListener("drop", (e) => {
+    e.preventDefault();
+    const txt = e.dataTransfer.getData("text/plain");
+    const item = document.querySelector(`.draggable-word[data-text="${txt}"]`);
+    if(item) bankEl.appendChild(item);
+  });
+}
+
+function handleStoryDrop(e) {
+  e.preventDefault();
+  let zone = e.target.classList.contains("drop-zone") ? e.target : e.target.parentElement;
+  zone.classList.remove("hover");
+  
+  const txt = e.dataTransfer.getData("text/plain");
+  const item = document.querySelector(`.draggable-word[data-text="${txt}"]`);
+  
+  if (item && zone.classList.contains("drop-zone")) {
+    if (zone.children.length > 0) {
+      bankEl.appendChild(zone.children[0]);
+    }
+    zone.appendChild(item);
+  }
+}
+
+function handleStoryMobileSelect(e) {
+  document.querySelectorAll(".draggable-word").forEach(w => w.classList.remove("selected"));
+  if (e.target.parentElement.classList.contains("drop-zone")) {
+    bankEl.appendChild(e.target);
+    selectedStoryWordMobile = null;
+    return;
+  }
+  e.target.classList.add("selected");
+  selectedStoryWordMobile = e.target;
+}
+
+function handleStoryMobilePlace(e) {
+  let zone = e.target.classList.contains("drop-zone") ? e.target : e.target.parentElement;
+  if (selectedStoryWordMobile && zone.classList.contains("drop-zone")) {
+    if (zone.children.length > 0) {
+      bankEl.appendChild(zone.children[0]);
+    }
+    zone.appendChild(selectedStoryWordMobile);
+    selectedStoryWordMobile.classList.remove("selected");
+    selectedStoryWordMobile = null;
+  }
+}
+
+document.getElementById('checkStoryBtn').addEventListener('click', () => {
+  let allCorrect = true;
+  const zones = document.querySelectorAll("#storyBox .drop-zone");
+  
+  zones.forEach(zone => {
+    zone.classList.remove("correct", "incorrect");
+    const correctVal = zone.dataset.word;
+    
+    if(zone.children.length > 0) {
+      if(zone.children[0].dataset.text === correctVal) {
+        zone.classList.add("correct");
+      } else {
+        zone.classList.add("incorrect");
+        allCorrect = false;
+      }
+    } else {
+      zone.classList.add("incorrect");
+      allCorrect = false;
+    }
+  });
+
+  if(allCorrect) {
+    alert("Təbrik edirik! Bütün boşluqlar düzgün dolduruldu. 🎉");
+    document.getElementById('toStep4').disabled = false;
+  } else {
+    alert("Bəzi səhvlər var. Qırmızı xanalara yenidən baxın.");
+  }
+});
+
+document.getElementById('resetStoryBtn').addEventListener('click', initStoryGame);
+
+/* ================= STEP 4: LISTEN & WRITE ================= */
+function buildWritingStep(){
+  const container = document.getElementById('writingContainer'); container.innerHTML = '';
+  const shuffledWrite = shuffle(WORDS);
+  
+  shuffledWrite.forEach((item, index)=>{
+    const row = document.createElement('div');
+    row.className = 'writing-row';
+    row.innerHTML = `
+      <button class="listen-ui-btn" type="button" data-word="${item.word}">🔊 Dinlə</button>
+      <input type="text" class="spelling-input" data-correct="${item.word}" placeholder="..." autocomplete="off" spellcheck="false" />
+    `;
+    row.querySelector('.listen-ui-btn').addEventListener('click', ()=>speak(item.word));
+    container.appendChild(row);
+  });
+}
+
+document.getElementById('checkSpellingBtn').addEventListener('click', ()=>{
+  const inputs = document.querySelectorAll('.spelling-input');
+  let correctCounter = 0;
+  
+  inputs.forEach(input => {
+    const userVal = input.value.trim().toLowerCase();
+    const correctVal = input.dataset.correct.toLowerCase();
+    
+    if(userVal === correctVal){
+      input.className = "spelling-input correct";
+      correctCounter++;
+    } else {
+      input.className = "spelling-input wrong";
+      input.value = `${userVal} ✗ (${correctVal})`;
+    }
+  });
+  
+  document.getElementById('writingScoreDisplay').textContent = `Nəticə: ${correctCounter} / ${WORDS.length}`;
+  if(correctCounter >= 10){ 
+    document.getElementById('toStep5').disabled = false;
+  }
+});
+
+/* ================= STEP 5: JIGSAW PUZZLE ================= */
+let puzzleWords = [];
+let currentPuzzleIndex = 0;
+let statCorrect = 0, statFirstTry = 0, statLeft = 20;
+let pieceIsFirstTry = true;
+
+const svgRows = 4, svgCols = 5, totalPieces = 20;
+const svgW = 800, svgH = 640;
+const pW = svgW/svgCols, pH = svgH/svgRows;
+
+function initPuzzleData(){
+  puzzleWords = shuffle(WORDS).slice(0, 20); // Keep puzzle safe with up to 20 tiles layout
+  currentPuzzleIndex = 0;
+  statCorrect = 0; statFirstTry = 0; statLeft = totalPieces;
+  updateStats();
+  buildSvgGrid();
+  showPuzzleQuestion();
+  document.getElementById('completeOverlay').classList.remove('show');
+}
+
+function buildSvgGrid(){
+  const overlay = document.getElementById('pieceOverlay'); overlay.innerHTML='';
+  let index = 0;
+  for(let r=0; r<svgRows; r++){
+    for(let c=0; c<svgCols; c++){
+      const x = c*pW, y = r*pH;
+      const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      g.setAttribute("class", "piece");
+      g.setAttribute("id", `piece-${index}`);
+      
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", `M ${x} ${y} h ${pW} v ${pH} h ${-pW} Z`);
+      
+      const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      circle.setAttribute("cx", x + pW/2); circle.setAttribute("cy", y + pH/2); circle.setAttribute("r", "16");
+      
+      const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      txt.setAttribute("x", x + pW/2); txt.setAttribute("y", y + pH/2 + 6);
+      txt.setAttribute("text-anchor", "middle"); txt.textContent = index + 1;
+      
+      g.appendChild(path); g.appendChild(circle); g.appendChild(txt);
+      overlay.appendChild(g);
+      index++;
+    }
+  }
+}
+
+function updateStats(){
+  document.getElementById('statCorrect').textContent = statCorrect;
+  document.getElementById('statFirstTry').textContent = statFirstTry;
+  document.getElementById('statLeft').textContent = statLeft;
+}
+
+function showPuzzleQuestion(){
+  document.getElementById('feedbackEl').textContent = '';
+  document.getElementById('feedbackEl').className = 'feedback';
+  document.getElementById('hintEl').innerHTML = '';
+  document.getElementById('nextBtn').disabled = true;
+  pieceIsFirstTry = true;
+  
+  if(currentPuzzleIndex >= totalPieces){
+    document.getElementById('completeOverlay').classList.add('show');
+    return;
+  }
+  
+  const currentItem = puzzleWords[currentPuzzleIndex];
+  document.getElementById('wordEl').textContent = currentItem.word;
+  
+  const optsContainer = document.getElementById('optionsEl'); optsContainer.innerHTML = '';
+  const randomizedOptions = shuffle(currentItem.options);
+  
+  randomizedOptions.forEach(opt => {
+    const row = document.createElement('div');
+    row.className = 'opt-row';
+    row.innerHTML = `
+      <button class="opt-select">
+        <div class="flip-inner">
+          <div class="face en">${opt.en}</div>
+          <div class="face az">${opt.az}</div>
+        </div>
+      </button>
+      <button class="flip-toggle" type="button">⇄</button>
+    `;
+    
+    const selectBtn = row.querySelector('.opt-select');
+    const toggleBtn = row.querySelector('.flip-toggle');
+    
+    toggleBtn.addEventListener('click', (e)=>{ e.stopPropagation(); row.classList.toggle('flipped'); toggleBtn.classList.toggle('active'); });
+    selectBtn.addEventListener('click', ()=>handlePuzzleAnswer(opt, row));
+    optsContainer.appendChild(row);
+  });
+}
+
+function handlePuzzleAnswer(option, rowEl){
+  if(document.getElementById('nextBtn').disabled === false) return;
+  
+  if(option.correct){
+    rowEl.classList.add('correct');
+    document.getElementById('feedbackEl').textContent = 'Mükəmməl! Düzgündür 🎉';
+    document.getElementById('feedbackEl').className = 'feedback good';
+    
+    const piece = document.getElementById(`piece-${currentPuzzleIndex}`);
+    if(piece) piece.classList.add('revealed');
+    
+    statCorrect++;
+    if(pieceIsFirstTry) statFirstTry++;
+    statLeft--;
+    updateStats();
+    
+    document.getElementById('nextBtn').disabled = false;
+  } else {
+    rowEl.classList.add('wrong');
+    document.getElementById('feedbackEl').textContent = 'Yenidən yoxlayın...';
+    document.getElementById('feedbackEl').className = 'feedback bad';
+    pieceIsFirstTry = false;
+    setTimeout(()=>{ rowEl.classList.remove('wrong'); }, 500);
+  }
+}
+
+document.getElementById('nextBtn').addEventListener('click', ()=>{
+  currentPuzzleIndex++;
+  showPuzzleQuestion();
+});
+
+/* ================= ROUTING CONTROLLERS ================= */
+document.getElementById('toStep2').addEventListener('click', ()=> { goToStep(2); buildMatchRound(); });
+document.getElementById('backTo1').addEventListener('click', ()=> goToStep(1));
+document.getElementById('toStep3').addEventListener('click', ()=> { goToStep(3); initStoryGame(); });
+document.getElementById('backTo2_from3').addEventListener('click', ()=> goToStep(2));
+document.getElementById('toStep4').addEventListener('click', ()=> { goToStep(4); buildWritingStep(); });
+document.getElementById('backTo3').addEventListener('click', ()=> goToStep(3));
+document.getElementById('toStep5').addEventListener('click', ()=> { goToStep(5); initPuzzleData(); });
+document.getElementById('restartAllBtn').addEventListener('click', ()=>{ matchRound=1; matchedCountInRound=0; document.getElementById('toStep3').disabled=true; document.getElementById('toStep5').disabled=true; goToStep(1); });
+
+window.onload = () => {
+  renderStepper();
+  goToStep(1);
+  buildLearnStep();
+};
+</script>
+</body>
+</html>
