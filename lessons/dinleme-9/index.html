@@ -1,0 +1,283 @@
+
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H5JRTCHBYD"></script>
+<script src="/kanan.academy/analytics.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Dinləmə Dərsləri — Çernobıl</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --background-beige: #f9f5eb;
+  --panel-bg: #ffffff;
+  --ink: #2b211a;
+  --teal: #1b7365;
+  --teal-dark: #114d43;
+  --coral: #e05326;
+  --mustard: #e6a119;
+  --border-color: #d1c0a5;
+}
+*{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+body{
+  margin:0; min-height:100vh;
+  background: var(--background-beige);
+  font-family:'Nunito', sans-serif; color:var(--ink); padding: 16px 12px 60px;
+}
+.wrap{ max-width:900px; margin:0 auto; }
+h1,h2,h3{ font-family:'Baloo 2', sans-serif; margin:0; }
+
+.backlink{
+  display:inline-block; margin-bottom: 18px; color:var(--teal-dark); text-decoration:none;
+  font-weight:700; font-size:14px;
+}
+.backlink:hover{ text-decoration:underline; }
+
+.top-title{ font-size:clamp(26px,5vw,36px); font-weight:800; text-align:center; margin-bottom:6px; color: var(--teal-dark); }
+.top-sub{ text-align:center; color:#6b5b4e; font-weight:600; font-size:15px; line-height:1.5; max-width:580px; margin:0 auto 28px; }
+
+.card{
+  background:var(--panel-bg); border-radius:16px; padding:22px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.06); border: 1px solid rgba(209,192,165,0.4);
+  margin-bottom:22px;
+}
+.card-label{
+  font-size: 12px; color: var(--teal); font-weight: 800; text-transform: uppercase;
+  letter-spacing:.05em; margin-bottom: 10px; display: block;
+}
+
+audio{ width:100%; height:44px; border-radius:10px; }
+
+.parallel-table{ width:100%; border-collapse:collapse; }
+.parallel-table th{
+  text-align:left; font-family:'Baloo 2',sans-serif; font-size:15px; color:var(--ink);
+  padding:10px 12px;
+}
+.parallel-table td{
+  padding:10px 12px; vertical-align:top;
+}
+.row-num{ color:#b3a58e; font-weight:800; font-family:'Baloo 2',sans-serif; width:28px; padding-top:16px; }
+.en-col{ width:50%; }
+.az-col{ width:50%; }
+
+.bubble{
+  display:inline-block; padding:10px 18px; border-radius:999px; font-size:14px;
+  line-height:1.45; font-weight:600;
+}
+.bubble.en{ background:#fdece4; color:var(--coral); }
+.bubble.az{ background:#e3f0ec; color:var(--teal-dark); }
+
+@media (max-width:640px){
+  .parallel-table thead{ display:none; }
+  .parallel-table, .parallel-table tbody, .parallel-table tr, .parallel-table td{ display:block; width:100%; }
+  .parallel-table tr{ padding:10px 0; }
+  .parallel-table td{ padding:5px 0; }
+  .row-num{ display:none; }
+  .bubble{ display:block; border-radius:20px; }
+}
+
+.quiz-q{ margin-bottom:22px; }
+.quiz-q:last-child{ margin-bottom:0; }
+.quiz-q p.qtext{ font-weight:800; font-family:'Baloo 2',sans-serif; font-size:16px; margin:0 0 10px; color:var(--ink); }
+.opt{
+  display:block; padding:10px 14px; margin:6px 0; border-radius:10px; border:2px solid var(--border-color);
+  cursor:pointer; font-size:14.5px; font-weight:600; transition:.15s;
+}
+.opt:hover{ border-color:var(--teal); }
+.opt input{ margin-right:8px; }
+.opt.correct{ border-color:var(--teal); background:#e8f4f0; color:var(--teal-dark); }
+.opt.wrong{ border-color:var(--coral); background:#fbe9e3; color:#8a2f14; }
+
+.fillblank input[type="text"]{
+  padding:9px 12px; border-radius:10px; border:2px solid var(--border-color);
+  font-family:'Nunito',sans-serif; font-size:14.5px; width:180px;
+}
+.answer-hint{
+  display:none; margin-top:8px; font-size:13.5px; font-weight:700; color:var(--coral);
+}
+
+.check-btn{
+  display:block; margin:26px auto 0; padding:13px 34px; background:var(--teal); color:#fff; border:none;
+  border-radius:12px; font-family:'Baloo 2',sans-serif; font-weight:800; font-size:16px; cursor:pointer;
+}
+.check-btn:hover{ background:var(--teal-dark); }
+
+.score-box{
+  display:none; text-align:center; margin-top:20px; padding:16px; border-radius:12px;
+  background:#fff7e6; border:2px dashed var(--mustard); font-family:'Baloo 2',sans-serif; font-weight:800; font-size:18px; color:#8a5a00;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="backlink" href="../../index.html">← Ana Səhifə</a>
+
+  <h1 class="top-title">Dinləmə Dərsləri — Çernobıl</h1>
+  <p class="top-sub">Üç Nəfər Şəhəri Necə Xilas Etdi. Səsi dinlə, biliyini yoxla və sonda səs yazısının hər iki dildə olan mətninə paralel bax.</p>
+
+  <div class="card">
+    <span class="card-label">🎧 Dinlə</span>
+    <audio controls preload="metadata">
+      <source src="cernobil.mp3" type="audio/mpeg">
+      Sizin brauzeriniz audio elementini dəstəkləmir.
+    </audio>
+  </div>
+
+  <div class="card">
+    <span class="card-label">✅ Test</span>
+    <form id="quizForm">
+
+      <div class="quiz-q" data-answer="b">
+        <p class="qtext">1. When did the Chernobyl reactor explosion happen?</p>
+        <label class="opt"><input type="radio" name="q1" value="a"> March 26, 1986</label>
+        <label class="opt"><input type="radio" name="q1" value="b"> April 26, 1986</label>
+        <label class="opt"><input type="radio" name="q1" value="c"> April 26, 1968</label>
+      </div>
+
+      <div class="quiz-q" data-answer="c">
+        <p class="qtext">2. Which reactor exploded at the Chernobyl power plant?</p>
+        <label class="opt"><input type="radio" name="q2" value="a"> Reactor number one</label>
+        <label class="opt"><input type="radio" name="q2" value="b"> Reactor number two</label>
+        <label class="opt"><input type="radio" name="q2" value="c"> Reactor number four</label>
+      </div>
+
+      <div class="quiz-q" data-answer="a">
+        <p class="qtext">3. What was found below the reactor?</p>
+        <label class="opt"><input type="radio" name="q3" value="a"> A big pool of water</label>
+        <label class="opt"><input type="radio" name="q3" value="b"> A second reactor</label>
+        <label class="opt"><input type="radio" name="q3" value="c"> An empty tunnel</label>
+      </div>
+
+      <div class="quiz-q" data-answer="b">
+        <p class="qtext">4. What would happen if the hot melting fuel touched the water?</p>
+        <label class="opt"><input type="radio" name="q4" value="a"> The fire would stop immediately</label>
+        <label class="opt"><input type="radio" name="q4" value="b"> A second, much bigger explosion could happen</label>
+        <label class="opt"><input type="radio" name="q4" value="c"> Nothing dangerous would happen</label>
+      </div>
+
+      <div class="quiz-q" data-answer="a">
+        <p class="qtext">5. What did the three men need to do to stop the danger?</p>
+        <label class="opt"><input type="radio" name="q5" value="a"> Open the valves to drain the water away</label>
+        <label class="opt"><input type="radio" name="q5" value="b"> Close the doors of the reactor</label>
+        <label class="opt"><input type="radio" name="q5" value="c"> Turn off the electricity in the plant</label>
+      </div>
+
+      <div class="quiz-q" data-answer="c">
+        <p class="qtext">6. What did the men use to see in the dark corridors?</p>
+        <label class="opt"><input type="radio" name="q6" value="a"> Candles</label>
+        <label class="opt"><input type="radio" name="q6" value="b"> Their phones</label>
+        <label class="opt"><input type="radio" name="q6" value="c"> A flashlight</label>
+      </div>
+
+      <div class="quiz-q fillblank" data-answer="ananenko">
+        <p class="qtext">7. Fill in the blank: ___ was the first to find the valves.</p>
+        <input type="text" name="q7" placeholder="cavabınız...">
+        <div class="answer-hint" id="q7hint">Düzgün cavab: <strong>Ananenko</strong></div>
+      </div>
+
+      <div class="quiz-q" data-answer="b">
+        <p class="qtext">8. How many men volunteered to go into the flooded basement?</p>
+        <label class="opt"><input type="radio" name="q8" value="a"> Two</label>
+        <label class="opt"><input type="radio" name="q8" value="b"> Three</label>
+        <label class="opt"><input type="radio" name="q8" value="c"> Five</label>
+      </div>
+
+      <div class="quiz-q" data-answer="a">
+        <p class="qtext">9. What happened to the three men after that night?</p>
+        <label class="opt"><input type="radio" name="q9" value="a"> They survived, but the radiation damaged their bodies for years</label>
+        <label class="opt"><input type="radio" name="q9" value="b"> They all died the next day</label>
+        <label class="opt"><input type="radio" name="q9" value="c"> They felt no effects at all</label>
+      </div>
+
+      <div class="quiz-q" data-answer="b">
+        <p class="qtext">10. What is the main idea of this listening lesson?</p>
+        <label class="opt"><input type="radio" name="q10" value="a"> Nuclear power plants are always completely safe</label>
+        <label class="opt"><input type="radio" name="q10" value="b"> Three brave men risked their lives to protect millions of people from a second explosion</label>
+        <label class="opt"><input type="radio" name="q10" value="c"> The Chernobyl disaster only affected one small building</label>
+      </div>
+
+      <button type="button" class="check-btn" onclick="checkQuiz()">Nəticələri Yoxla</button>
+      <div class="score-box" id="scoreBox"></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <span class="card-label">📖 Mətn</span>
+    <table class="parallel-table">
+      <thead>
+        <tr><th style="width:28px">#</th><th class="en-col">English</th><th class="az-col">Azerbaijani</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="row-num">1</td><td class="en-col"><span class="bubble en">On April 26, 1986, reactor number four at the Chernobyl nuclear power plant exploded.</span></td><td class="az-col"><span class="bubble az">26 aprel 1986-cı ildə Çernobıl Atom Elektrik Stansiyasının dördüncü reaktoru partladı.</span></td></tr>
+        <tr><td class="row-num">2</td><td class="en-col"><span class="bubble en">The explosion released dangerous radiation into the air. Firefighters and workers tried to stop the fire, but a new danger was growing under the ground.</span></td><td class="az-col"><span class="bubble az">Partlayış havaya təhlükəli radiasiya yaydı. Yanğınsöndürənlər və işçilər odu söndürməyə çalışırdılar, amma yerin altında yeni bir təhlükə böyüyürdü.</span></td></tr>
+        <tr><td class="row-num">3</td><td class="en-col"><span class="bubble en">Below the reactor, there was a big pool of water. This water was used to cool the reactor.</span></td><td class="az-col"><span class="bubble az">Reaktorun altında böyük bir su hovuzu var idi. Bu su reaktoru soyutmaq üçün istifadə olunurdu.</span></td></tr>
+        <tr><td class="row-num">4</td><td class="en-col"><span class="bubble en">But now, hot melting fuel from the reactor was moving down toward that water. If the hot fuel touched the water, there would be a second explosion.</span></td><td class="az-col"><span class="bubble az">Amma indi reaktordan əriyən isti yanacaq həmin suya doğru enirdi. Əgər isti yanacaq suya toxunsaydı, ikinci bir partlayış baş verə bilərdi.</span></td></tr>
+        <tr><td class="row-num">5</td><td class="en-col"><span class="bubble en">This explosion could be much bigger than the first one. It could destroy a large part of Europe.</span></td><td class="az-col"><span class="bubble az">Bu partlayış birincisindən daha böyük ola bilərdi. O, Avropanın böyük bir hissəsini məhv edə bilərdi.</span></td></tr>
+        <tr><td class="row-num">6</td><td class="en-col"><span class="bubble en">To stop this, someone had to go into the flooded basement and open the valves to drain the water away.</span></td><td class="az-col"><span class="bubble az">Bunun qarşısını almaq üçün kimsə su altında qalmış zirzəmiyə girib suyu axıtmaq üçün kranları açmalı idi.</span></td></tr>
+        <tr><td class="row-num">7</td><td class="en-col"><span class="bubble en">The area was dark, wet, and full of deadly radiation. Every minute inside could cost a person their life.</span></td><td class="az-col"><span class="bubble az">Bu ərazi qaranlıq, nəm və ölümcül radiasiya ilə dolu idi. Orada keçirilən hər dəqiqə insanın həyatı bahasına başa gələ bilərdi.</span></td></tr>
+        <tr><td class="row-num">8</td><td class="en-col"><span class="bubble en">Three men volunteered: Alexei Ananenko, Valeri Bezpalov, and Boris Baranov. They knew the danger.</span></td><td class="az-col"><span class="bubble az">Üç nəfər könüllü oldu: Aleksey Ananenko, Valeri Bezpalov və Boris Baranov. Onlar təhlükəni bilirdilər.</span></td></tr>
+        <tr><td class="row-num">9</td><td class="en-col"><span class="bubble en">They put on diving suits and took a flashlight, because the lights did not work. They walked through dark corridors filled with radioactive water.</span></td><td class="az-col"><span class="bubble az">Dalğıc kostyumları geyindilər və əl fənəri götürdülər, çünki işıqlar işləmirdi. Onlar radioaktiv su ilə dolu qaranlıq dəhlizlərdən keçdilər.</span></td></tr>
+        <tr><td class="row-num">10</td><td class="en-col"><span class="bubble en">Ananenko was the first to find the valves. Together, the three men opened them.</span></td><td class="az-col"><span class="bubble az">Kranları ilk tapan o oldu — Ananenko. Üç nəfər birlikdə onları açdı.</span></td></tr>
+        <tr><td class="row-num">11</td><td class="en-col"><span class="bubble en">Slowly, the water began to drain. The danger of a second explosion disappeared.</span></td><td class="az-col"><span class="bubble az">Yavaş-yavaş su axmağa başladı. İkinci partlayış təhlükəsi aradan qalxdı.</span></td></tr>
+        <tr><td class="row-num">12</td><td class="en-col"><span class="bubble en">The three men survived that night, though their bodies suffered years of damage from the radiation they absorbed.</span></td><td class="az-col"><span class="bubble az">Bu üç nəfər o gecə sağ qaldılar, baxmayaraq ki, aldıqları radiasiya bədənlərinə illər boyu zərər vurdu.</span></td></tr>
+        <tr><td class="row-num">13</td><td class="en-col"><span class="bubble en">Their courage protected millions of people from a nuclear catastrophe.</span></td><td class="az-col"><span class="bubble az">Onların cəsarəti milyonlarla insanı nüvə fəlakətindən qorudu.</span></td></tr>
+        <tr><td class="row-num">14</td><td class="en-col"><span class="bubble en">Today, we remember Chernobyl not only as a disaster, but also as a story of ordinary people who chose to be brave when the world needed them most.</span></td><td class="az-col"><span class="bubble az">Bu gün biz Çernobılı yalnız bir fəlakət kimi deyil, həm də dünyanın onlara ən çox ehtiyacı olduğu anda cəsarətli olmağı seçən adi insanların hekayəsi kimi xatırlayırıq.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+function checkQuiz(){
+  const questions = document.querySelectorAll('.quiz-q');
+  let correct = 0;
+  questions.forEach(q => {
+    const answer = q.getAttribute('data-answer');
+    if(q.classList.contains('fillblank')){
+      const input = q.querySelector('input[type="text"]');
+      const hint = q.querySelector('.answer-hint');
+      const val = (input.value || '').trim().toLowerCase();
+      if(val === answer){
+        input.style.borderColor = '#1b7365';
+        hint.style.display = 'none';
+        correct++;
+      } else {
+        input.style.borderColor = '#e05326';
+        hint.style.display = 'block';
+      }
+    } else {
+      const opts = q.querySelectorAll('.opt');
+      const checked = q.querySelector('input:checked');
+      opts.forEach(o => {
+        o.classList.remove('correct','wrong');
+        const val = o.querySelector('input').value;
+        if(val === answer) o.classList.add('correct');
+      });
+      if(checked && checked.value === answer){
+        correct++;
+      } else if(checked){
+        checked.closest('.opt').classList.add('wrong');
+      }
+    }
+  });
+  const box = document.getElementById('scoreBox');
+  box.style.display = 'block';
+  box.textContent = 'Nəticə: ' + correct + ' / 10 doğru cavab 🎉';
+  box.scrollIntoView({behavior:'smooth', block:'center'});
+
+  if (typeof gtag === 'function') {
+    gtag('event', 'quiz_check', {
+      'event_category': 'dinleme-cernobil',
+      'value': correct
+    });
+  }
+}
+</script>
+
+</body>
+</html>
