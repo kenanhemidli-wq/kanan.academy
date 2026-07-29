@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="az">
 <head>
@@ -108,6 +109,22 @@
     font-size:13px;
     color:#8A8676;
   }
+
+  /* Lesson buttons: fixed size so every button matches, regardless of label length */
+  .lesson-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    padding: 10px 8px;
+    background-color: #1b7365;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-family: 'Baloo 2', sans-serif;
+    text-align: center;
+  }
 </style>
 </head>
 <body>
@@ -128,15 +145,11 @@
         <p style="margin: 0 0 20px 0; color: #5c4d41; font-size: 15px;">Gündəlik sözlər, mövzu üzrə qruplaşdırılmış lüğət kartları və təkrar oyunları.</p>
         
         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <!-- Button 1 -->
-            <a href="lessons/luget-1/index.html" style="display: inline-block; padding: 10px 24px; background-color: #1b7365; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-family: 'Baloo 2', sans-serif;">Dərs 1</a>
-         
-           
-            <!-- Button 2 (Pointed to its actual location inside luget-1) -->
-            <a href="lessons/luget-1/lesson-2.html" style="display: inline-block; padding: 10px 24px; background-color: #1b7365; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-family: 'Baloo 2', sans-serif;">Dərs 2</a>
-          <a href="lessons/luget-1/lesson-3.html" style="display: inline-block; padding: 10px 24px; background-color: #1b7365; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-family: 'Baloo 2', sans-serif;">Dərs 3</a>
-          <a href="lessons/luget-1/lesson-4.html" style="display: inline-block; padding: 10px 24px; background-color: #1b7365; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-family: 'Baloo 2', sans-serif;">Dərs 4</a>
-          <a href="lessons/luget-1/lesson-5.html" style="display: inline-block; padding: 10px 24px; background-color: #1b7365; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-family: 'Baloo 2', sans-serif;">Dərs 5</a>
+            <a href="lessons/luget-1/index.html" class="lesson-btn">Dərs 1</a>
+            <a href="lessons/luget-1/lesson-2.html" class="lesson-btn">Dərs 2</a>
+          <a href="lessons/luget-1/lesson-3.html" class="lesson-btn">Dərs 3</a>
+          <a href="lessons/luget-1/lesson-4.html" class="lesson-btn">Dərs 4</a>
+          <a href="lessons/luget-1/lesson-5.html" class="lesson-btn">Dərs 5</a>
         </div>
            
     </div>
@@ -144,21 +157,17 @@
         <h3 style="margin: 0 0 8px 0; font-family: 'Baloo 2', sans-serif; font-size: 24px;">Dinləmə Dərsləri</h3>
         <p style="margin: 0 0 20px 0; color: #5c4d41; font-size: 15px;">Real mövzular üzərində qısa dinləmə hekayələri — səs, ingiliscə-azərbaycanca paralel mətn və bilik testi ilə birlikdə.</p>
         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-           <a href="lessons/dinleme-1/index.html" style="display: inline-block; padding: 10px 24px; background-color: #1b7365; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-family: 'Baloo 2', sans-serif;">Dərs 1</a>
-          <a href="lessons/dinleme-2/index.html" style="display: inline-block; padding: 10px 24px; background-color: #1b7365; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-family: 'Baloo 2', sans-serif;">Dərs 2</a>
-          <a href="lessons/dinleme-3/index.html" style="display: inline-block; padding: 10px 24px; background-color: #1b7365; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-family: 'Baloo 2', sans-serif;">Dərs 3</a>
-          <a href="lessons/dinleme-4/index.html" style="display: inline-block; padding: 10px 24px; background-color: #1b7365; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-family: 'Baloo 2', sans-serif;">Dərs 4</a>
-          <a href="lessons/dinleme-5/index.html" style="display: inline-block; padding: 10px 24px; background-color: #1b7365; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-family: 'Baloo 2', sans-serif;">Dərs 5</a>
-          <a href="lessons/dinleme-6/index.html" style="display: inline-block; padding: 10px 24px; background-color: #1b7365; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-family: 'Baloo 2', sans-serif;">Dərs 6</a>
-          <a href="lessons/dinleme-7/index.html" style="display: inline-block; padding: 10px 24px; background-color: #1b7365; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-family: 'Baloo 2', sans-serif;">Dərs 7</a>
-          <a href="lessons/dinleme-8/index.html" style="display: inline-block; padding: 10px 24px; background-color: #1b7365; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-family: 'Baloo 2', sans-serif;">Dərs 8</a>
-          <a href="lessons/dinleme-9/index.html" style="display: inline-block; padding: 10px 24px; background-color: #1b7365; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-family: 'Baloo 2', sans-serif;">Dərs 9</a>
-          <a href="lessons/dinleme-10/index.html" style="display: inline-block; padding: 10px 24px; background-color: #1b7365; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-family: 'Baloo 2', sans-serif;">Dərs 10</a>
+            <a href="lessons/dinleme-1/index.html" class="lesson-btn">Dərs 1</a>
+          <a href="lessons/dinleme-2/index.html" class="lesson-btn">Dərs 2</a>
+          <a href="lessons/dinleme-3/index.html" class="lesson-btn">Dərs 3</a>
+          <a href="lessons/dinleme-4/index.html" class="lesson-btn">Dərs 4</a>
+          <a href="lessons/dinleme-5/index.html" class="lesson-btn">Dərs 5</a>
+          <a href="lessons/dinleme-6/index.html" class="lesson-btn">Dərs 6</a>
+          <a href="lessons/dinleme-7/index.html" class="lesson-btn">Dərs 7</a>
+          <a href="lessons/dinleme-8/index.html" class="lesson-btn">Dərs 8</a>
+          <a href="lessons/dinleme-9/index.html" class="lesson-btn">Dərs 9</a>
+           <a href="lessons/dinleme-10/index.html" class="lesson-btn">Dərs 10</a>
 
-        </div>
-    </div>
-</div>
-        </div>
         </div>
     </div>
 </div>
