@@ -1,0 +1,287 @@
+
+
+
+
+
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H5JRTCHBYD"></script>
+<script src="/kanan.academy/analytics.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Dinləmə Dərsləri — Dərs 11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --background-beige: #f9f5eb;
+  --panel-bg: #ffffff;
+  --ink: #2b211a;
+  --teal: #1b7365;
+  --teal-dark: #114d43;
+  --coral: #e05326;
+  --mustard: #e6a119;
+  --border-color: #d1c0a5;
+}
+*{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+body{
+  margin:0; min-height:100vh;
+  background: var(--background-beige);
+  font-family:'Nunito', sans-serif; color:var(--ink); padding: 16px 12px 60px;
+}
+.wrap{ max-width:900px; margin:0 auto; }
+h1,h2,h3{ font-family:'Baloo 2', sans-serif; margin:0; }
+
+.backlink{
+  display:inline-block; margin-bottom: 18px; color:var(--teal-dark); text-decoration:none;
+  font-weight:700; font-size:14px;
+}
+.backlink:hover{ text-decoration:underline; }
+
+.top-title{ font-size:clamp(26px,5vw,36px); font-weight:800; text-align:center; margin-bottom:6px; color: var(--teal-dark); }
+.top-sub{ text-align:center; color:#6b5b4e; font-weight:600; font-size:15px; line-height:1.5; max-width:580px; margin:0 auto 28px; }
+
+.card{
+  background:var(--panel-bg); border-radius:16px; padding:22px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.06); border: 1px solid rgba(209,192,165,0.4);
+  margin-bottom:22px;
+}
+.card-label{
+  font-size: 12px; color: var(--teal); font-weight: 800; text-transform: uppercase;
+  letter-spacing:.05em; margin-bottom: 10px; display: block;
+}
+
+audio{ width:100%; height:44px; border-radius:10px; }
+
+.parallel-table{ width:100%; border-collapse:collapse; }
+.parallel-table th{
+  text-align:left; font-family:'Baloo 2',sans-serif; font-size:15px; color:var(--ink);
+  padding:10px 12px;
+}
+.parallel-table td{
+  padding:10px 12px; vertical-align:top;
+}
+.row-num{ color:#b3a58e; font-weight:800; font-family:'Baloo 2',sans-serif; width:28px; padding-top:16px; }
+.en-col{ width:50%; }
+.az-col{ width:50%; }
+
+.bubble{
+  display:inline-block; padding:10px 18px; border-radius:999px; font-size:14px;
+  line-height:1.45; font-weight:600;
+}
+.bubble.en{ background:#fdece4; color:var(--coral); }
+.bubble.az{ background:#e3f0ec; color:var(--teal-dark); }
+
+@media (max-width:640px){
+  .parallel-table thead{ display:none; }
+  .parallel-table, .parallel-table tbody, .parallel-table tr, .parallel-table td{ display:block; width:100%; }
+  .parallel-table tr{ padding:10px 0; }
+  .parallel-table td{ padding:5px 0; }
+  .row-num{ display:none; }
+  .bubble{ display:block; border-radius:20px; }
+}
+
+.quiz-q{ margin-bottom:22px; }
+.quiz-q:last-child{ margin-bottom:0; }
+.quiz-q p.qtext{ font-weight:800; font-family:'Baloo 2',sans-serif; font-size:16px; margin:0 0 10px; color:var(--ink); }
+.opt{
+  display:block; padding:10px 14px; margin:6px 0; border-radius:10px; border:2px solid var(--border-color);
+  cursor:pointer; font-size:14.5px; font-weight:600; transition:.15s;
+}
+.opt:hover{ border-color:var(--teal); }
+.opt input{ margin-right:8px; }
+.opt.correct{ border-color:var(--teal); background:#e8f4f0; color:var(--teal-dark); }
+.opt.wrong{ border-color:var(--coral); background:#fbe9e3; color:#8a2f14; }
+
+.fillblank input[type="text"]{
+  padding:9px 12px; border-radius:10px; border:2px solid var(--border-color);
+  font-family:'Nunito',sans-serif; font-size:14.5px; width:180px;
+}
+.answer-hint{
+  display:none; margin-top:8px; font-size:13.5px; font-weight:700; color:var(--coral);
+}
+
+.check-btn{
+  display:block; margin:26px auto 0; padding:13px 34px; background:var(--teal); color:#fff; border:none;
+  border-radius:12px; font-family:'Baloo 2',sans-serif; font-weight:800; font-size:16px; cursor:pointer;
+}
+.check-btn:hover{ background:var(--teal-dark); }
+
+.score-box{
+  display:none; text-align:center; margin-top:20px; padding:16px; border-radius:12px;
+  background:#fff7e6; border:2px dashed var(--mustard); font-family:'Baloo 2',sans-serif; font-weight:800; font-size:18px; color:#8a5a00;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="backlink" href="../../index.html">← Ana Səhifə</a>
+
+  <h1 class="top-title">Dinləmə Dərsləri — Dərs 11</h1>
+  <p class="top-sub">Penisillin Tibbi Necə Dəyişdirdi. Səsi dinlə, biliyini yoxla və sonda səs yazısının hər iki dildə olan mətninə paralel bax.</p>
+
+  <div class="card">
+    <span class="card-label">🎧 Dinlə</span>
+    <audio controls preload="metadata">
+      <source src="penicilin.mp3" type="audio/mpeg">
+      Brauzeriniz audio elementini dəstəkləmir.
+    </audio>
+  </div>
+
+  <div class="card">
+    <span class="card-label">📝 Test</span>
+    <form id="quizForm">
+
+      <div class="quiz-q" data-answer="b">
+        <p class="qtext">1. Who discovered penicillin?</p>
+        <label class="opt"><input type="radio" name="q1" value="a"> Howard Florey</label>
+        <label class="opt"><input type="radio" name="q1" value="b"> Alexander Fleming</label>
+        <label class="opt"><input type="radio" name="q1" value="c"> Ernst Chain</label>
+      </div>
+
+      <div class="quiz-q" data-answer="b">
+        <p class="qtext">2. In what year did Fleming discover penicillin?</p>
+        <label class="opt"><input type="radio" name="q2" value="a"> 1918</label>
+        <label class="opt"><input type="radio" name="q2" value="b"> 1928</label>
+        <label class="opt"><input type="radio" name="q2" value="c"> 1945</label>
+      </div>
+
+      <div class="quiz-q" data-answer="b">
+        <p class="qtext">3. Where was Fleming working when he made the discovery?</p>
+        <label class="opt"><input type="radio" name="q3" value="a"> Paris</label>
+        <label class="opt"><input type="radio" name="q3" value="b"> London</label>
+        <label class="opt"><input type="radio" name="q3" value="c"> New York</label>
+      </div>
+
+      <div class="quiz-q" data-answer="a">
+        <p class="qtext">4. What did Fleming notice on the petri dish after his vacation?</p>
+        <label class="opt"><input type="radio" name="q4" value="a"> A green-blue mold</label>
+        <label class="opt"><input type="radio" name="q4" value="b"> A red stain</label>
+        <label class="opt"><input type="radio" name="q4" value="c"> Nothing unusual</label>
+      </div>
+
+      <div class="quiz-q" data-answer="false">
+        <p class="qtext">5. True or False: Around the mold, the bacteria had grown thicker.</p>
+        <label class="opt"><input type="radio" name="q5" value="true"> True</label>
+        <label class="opt"><input type="radio" name="q5" value="false"> False</label>
+      </div>
+
+      <div class="quiz-q" data-answer="b">
+        <p class="qtext">6. Who led the team that found a way to produce penicillin in large amounts?</p>
+        <label class="opt"><input type="radio" name="q6" value="a"> Marie Curie</label>
+        <label class="opt"><input type="radio" name="q6" value="b"> Howard Florey and Ernst Chain</label>
+        <label class="opt"><input type="radio" name="q6" value="c"> Louis Pasteur</label>
+      </div>
+
+      <div class="quiz-q fillblank" data-answer="soldiers">
+        <p class="qtext">7. Fill in the blank: During World War II, penicillin was used to treat infected ___.</p>
+        <input type="text" name="q7" placeholder="cavabınız...">
+        <div class="answer-hint" id="q7hint">Düzgün cavab: <strong>soldiers</strong></div>
+      </div>
+
+      <div class="quiz-q" data-answer="a">
+        <p class="qtext">8. What could be deadly before penicillin existed?</p>
+        <label class="opt"><input type="radio" name="q8" value="a"> A small cut or a simple infection</label>
+        <label class="opt"><input type="radio" name="q8" value="b"> A broken bone</label>
+        <label class="opt"><input type="radio" name="q8" value="c"> A headache</label>
+      </div>
+
+      <div class="quiz-q" data-answer="a">
+        <p class="qtext">9. What does the text say penicillin and later antibiotics have done?</p>
+        <label class="opt"><input type="radio" name="q9" value="a"> Saved hundreds of millions of lives around the world</label>
+        <label class="opt"><input type="radio" name="q9" value="b"> Caused new diseases</label>
+        <label class="opt"><input type="radio" name="q9" value="c"> Only helped a few people</label>
+      </div>
+
+      <div class="quiz-q" data-answer="b">
+        <p class="qtext">10. What is the main lesson of this story?</p>
+        <label class="opt"><input type="radio" name="q10" value="a"> Great discoveries are always carefully planned</label>
+        <label class="opt"><input type="radio" name="q10" value="b"> Great discoveries can begin with an accident, if someone stays curious enough to ask why</label>
+        <label class="opt"><input type="radio" name="q10" value="c"> Antibiotics are dangerous and should be avoided</label>
+      </div>
+
+      <button type="button" class="check-btn" onclick="checkQuiz()">Nəticələri Yoxla</button>
+      <div class="score-box" id="scoreBox"></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <span class="card-label">📖 Mətn</span>
+    <table class="parallel-table">
+      <thead>
+        <tr><th style="width:28px">#</th><th class="en-col">English</th><th class="az-col">Azerbaijani</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="row-num">1</td><td class="en-col"><span class="bubble en">Imagine this. You are cleaning your laboratory after a long vacation.</span></td><td class="az-col"><span class="bubble az">Təsəvvür edin. Uzun məzuniyyətdən sonra laboratoriyanızı yığışdırırsınız.</span></td></tr>
+        <tr><td class="row-num">2</td><td class="en-col"><span class="bubble en">Most of your experiments have failed. But then you notice something strange.</span></td><td class="az-col"><span class="bubble az">Təcrübələrinizin çoxu uğursuz olub. Amma sonra qəribə bir şey görürsünüz.</span></td></tr>
+        <tr><td class="row-num">3</td><td class="en-col"><span class="bubble en">One small petri dish could change the history of medicine forever.</span></td><td class="az-col"><span class="bubble az">Kiçik bir petri qabı tibb tarixini həmişəlik dəyişə bilərdi.</span></td></tr>
+        <tr><td class="row-num">4</td><td class="en-col"><span class="bubble en">In 1928, a Scottish scientist named Alexander Fleming was studying dangerous bacteria in London. Before leaving for vacation, he accidentally left some petri dishes on his laboratory table.</span></td><td class="az-col"><span class="bubble az">1928-ci ildə Şotlandiyalı alim Aleksandr Fleminq Londonda təhlükəli bakteriyaları araşdırırdı. Məzuniyyətə getməzdən əvvəl o, təsadüfən bir neçə petri qabını laboratoriya masasında qoymuşdu.</span></td></tr>
+        <tr><td class="row-num">5</td><td class="en-col"><span class="bubble en">When he returned, he saw that one dish had become covered with a green-blue mold.</span></td><td class="az-col"><span class="bubble az">Geri qayıdanda gördü ki, qabların birinin üzərində yaşıl-mavi kif əmələ gəlib.</span></td></tr>
+        <tr><td class="row-num">6</td><td class="en-col"><span class="bubble en">But there was something unusual. Around the mold, the bacteria had disappeared.</span></td><td class="az-col"><span class="bubble az">Amma qeyri-adi bir şey vardı. Kifin ətrafındakı bakteriyalar yox olmuşdu.</span></td></tr>
+        <tr><td class="row-num">7</td><td class="en-col"><span class="bubble en">Fleming realized that the mold was producing a substance that could kill bacteria. He named this substance penicillin.</span></td><td class="az-col"><span class="bubble az">Fleminq başa düşdü ki, bu kif bakteriyaları öldürə bilən bir maddə ifraz edir. O, bu maddəyə penisillin adını verdi.</span></td></tr>
+        <tr><td class="row-num">8</td><td class="en-col"><span class="bubble en">Fleming knew his discovery was important, but he could not turn penicillin into a medicine by himself.</span></td><td class="az-col"><span class="bubble az">Fleminq başa düşürdü ki, bu kəşf çox vacibdir, amma o, penisillini təkbaşına dərmana çevirə bilmədi.</span></td></tr>
+        <tr><td class="row-num">9</td><td class="en-col"><span class="bubble en">About ten years later, a team of scientists led by Howard Florey and Ernst Chain found a way to produce it in large amounts.</span></td><td class="az-col"><span class="bubble az">Təxminən on il sonra Hovard Flori və Ernst Çeynin rəhbərlik etdiyi alimlər qrupu onu böyük miqdarda istehsal etməyin yolunu tapdı.</span></td></tr>
+        <tr><td class="row-num">10</td><td class="en-col"><span class="bubble en">During World War II, penicillin was used to treat infected soldiers and save many lives.</span></td><td class="az-col"><span class="bubble az">İkinci Dünya Müharibəsi zamanı penisillin yaralı və infeksiyaya yoluxmuş əsgərlərin müalicəsində istifadə olundu və çox sayda insanın həyatını xilas etdi.</span></td></tr>
+        <tr><td class="row-num">11</td><td class="en-col"><span class="bubble en">Before penicillin, even a small cut or a simple infection could be deadly.</span></td><td class="az-col"><span class="bubble az">Penisillindən əvvəl hətta kiçik bir kəsik və ya sadə bir infeksiya belə ölümcül ola bilərdi.</span></td></tr>
+        <tr><td class="row-num">12</td><td class="en-col"><span class="bubble en">After it became available, doctors could successfully treat many bacterial diseases that had once killed millions of people.</span></td><td class="az-col"><span class="bubble az">O istifadə olunmağa başlayandan sonra həkimlər əvvəllər milyonlarla insanın ölümünə səbəb olan bir çox bakterial xəstəliyi uğurla müalicə edə bildilər.</span></td></tr>
+        <tr><td class="row-num">13</td><td class="en-col"><span class="bubble en">Today, experts estimate that penicillin and the antibiotics that followed have saved hundreds of millions of lives around the world.</span></td><td class="az-col"><span class="bubble az">Bu gün mütəxəssislər hesab edirlər ki, penisillin və ondan sonra hazırlanan antibiotiklər bütün dünyada yüz milyonlarla insanın həyatını xilas edib.</span></td></tr>
+        <tr><td class="row-num">14</td><td class="en-col"><span class="bubble en">This story also teaches us an important lesson. Great discoveries are not always planned.</span></td><td class="az-col"><span class="bubble az">Bu hekayə bizə vacib bir dərs də verir. Böyük kəşflər həmişə planlaşdırılmır.</span></td></tr>
+        <tr><td class="row-num">15</td><td class="en-col"><span class="bubble en">Sometimes they begin with a simple accident — but only if someone is curious enough to ask, "Why did this happen?"</span></td><td class="az-col"><span class="bubble az">Bəzən onlar sadə bir təsadüfdən başlayır. Amma yalnız kifayət qədər maraqlı biri "Bu niyə baş verdi?" sualını verdiyi zaman.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+function checkQuiz(){
+  const questions = document.querySelectorAll('.quiz-q');
+  let correct = 0;
+  questions.forEach(q => {
+    const answer = q.getAttribute('data-answer');
+    if(q.classList.contains('fillblank')){
+      const input = q.querySelector('input[type="text"]');
+      const hint = q.querySelector('.answer-hint');
+      const val = (input.value || '').trim().toLowerCase();
+      if(val === answer){
+        input.style.borderColor = '#1b7365';
+        hint.style.display = 'none';
+        correct++;
+      } else {
+        input.style.borderColor = '#e05326';
+        hint.style.display = 'block';
+      }
+    } else {
+      const opts = q.querySelectorAll('.opt');
+      const checked = q.querySelector('input:checked');
+      opts.forEach(o => {
+        o.classList.remove('correct','wrong');
+        const val = o.querySelector('input').value;
+        if(val === answer) o.classList.add('correct');
+      });
+      if(checked && checked.value === answer){
+        correct++;
+      } else if(checked){
+        checked.closest('.opt').classList.add('wrong');
+      }
+    }
+  });
+  const box = document.getElementById('scoreBox');
+  box.style.display = 'block';
+  box.textContent = 'Nəticə: ' + correct + ' / 10 doğru cavab 🎉';
+  box.scrollIntoView({behavior:'smooth', block:'center'});
+
+  if (typeof gtag === 'function') {
+    gtag('event', 'quiz_check', {
+      'event_category': 'dinleme-penisillin',
+      'value': correct
+    });
+  }
+}
+</script>
+
+</body>
+</html>
