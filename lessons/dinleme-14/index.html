@@ -1,0 +1,284 @@
+
+
+
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Dinləmə Dərsləri — Dərs 14</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+<!-- Replace G-XXXXXXXXXX above with your real GA4 Measurement ID -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --background-beige: #f9f5eb;
+  --panel-bg: #ffffff;
+  --ink: #2b211a;
+  --teal: #1b7365;
+  --teal-dark: #114d43;
+  --coral: #e05326;
+  --mustard: #e6a119;
+  --border-color: #d1c0a5;
+}
+*{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+body{
+  margin:0; min-height:100vh;
+  background: var(--background-beige);
+  font-family:'Nunito', sans-serif; color:var(--ink); padding: 16px 12px 60px;
+}
+.wrap{ max-width:900px; margin:0 auto; }
+h1,h2,h3{ font-family:'Baloo 2', sans-serif; margin:0; }
+
+.top-title{ font-size:clamp(26px,5vw,36px); font-weight:800; text-align:center; margin-bottom:6px; color: var(--teal-dark); }
+.top-sub{ text-align:center; color:#6b5b4e; font-weight:600; font-size:15px; line-height:1.5; max-width:580px; margin:0 auto 28px; }
+
+.card{
+  background:var(--panel-bg); border-radius:16px; padding:22px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.06); border: 1px solid rgba(209,192,165,0.4);
+  margin-bottom:22px;
+}
+.card-label{
+  font-size: 12px; color: var(--teal); font-weight: 800; text-transform: uppercase;
+  letter-spacing:.05em; margin-bottom: 10px; display: block;
+}
+
+audio{ width:100%; height:44px; border-radius:10px; }
+
+.parallel-table{ width:100%; border-collapse:collapse; }
+.parallel-table th{
+  text-align:left; font-family:'Baloo 2',sans-serif; font-size:15px; color:var(--ink);
+  padding:10px 12px;
+}
+.parallel-table td{
+  padding:10px 12px; vertical-align:top;
+}
+.row-num{ color:#b3a58e; font-weight:800; font-family:'Baloo 2',sans-serif; width:28px; padding-top:16px; }
+.en-col{ width:50%; }
+.az-col{ width:50%; }
+
+.bubble{
+  display:inline-block; padding:10px 18px; border-radius:999px; font-size:14px;
+  line-height:1.45; font-weight:600;
+}
+.bubble.en{ background:#fdece4; color:var(--coral); }
+.bubble.az{ background:#e3f0ec; color:var(--teal-dark); }
+
+@media (max-width:640px){
+  .parallel-table thead{ display:none; }
+  .parallel-table, .parallel-table tbody, .parallel-table tr, .parallel-table td{ display:block; width:100%; }
+  .parallel-table tr{ padding:10px 0; }
+  .parallel-table td{ padding:5px 0; }
+  .row-num{ display:none; }
+  .bubble{ display:block; border-radius:20px; }
+}
+
+.quiz-q{ margin-bottom:22px; }
+.quiz-q:last-child{ margin-bottom:0; }
+.quiz-q p.qtext{ font-weight:800; font-family:'Baloo 2',sans-serif; font-size:16px; margin:0 0 10px; color:var(--ink); }
+.opt{
+  display:block; padding:10px 14px; margin:6px 0; border-radius:10px; border:2px solid var(--border-color);
+  cursor:pointer; font-size:14.5px; font-weight:600; transition:.15s;
+}
+.opt:hover{ border-color:var(--teal); }
+.opt input{ margin-right:8px; }
+.opt.correct{ border-color:var(--teal); background:#e8f4f0; color:var(--teal-dark); }
+.opt.wrong{ border-color:var(--coral); background:#fbe9e3; color:#8a2f14; }
+
+.fillblank input[type="text"]{
+  padding:9px 12px; border-radius:10px; border:2px solid var(--border-color);
+  font-family:'Nunito',sans-serif; font-size:14.5px; width:180px;
+}
+.answer-hint{
+  display:none; margin-top:8px; font-size:13.5px; font-weight:700; color:var(--coral);
+}
+
+.check-btn{
+  display:block; margin:26px auto 0; padding:13px 34px; background:var(--teal); color:#fff; border:none;
+  border-radius:12px; font-family:'Baloo 2',sans-serif; font-weight:800; font-size:16px; cursor:pointer;
+}
+.check-btn:hover{ background:var(--teal-dark); }
+
+.score-box{
+  display:none; text-align:center; margin-top:20px; padding:16px; border-radius:12px;
+  background:#fff7e6; border:2px dashed var(--mustard); font-family:'Baloo 2',sans-serif; font-weight:800; font-size:18px; color:#8a5a00;
+}
+
+.backlink{ display:inline-block; margin-bottom:14px; color:var(--teal-dark); font-weight:700; text-decoration:none; font-size:14px; }
+.backlink:hover{ text-decoration:underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="backlink" href="../../index.html">← Ana Səhifə</a>
+
+  <h1 class="top-title">Dinləmə Dərsi — Dərs 14</h1>
+  <p class="top-sub">Real hadisələr əsasında çəkilmiş "The Good Nurse" filminin baş qəhrəmanı, tibb bacısı Çarlz Kallenin (Charles Cullen) hekayəsi. Səsi dinlə, biliyini yoxla və sonda mətnin hər iki dildə paralel tərcüməsinə bax.</p>
+
+  <div class="card">
+    <span class="card-label">🎧 Dinlə</span>
+    <audio controls preload="metadata">
+      <source src="nurse.mp3" type="audio/mpeg">
+      Sizin brauzeriniz audio elementini dəstəkləmir.
+    </audio>
+  </div>
+
+  <div class="card">
+    <span class="card-label">📝 Test</span>
+    <form id="quizForm">
+
+      <div class="quiz-q" data-answer="b">
+        <p class="qtext">1. What was Charles Cullen's job?</p>
+        <label class="opt"><input type="radio" name="q1" value="a"> A police officer</label>
+        <label class="opt"><input type="radio" name="q1" value="b"> A nurse</label>
+        <label class="opt"><input type="radio" name="q1" value="c"> A hospital doctor</label>
+      </div>
+
+      <div class="quiz-q" data-answer="c">
+        <p class="qtext">2. How many years did Cullen work as a nurse?</p>
+        <label class="opt"><input type="radio" name="q2" value="a"> 6 years</label>
+        <label class="opt"><input type="radio" name="q2" value="b"> 10 years</label>
+        <label class="opt"><input type="radio" name="q2" value="c"> 16 years</label>
+      </div>
+
+      <div class="quiz-q" data-answer="a">
+        <p class="qtext">3. What did Cullen use to kill his patients?</p>
+        <label class="opt"><input type="radio" name="q3" value="a"> Dangerous doses of medicine</label>
+        <label class="opt"><input type="radio" name="q3" value="b"> A weapon</label>
+        <label class="opt"><input type="radio" name="q3" value="c"> Poisoned food</label>
+      </div>
+
+      <div class="quiz-q" data-answer="b">
+        <p class="qtext">4. Where did Cullen work when investigators finally caught him?</p>
+        <label class="opt"><input type="radio" name="q4" value="a"> Lehigh Valley Hospital</label>
+        <label class="opt"><input type="radio" name="q4" value="b"> Somerset Medical Center</label>
+        <label class="opt"><input type="radio" name="q4" value="c"> St. Luke's Hospital</label>
+      </div>
+
+      <div class="quiz-q" data-answer="c">
+        <p class="qtext">5. Who was Amy Loughren?</p>
+        <label class="opt"><input type="radio" name="q5" value="a"> A police detective</label>
+        <label class="opt"><input type="radio" name="q5" value="b"> Cullen's lawyer</label>
+        <label class="opt"><input type="radio" name="q5" value="c"> Cullen's close friend and co-worker</label>
+      </div>
+
+      <div class="quiz-q" data-answer="a">
+        <p class="qtext">6. How did Amy help the police?</p>
+        <label class="opt"><input type="radio" name="q6" value="a"> She wore a hidden recorder and got his confession</label>
+        <label class="opt"><input type="radio" name="q6" value="b"> She stole his medical files</label>
+        <label class="opt"><input type="radio" name="q6" value="c"> She followed him to another hospital</label>
+      </div>
+
+      <div class="quiz-q fillblank" data-answer="december">
+        <p class="qtext">7. Fill in the blank: Police arrested Charles Cullen in ___ 2003.</p>
+        <input type="text" name="q7" placeholder="cavabınız...">
+        <div class="answer-hint" id="q7hint">Düzgün cavab: <strong>December</strong></div>
+      </div>
+
+      <div class="quiz-q" data-answer="b">
+        <p class="qtext">8. Why did Cullen agree to cooperate with investigators?</p>
+        <label class="opt"><input type="radio" name="q8" value="a"> He wanted to help patients' families</label>
+        <label class="opt"><input type="radio" name="q8" value="b"> He wanted to avoid the death penalty</label>
+        <label class="opt"><input type="radio" name="q8" value="c"> His lawyer forced him to</label>
+      </div>
+
+      <div class="quiz-q" data-answer="a">
+        <p class="qtext">9. What happened to Cullen in 2006?</p>
+        <label class="opt"><input type="radio" name="q9" value="a"> He was sentenced to multiple life terms in prison</label>
+        <label class="opt"><input type="radio" name="q9" value="b"> He was found not guilty</label>
+        <label class="opt"><input type="radio" name="q9" value="c"> He escaped from prison</label>
+      </div>
+
+      <div class="quiz-q" data-answer="b">
+        <p class="qtext">10. Who played Amy Loughren in the movie "The Good Nurse"?</p>
+        <label class="opt"><input type="radio" name="q10" value="a"> Eddie Redmayne</label>
+        <label class="opt"><input type="radio" name="q10" value="b"> Jessica Chastain</label>
+        <label class="opt"><input type="radio" name="q10" value="c"> Amy Adams</label>
+      </div>
+
+      <button type="button" class="check-btn" onclick="checkQuiz()">Nəticələri Yoxla</button>
+      <div class="score-box" id="scoreBox"></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <span class="card-label">📖 Mətn</span>
+    <table class="parallel-table">
+      <thead>
+        <tr><th style="width:28px">#</th><th class="en-col">English</th><th class="az-col">Azerbaijani</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="row-num">1</td><td class="en-col"><span class="bubble en">Charles Cullen was born in New Jersey in 1960. He worked as a nurse for 16 years in ten hospitals in New Jersey and Pennsylvania.</span></td><td class="az-col"><span class="bubble az">Çarlz Kallen 1960-cı ildə Nyu-Cersidə anadan olub. O, 16 il ərzində Nyu-Cersi və Pensilvaniyada on xəstəxanada tibb bacısı kimi çalışıb.</span></td></tr>
+        <tr><td class="row-num">2</td><td class="en-col"><span class="bubble en">He seemed like a normal, caring nurse. But he was secretly killing his patients.</span></td><td class="az-col"><span class="bubble az">Görünüşcə o, adi, qayğıkeş bir tibb işçisi idi. Amma əslində gizlicə öz xəstələrini öldürürdü.</span></td></tr>
+        <tr><td class="row-num">3</td><td class="en-col"><span class="bubble en">Cullen gave his patients dangerous doses of medicine, such as insulin and a heart drug called digoxin.</span></td><td class="az-col"><span class="bubble az">Kallen xəstələrinə təhlükəli dozada dərman verirdi — məsələn, insulin və digoksin adlı ürək dərmanı.</span></td></tr>
+        <tr><td class="row-num">4</td><td class="en-col"><span class="bubble en">These drugs are safe in small amounts, but deadly in large ones. Many patients died suddenly, and for years, no one understood why.</span></td><td class="az-col"><span class="bubble az">Bu dərmanlar az miqdarda təhlükəsizdir, amma böyük dozada ölümcül ola bilər. Bir çox xəstə qəflətən vəfat edirdi və illər boyu heç kim səbəbini bilmirdi.</span></td></tr>
+        <tr><td class="row-num">5</td><td class="en-col"><span class="bubble en">In 2003, Cullen worked at Somerset Medical Center. Staff noticed a string of suspicious patient deaths and contacted the police.</span></td><td class="az-col"><span class="bubble az">2003-cü ildə Kallen Somerset Tibb Mərkəzində işləyirdi. İşçilər şübhəli ölümlərin artdığını görüb polisə müraciət etdilər.</span></td></tr>
+        <tr><td class="row-num">6</td><td class="en-col"><span class="bubble en">Detectives discovered that Cullen had lied on his job application, and found an old note mentioning "digoxin" from one of his previous jobs.</span></td><td class="az-col"><span class="bubble az">Detektivlər Kallenin iş ərizəsində yalan məlumat verdiyini aşkarladılar və əvvəlki işindən "digoksin" barədə köhnə bir qeyd tapdılar.</span></td></tr>
+        <tr><td class="row-num">7</td><td class="en-col"><span class="bubble en">Police asked Amy Loughren, Cullen's close friend and co-worker, for help. She agreed.</span></td><td class="az-col"><span class="bubble az">Polis Kallenin yaxın dostu və həmkarı Ami Louqrendən kömək istədi. O razılaşdı.</span></td></tr>
+        <tr><td class="row-num">8</td><td class="en-col"><span class="bubble en">Amy wore a hidden recorder and met with Cullen to confront him about the deaths, ultimately capturing his confession.</span></td><td class="az-col"><span class="bubble az">Ami gizli səsyazan taxıb Kallenlə görüşdü və onunla ölümlər barədə danışdı. Bu söhbət zamanı Kallen öz təqsirini etiraf etdi.</span></td></tr>
+        <tr><td class="row-num">9</td><td class="en-col"><span class="bubble en">Cullen was arrested on December 12, 2003. To avoid the death penalty, he agreed to cooperate with investigators.</span></td><td class="az-col"><span class="bubble az">Kallen 12 dekabr 2003-cü ildə həbs edildi. Ölüm cəzasından qaçmaq üçün o, istintaqçılarla əməkdaşlıq etməyə razılaşdı.</span></td></tr>
+        <tr><td class="row-num">10</td><td class="en-col"><span class="bubble en">He eventually told detectives that he had murdered as many as 40 patients over his 16-year career.</span></td><td class="az-col"><span class="bubble az">Sonda o, 16 illik karyerası ərzində 40-a qədər xəstəni öldürdüyünü etiraf etdi.</span></td></tr>
+        <tr><td class="row-num">11</td><td class="en-col"><span class="bubble en">Cullen was ultimately convicted of killing 22 victims in New Jersey, plus more in Pennsylvania.</span></td><td class="az-col"><span class="bubble az">Nəticədə Kallen Nyu-Cersidə 22 nəfəri öldürməkdə təqsirli bilindi, Pensilvaniyada isə daha bir neçə qətldə.</span></td></tr>
+        <tr><td class="row-num">12</td><td class="en-col"><span class="bubble en">In 2006, he was sentenced to multiple consecutive life terms in prison, with no chance of parole.</span></td><td class="az-col"><span class="bubble az">2006-cı ildə o, şərti azadlıq imkanı olmadan bir neçə ömürlük həbs cəzasına məhkum edildi.</span></td></tr>
+        <tr><td class="row-num">13</td><td class="en-col"><span class="bubble en">His story became famous. In 2022, Netflix released the movie "The Good Nurse," based on Charles Graeber's book.</span></td><td class="az-col"><span class="bubble az">Onun hekayəsi məşhurlaşdı. 2022-ci ildə Netflix, Çarlz Qreyberin kitabı əsasında "The Good Nurse" (Yaxşı Tibb Bacısı) filmini yayımladı.</span></td></tr>
+        <tr><td class="row-num">14</td><td class="en-col"><span class="bubble en">Eddie Redmayne played Cullen, and Jessica Chastain played Amy Loughren — the nurse whose courage finally stopped him.</span></td><td class="az-col"><span class="bubble az">Eddi Redmeyn Kallenin rolunu, Cessika Çastin isə onu dayandırmağa cəsarəti çatan Ami Louqrenin rolunu canlandırdı.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+function checkQuiz(){
+  const questions = document.querySelectorAll('.quiz-q');
+  let correct = 0;
+  questions.forEach(q => {
+    const answer = q.getAttribute('data-answer');
+    if(q.classList.contains('fillblank')){
+      const input = q.querySelector('input[type="text"]');
+      const hint = q.querySelector('.answer-hint');
+      const val = (input.value || '').trim().toLowerCase();
+      if(val === answer){
+        input.style.borderColor = '#1b7365';
+        hint.style.display = 'none';
+        correct++;
+      } else {
+        input.style.borderColor = '#e05326';
+        hint.style.display = 'block';
+      }
+    } else {
+      const opts = q.querySelectorAll('.opt');
+      const checked = q.querySelector('input:checked');
+      opts.forEach(o => {
+        o.classList.remove('correct','wrong');
+        const val = o.querySelector('input').value;
+        if(val === answer) o.classList.add('correct');
+      });
+      if(checked && checked.value === answer){
+        correct++;
+      } else if(checked){
+        checked.closest('.opt').classList.add('wrong');
+      }
+    }
+  });
+  const box = document.getElementById('scoreBox');
+  box.style.display = 'block';
+  box.textContent = 'Nəticə: ' + correct + ' / 10 doğru cavab 🎉';
+  box.scrollIntoView({behavior:'smooth', block:'center'});
+}
+</script>
+
+</body>
+</html>
