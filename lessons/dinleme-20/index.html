@@ -1,0 +1,273 @@
+
+
+<!doctype html>
+<html lang="az">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H5JRTCHBYD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+
+  gtag("config", "G-H5JRTCHBYD");
+</script>
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Dinləmə Dərsləri — Dərs 20</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --background-beige: #f9f5eb;
+  --panel-bg: #ffffff;
+  --ink: #2b211a;
+  --teal: #1b7365;
+  --teal-dark: #114d43;
+  --coral: #e05326;
+  --mustard: #e6a119;
+  --border-color: #d1c0a5;
+}
+*{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+body{
+  margin:0; min-height:100vh;
+  background: var(--background-beige);
+  font-family:'Nunito', sans-serif; color:var(--ink); padding: 16px 12px 60px;
+}
+.wrap{ max-width:900px; margin:0 auto; }
+h1,h2,h3{ font-family:'Baloo 2', sans-serif; margin:0; }
+
+.top-title{ font-size:clamp(26px,5vw,36px); font-weight:800; text-align:center; margin-bottom:6px; color: var(--teal-dark); }
+.top-sub{ text-align:center; color:#6b5b4e; font-weight:600; font-size:15px; line-height:1.5; max-width:580px; margin:0 auto 28px; }
+
+.card{
+  background:var(--panel-bg); border-radius:16px; padding:22px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.06); border: 1px solid rgba(209,192,165,0.4);
+  margin-bottom:22px;
+}
+.card-label{
+  font-size: 12px; color: var(--teal); font-weight: 800; text-transform: uppercase;
+  letter-spacing:.05em; margin-bottom: 10px; display: block;
+}
+
+audio{ width:100%; height:44px; border-radius:10px; }
+
+.parallel-table{ width:100%; border-collapse:collapse; }
+.parallel-table th{
+  text-align:left; font-family:'Baloo 2',sans-serif; font-size:15px; color:var(--ink);
+  padding:10px 12px;
+}
+.parallel-table td{
+  padding:10px 12px; vertical-align:top;
+}
+.row-num{ color:#b3a58e; font-weight:800; font-family:'Baloo 2',sans-serif; width:28px; padding-top:16px; }
+.en-col{ width:50%; }
+.az-col{ width:50%; }
+
+.bubble{
+  display:inline-block; padding:10px 18px; border-radius:999px; font-size:14px;
+  line-height:1.45; font-weight:600;
+}
+.bubble.en{ background:#fdece4; color:var(--coral); }
+.bubble.az{ background:#e3f0ec; color:var(--teal-dark); }
+
+@media (max-width:640px){
+  .parallel-table thead{ display:none; }
+  .parallel-table, .parallel-table tbody, .parallel-table tr, .parallel-table td{ display:block; width:100%; }
+  .parallel-table tr{ padding:10px 0; }
+  .parallel-table td{ padding:5px 0; }
+  .row-num{ display:none; }
+  .bubble{ display:block; border-radius:20px; }
+}
+
+.quiz-q{ margin-bottom:22px; }
+.quiz-q:last-child{ margin-bottom:0; }
+.quiz-q p.qtext{ font-weight:800; font-family:'Baloo 2',sans-serif; font-size:16px; margin:0 0 10px; color:var(--ink); }
+.opt{
+  display:block; padding:10px 14px; margin:6px 0; border-radius:10px; border:2px solid var(--border-color);
+  cursor:pointer; font-size:14.5px; font-weight:600; transition:.15s;
+}
+.opt:hover{ border-color:var(--teal); }
+.opt input{ margin-right:8px; }
+.opt.correct{ border-color:var(--teal); background:#e8f4f0; color:var(--teal-dark); }
+.opt.wrong{ border-color:var(--coral); background:#fbe9e3; color:#8a2f14; }
+
+.answer-hint{
+  display:none; margin-top:8px; font-size:13.5px; font-weight:700; color:var(--coral);
+}
+
+.check-btn{
+  display:block; margin:26px auto 0; padding:13px 34px; background:var(--teal); color:#fff; border:none;
+  border-radius:12px; font-family:'Baloo 2',sans-serif; font-weight:800; font-size:16px; cursor:pointer;
+}
+.check-btn:hover{ background:var(--teal-dark); }
+
+.score-box{
+  display:none; text-align:center; margin-top:20px; padding:16px; border-radius:12px;
+  background:#fff7e6; border:2px dashed var(--mustard); font-family:'Baloo 2',sans-serif; font-weight:800; font-size:18px; color:#8a5a00;
+}
+
+.backlink{ display:inline-block; margin-bottom:14px; color:var(--teal-dark); font-weight:700; text-decoration:none; font-size:14px; }
+.backlink:hover{ text-decoration:underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="backlink" href="../../index.html">← Ana Səhifə</a>
+
+  <h1 class="top-title">Dinləmə Dərsi — Dərs 20</h1>
+  <p class="top-sub">Yer üzündə tək qalan insanın hekayəsini dinlə, biliyini yoxla və sonda mətnin hər iki dildə paralel tərcüməsinə bax.</p>
+
+  <div class="card">
+    <span class="card-label">🎧 Dinlə</span>
+    <audio controls preload="metadata">
+      <source src="lastpersonalive.mp3" type="audio/mpeg">
+      Brauzeriniz audio elementini dəstəkləmir.
+    </audio>
+  </div>
+
+  <div class="card">
+    <span class="card-label">✅ Bilik Yoxlaması</span>
+    <form id="quizForm">
+
+      <div class="quiz-q" data-answer="a">
+        <p class="qtext">1. What did Sarah do first when she woke up?</p>
+        <label class="opt"><input type="radio" name="q1" value="a"> She called her family</label>
+        <label class="opt"><input type="radio" name="q1" value="b"> She went outside immediately</label>
+        <label class="opt"><input type="radio" name="q1" value="c"> She drove a car</label>
+      </div>
+
+      <div class="quiz-q" data-answer="b">
+        <p class="qtext">2. What did Sarah find on the streets?</p>
+        <label class="opt"><input type="radio" name="q2" value="a"> Many people</label>
+        <label class="opt"><input type="radio" name="q2" value="b"> No cars, no people, no voices</label>
+        <label class="opt"><input type="radio" name="q2" value="c"> A big traffic jam</label>
+      </div>
+
+      <div class="quiz-q" data-answer="c">
+        <p class="qtext">3. How did Sarah feel at first?</p>
+        <label class="opt"><input type="radio" name="q3" value="a"> Bored</label>
+        <label class="opt"><input type="radio" name="q3" value="b"> Angry</label>
+        <label class="opt"><input type="radio" name="q3" value="c"> Free</label>
+      </div>
+
+      <div class="quiz-q" data-answer="a">
+        <p class="qtext">4. After a few days, how did the freedom start to feel?</p>
+        <label class="opt"><input type="radio" name="q4" value="a"> Like a prison</label>
+        <label class="opt"><input type="radio" name="q4" value="b"> Like a holiday</label>
+        <label class="opt"><input type="radio" name="q4" value="c"> Like a dream come true</label>
+      </div>
+
+      <div class="quiz-q" data-answer="b">
+        <p class="qtext">5. What did Sarah want to do after seeing a beautiful sunset?</p>
+        <label class="opt"><input type="radio" name="q5" value="a"> Take a photo for herself</label>
+        <label class="opt"><input type="radio" name="q5" value="b"> Tell someone about it</label>
+        <label class="opt"><input type="radio" name="q5" value="c"> Forget about it</label>
+      </div>
+
+      <div class="quiz-q" data-answer="c">
+        <p class="qtext">6. What became her biggest problem after a few weeks?</p>
+        <label class="opt"><input type="radio" name="q6" value="a"> Finding food</label>
+        <label class="opt"><input type="radio" name="q6" value="b"> Bad weather</label>
+        <label class="opt"><input type="radio" name="q6" value="c"> Loneliness</label>
+      </div>
+
+      <div class="quiz-q" data-answer="a">
+        <p class="qtext">7. What happened to the electricity and water systems?</p>
+        <label class="opt"><input type="radio" name="q7" value="a"> They stopped working</label>
+        <label class="opt"><input type="radio" name="q7" value="b"> They worked perfectly</label>
+        <label class="opt"><input type="radio" name="q7" value="c"> They became stronger</label>
+      </div>
+
+      <div class="quiz-q" data-answer="b">
+        <p class="qtext">8. What began to happen to the city over time?</p>
+        <label class="opt"><input type="radio" name="q8" value="a"> It stayed exactly the same</label>
+        <label class="opt"><input type="radio" name="q8" value="b"> Nature began to take it back</label>
+        <label class="opt"><input type="radio" name="q8" value="c"> It was rebuilt by robots</label>
+      </div>
+
+      <div class="quiz-q" data-answer="c">
+        <p class="qtext">9. What was the hardest part for Sarah, according to the story?</p>
+        <label class="opt"><input type="radio" name="q9" value="a"> Finding clean water</label>
+        <label class="opt"><input type="radio" name="q9" value="b"> Growing food</label>
+        <label class="opt"><input type="radio" name="q9" value="c"> Finding meaning without anyone to share her life with</label>
+      </div>
+
+      <div class="quiz-q" data-answer="a">
+        <p class="qtext">10. What is the greatest thing humans ever built, according to the story's ending?</p>
+        <label class="opt"><input type="radio" name="q10" value="a"> Each other</label>
+        <label class="opt"><input type="radio" name="q10" value="b"> Technology</label>
+        <label class="opt"><input type="radio" name="q10" value="c"> Cities</label>
+      </div>
+
+      <button type="button" class="check-btn" onclick="checkQuiz()">Nəticələri Yoxla</button>
+      <div class="score-box" id="scoreBox"></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <span class="card-label">📖 Mətn</span>
+    <table class="parallel-table">
+      <thead>
+        <tr><th style="width:28px">#</th><th class="en-col">English</th><th class="az-col">Azerbaijani</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="row-num">1</td><td class="en-col"><span class="bubble en">Sarah opened her eyes one morning. She called her family.</span></td><td class="az-col"><span class="bubble az">Sarah bir səhər gözlərini açdı. O, ailəsinə zəng etdi.</span></td></tr>
+        <tr><td class="row-num">2</td><td class="en-col"><span class="bubble en">Nobody answered. She checked the news.</span></td><td class="az-col"><span class="bubble az">Heç kim cavab vermədi. Xəbərləri yoxladı.</span></td></tr>
+        <tr><td class="row-num">3</td><td class="en-col"><span class="bubble en">There was nothing. She went outside, and the streets were empty.</span></td><td class="az-col"><span class="bubble az">Heç nə yox idi. O, bayıra çıxdı və küçələr boş idi.</span></td></tr>
+        <tr><td class="row-num">4</td><td class="en-col"><span class="bubble en">No cars, no people, no voices.</span></td><td class="az-col"><span class="bubble az">Nə maşın, nə insan, nə də səs.</span></td></tr>
+        <tr><td class="row-num">5</td><td class="en-col"><span class="bubble en">Slowly, she understood something terrifying: she might be the last human alive.</span></td><td class="az-col"><span class="bubble az">Yavaş-yavaş o, dəhşətli bir şey anladı: bəlkə də o, sağ qalan son insan idi.</span></td></tr>
+        <tr><td class="row-num">6</td><td class="en-col"><span class="bubble en">At first, Sarah felt free. She walked into any shop she wanted.</span></td><td class="az-col"><span class="bubble az">Əvvəlcə Sarah özünü azad hiss etdi. O, istədiyi hər mağazaya girdi.</span></td></tr>
+        <tr><td class="row-num">7</td><td class="en-col"><span class="bubble en">She drove any car on the street. She chose the biggest house in the city to live in.</span></td><td class="az-col"><span class="bubble az">Küçədəki istənilən maşını sürdü. Şəhərdəki ən böyük evi yaşamaq üçün seçdi.</span></td></tr>
+        <tr><td class="row-num">8</td><td class="en-col"><span class="bubble en">There was no traffic, no work, no rules. For a few days, it felt like a dream.</span></td><td class="az-col"><span class="bubble az">Nə tıxac, nə iş, nə də qayda var idi. Bir neçə gün bu, yuxu kimi görünürdü.</span></td></tr>
+        <tr><td class="row-num">9</td><td class="en-col"><span class="bubble en">But after a few days, the freedom started to feel like a prison.</span></td><td class="az-col"><span class="bubble az">Amma bir neçə gündən sonra bu azadlıq həbsxana kimi hiss olunmağa başladı.</span></td></tr>
+        <tr><td class="row-num">10</td><td class="en-col"><span class="bubble en">Humans need other people — not just for food and shelter, but for conversation and connection.</span></td><td class="az-col"><span class="bubble az">İnsanlara başqa insanlar lazımdır — təkcə yemək və sığınacaq üçün deyil, söhbət və əlaqə üçün də.</span></td></tr>
+        <tr><td class="row-num">11</td><td class="en-col"><span class="bubble en">One evening, Sarah saw a beautiful sunset. She wanted to tell someone about it.</span></td><td class="az-col"><span class="bubble az">Bir axşam Sarah gözəl bir gün batımı gördü. O, bunu kiməsə danışmaq istədi.</span></td></tr>
+        <tr><td class="row-num">12</td><td class="en-col"><span class="bubble en">But there was nobody there.</span></td><td class="az-col"><span class="bubble az">Amma orada heç kim yox idi.</span></td></tr>
+        <tr><td class="row-num">13</td><td class="en-col"><span class="bubble en">Weeks passed, and loneliness became her biggest problem.</span></td><td class="az-col"><span class="bubble az">Həftələr keçdi və tənhalıq onun ən böyük problemi oldu.</span></td></tr>
+        <tr><td class="row-num">14</td><td class="en-col"><span class="bubble en">She also had new problems: the electricity stopped working.</span></td><td class="az-col"><span class="bubble az">Yeni problemlər də yaranmışdı: elektrik işləməyi dayandırdı.</span></td></tr>
+        <tr><td class="row-num">15</td><td class="en-col"><span class="bubble en">The water systems broke down. Food in the supermarkets began to spoil.</span></td><td class="az-col"><span class="bubble az">Su sistemləri xarab oldu. Supermarketlərdəki yemək xarab olmağa başladı.</span></td></tr>
+        <tr><td class="row-num">16</td><td class="en-col"><span class="bubble en">She had to learn to grow her own food and find clean water to survive.</span></td><td class="az-col"><span class="bubble az">Sağ qalmaq üçün öz yeməyini yetişdirməyi və təmiz su tapmağı öyrənməli oldu.</span></td></tr>
+        <tr><td class="row-num">17</td><td class="en-col"><span class="bubble en">Slowly, nature began to take the city back.</span></td><td class="az-col"><span class="bubble az">Yavaş-yavaş təbiət şəhəri geri almağa başladı.</span></td></tr>
+        <tr><td class="row-num">18</td><td class="en-col"><span class="bubble en">Plants grew through cracks in the roads. Animals walked freely through the streets.</span></td><td class="az-col"><span class="bubble az">Yollardakı çatlardan bitkilər bitdi. Heyvanlar küçələrdə sərbəst gəzdi.</span></td></tr>
+        <tr><td class="row-num">19</td><td class="en-col"><span class="bubble en">Buildings started to decay. But the hardest part wasn't survival — it was finding meaning.</span></td><td class="az-col"><span class="bubble az">Binalar dağılmağa başladı. Amma ən çətin şey sağ qalmaq deyildi — məna tapmaq idi.</span></td></tr>
+        <tr><td class="row-num">20</td><td class="en-col"><span class="bubble en">Sarah asked herself: what am I surviving for, if there is no one to share my life with?</span></td><td class="az-col"><span class="bubble az">Sarah özündən soruşdu: əgər həyatımı bölüşəcək kimsə yoxdursa, mən nə üçün sağ qalıram?</span></td></tr>
+        <tr><td class="row-num">21</td><td class="en-col"><span class="bubble en">In the end, Sarah understood a simple truth: maybe the greatest thing humans ever built wasn't cities or technology — maybe it was simply each other.</span></td><td class="az-col"><span class="bubble az">Sonda Sarah sadə bir həqiqəti anladı: bəlkə də insanların yaratdığı ən böyük şey şəhərlər və ya texnologiya deyildi — bəlkə də sadəcə bir-birləri idi.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+function checkQuiz(){
+  const questions = document.querySelectorAll('.quiz-q');
+  let correct = 0;
+  questions.forEach(q => {
+    const answer = q.getAttribute('data-answer');
+    const opts = q.querySelectorAll('.opt');
+    const checked = q.querySelector('input:checked');
+    opts.forEach(o => {
+      o.classList.remove('correct','wrong');
+      const val = o.querySelector('input').value;
+      if(val === answer) o.classList.add('correct');
+    });
+    if(checked && checked.value === answer){
+      correct++;
+    } else if(checked){
+      checked.closest('.opt').classList.add('wrong');
+    }
+  });
+  const box = document.getElementById('scoreBox');
+  box.style.display = 'block';
+  box.textContent = 'Nəticə: ' + correct + ' / 10 doğru cavab 🎉';
+  box.scrollIntoView({behavior:'smooth', block:'center'});
+}
+</script>
+
+</body>
+</html>
