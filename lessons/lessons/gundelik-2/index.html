@@ -1,0 +1,835 @@
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H5JRTCHBYD"></script>
+<script src="/kanan.academy/analytics.js"></script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Dərs 2 - İnsan Xarakterini Necə Təsvir Etməli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --background-beige: #f9f5eb;
+  --panel-bg: #ffffff;
+  --ink: #2b211a;
+  --teal: #1b7365;
+  --teal-dark: #114d43;
+  --coral: #e05326;
+  --mustard: #e6a119;
+  --border-color: #d1c0a5;
+}
+*{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+body{
+  margin:0; min-height:100vh;
+  background: var(--background-beige);
+  font-family:'Nunito', sans-serif; color:var(--ink); padding: 16px 12px 60px;
+}
+.wrap{ max-width:1100px; margin:0 auto; }
+h1,h2,h3{ font-family:'Baloo 2', sans-serif; margin:0; }
+.eyebrow{ text-align:center; font-size:12px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--teal); margin-bottom:4px; }
+.top-title{ font-size:clamp(26px,5vw,36px); font-weight:800; text-align:center; margin-bottom:4px; color: var(--teal-dark); }
+.top-sub{ text-align:center; color:#6b5b4e; font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:1px; margin-bottom:20px; }
+
+/* Stepper */
+.stepper{ display:flex; justify-content:center; align-items:center; margin-bottom:24px; width:100%; overflow-x:auto; padding: 4px 0; }
+.step-node{ display:flex; flex-direction:column; align-items:center; gap:4px; min-width: 65px; }
+.step-circle{
+  width:36px; height:36px; border-radius:50%; background:#fff; border:2px solid var(--border-color);
+  display:flex; align-items:center; justify-content:center; font-family:'Baloo 2',sans-serif; font-weight:800;
+  color:var(--border-color); transition:all .3s; font-size:15px;
+}
+.step-label{ font-size:11px; font-weight:700; color:var(--border-color); text-transform:uppercase; text-align:center; white-space: nowrap; }
+.step-node.active .step-circle{ background:var(--teal); border-color:var(--teal); color:#fff; }
+.step-node.active .step-label{ color:var(--teal-dark); }
+.step-node.done .step-circle{ background:var(--mustard); border-color:var(--mustard); color:#fff; }
+.step-node.done .step-label{ color:var(--mustard); }
+.step-line{ width:clamp(15px, 4vw, 45px); height:3px; background:var(--border-color); margin:0 2px 16px; border-radius:2px; flex-shrink: 0; }
+.step-node.done + .step-line, .step-node.active + .step-line{ background:var(--mustard); }
+
+.panel{ display:none; }.panel.active{ display:block; animation:fadein .3s ease-out; }
+@keyframes fadein{ from{ opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
+.card{ background:var(--panel-bg); border-radius:16px; padding:18px; box-shadow:0 10px 25px rgba(0,0,0,0.06); border: 1px solid rgba(209,192,165,0.4); }
+.heading-lang { font-size: 14px; color: var(--teal); font-weight: 700; text-transform: uppercase; margin-bottom: 2px; display: block; }
+.panel-title { font-size: 22px; font-weight: 800; line-height: 1.2; color: var(--ink); }
+.panel-explanation { color: #5c4d41; margin: 6px 0 16px 0; font-size: 14px; font-weight: 600; line-height: 1.4; }
+
+/* Step 1: Learn */
+.learn-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:16px; margin-top:16px; }
+.flip-card-container { perspective: 1000px; height: 260px; }
+.flip-card-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+.flip-card-container.flipped .flip-card-inner { transform: rotateY(180deg); }
+.word-card-front, .word-card-back { position: absolute; inset: 0; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius:14px; padding:16px; border:2.5px solid var(--border-color); background:#fff; display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center; }
+.word-card-back { transform: rotateY(180deg); background: #fdfaf3; border-color: var(--mustard); }
+.audio-badge-ui { width: 56px; height: 56px; background: #eef7f5; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--teal); }
+.w-word{ font-family:'Baloo 2',sans-serif; font-weight:800; font-size:21px; color: var(--ink); margin-top: 4px; }
+.w-sentence{ font-size:12.5px; color:#4a3e35; line-height:1.4; font-weight: 600; }
+.card-actions-row { width: 100%; display: flex; justify-content: center; gap: 10px; margin-top: 6px; }
+.speak-btn, .translate-card-btn { border:0; background:var(--teal); color:#fff; height:34px; padding: 0 12px; border-radius: 999px; cursor:pointer; font-size:13px; font-weight: 700; display:flex; align-items:center; justify-content:center; gap: 4px;}
+.translate-card-btn { background: var(--mustard); }
+
+/* Step 2: Matching */
+.match-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; width: 100%; }
+.round-pill{ background:var(--ink); color:#fff; font-family:'Baloo 2',sans-serif; font-weight:800; padding:4px 12px; border-radius:999px; font-size:13px; }
+.match-cols{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; width: 100%; }
+.match-list{ display:grid; gap:10px; align-content: start; }
+.match-tile{ background:#fff; border:2px solid var(--border-color); border-radius:12px; padding:8px; cursor:pointer; display:flex; align-items:center; justify-content: center; font-weight:700; min-height:65px; transition:all .15s; text-align: center; font-size: 14px; word-break: break-word;}
+.match-tile.selected{ border-color:var(--teal); background:#e6f4f1; box-shadow: 0 0 0 2px var(--teal); }
+.match-tile.matched{ opacity:.25; pointer-events:none; border-color:transparent; background: #f0f0f0; }
+.match-tile.wrong{ animation:shake .3s; border-color:var(--coral); background:#fdebe6; }
+@keyframes shake{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-4px);} 75%{transform:translateX(4px);} }
+
+/* Step 3: Drag & Drop Story (simplified, side-by-side translation) */
+.word-bank { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 16px 0; min-height: 80px; padding: 14px; background: #f3ece1; border-radius: 12px; border: 2px dashed var(--border-color); max-height: 220px; overflow-y: auto; }
+.draggable-word { background-color: var(--teal); color: white; padding: 4px 10px; border-radius: 16px; cursor: pointer; user-select: none; font-weight: 700; font-size: 11.5px; box-shadow: 0 3px 6px rgba(0,0,0,0.1); transition: all 0.2s; }
+.draggable-word.selected { background-color: var(--mustard); transform: scale(1.05); }
+.story-table{ display:grid; grid-template-columns: 1fr 1fr; gap:8px 14px; align-items:stretch; }
+@media(max-width:800px){ .story-table{ grid-template-columns: 1fr; } }
+.story-cell{ background:#fdfbf7; border:1.5px solid var(--border-color); border-radius:10px; padding:12px 14px; font-size:14px; font-weight:600; line-height:1.7; color:#3d3128; }
+.story-cell p{ margin:0; }
+.story-cell.az{ background-color:#fcf6e8; border-color:var(--mustard); color:#524337; font-size:13px; font-weight:400; }
+.story-cell.head{ background:transparent; border:none; padding:0 2px; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:13px; text-transform:uppercase; letter-spacing:.5px; }
+.story-cell.head.en{ color:var(--teal); text-transform:none; }
+.story-cell.head.az{ color:var(--mustard); }
+.drop-zone { display: inline-block; min-width: 100px; height: 26px; border-bottom: 2px solid var(--ink); margin: 0 2px; vertical-align: middle; text-align: center; background-color: rgba(209,192,165,0.15); border-radius: 4px; transition: all 0.2s; }
+.drop-zone.hover { background-color: #e6f4f1; border-bottom-color: var(--teal); }
+.drop-zone .draggable-word { margin: -9px 0 0 0; display: block; text-align: center; }
+.drop-zone.correct { border-bottom-color: var(--teal); background-color: #e4f2ee; box-shadow: 0 0 0 2px var(--teal); border-radius: 6px; }
+.drop-zone.incorrect { border-bottom-color: var(--coral); background-color: #f8c9bd; box-shadow: 0 0 0 3px var(--coral); border-radius: 6px; }
+.story-actions { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+
+/* Step 4: Listen & Write */
+.writing-container { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; margin-bottom: 16px; }
+.writing-row { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; background: #fdfbf7; padding: 10px; border-radius: 12px; border: 1.5px solid var(--border-color); }
+.listen-ui-btn { background: var(--teal); color: #fff; border: 0; border-radius: 8px; padding: 8px 14px; font-family: 'Baloo 2', sans-serif; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+.spelling-input { width: 100%; padding: 10px; border: 2px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 14px; font-weight: 700; outline: none; }
+.spelling-input.correct { border-color: var(--teal); background: #e4f2ee; color: var(--teal-dark); }
+.spelling-input.wrong { border-color: var(--coral); background: #fdebe6; color: var(--coral); }
+.score-display-text { font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 16px; color: var(--teal-dark); margin-left: auto; display: block; margin-top: 10px; }
+
+/* Step 5: Desert crossing - thirsty traveler */
+main.desert-main{ display:grid; grid-template-columns:1.1fr 1fr; gap:16px; align-items:start; }
+@media(max-width:800px){ main.desert-main{ grid-template-columns:1fr; } }
+.desert-scene{ position:relative; width:100%; aspect-ratio: 4/3; border-radius:16px; overflow:hidden; background: linear-gradient(to bottom, #bfe3f0 0%, #ddeef2 20%, #f6e3ae 38%, #f0d692 100%); }
+.desert-sun{ position:absolute; top:10px; left:14px; font-size:26px; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1)); z-index:1; }
+.dune-layer{ position:absolute; left:-15%; right:-15%; border-radius:50%; z-index:1; }
+.dune-layer.d1{ top:26%; height:20%; background:#e3bd75; opacity:.55; }
+.dune-layer.d2{ left:-25%; right:-8%; top:33%; height:20%; background:#dcae5e; opacity:.65; }
+.dune-layer.d3{ left:-8%; right:-25%; top:40%; height:22%; background:#d3a04d; opacity:.8; }
+.desert-foreground{ position:absolute; left:0; right:0; bottom:0; height:44%; background: linear-gradient(to bottom, #f0d692, #d9a955); z-index:1; }
+.desert-pond{ position:absolute; right:6%; bottom:8%; width:36%; height:24%; background: radial-gradient(circle at 38% 35%, #a6e4f1 0%, #4fa3c7 55%, #2c7ea3 100%); border-radius: 58% 42% 62% 38% / 62% 58% 42% 38%; box-shadow: 0 6px 14px rgba(0,0,0,0.2); z-index:2; }
+.desert-pond::after{ content:''; position:absolute; left:18%; top:14%; width:34%; height:22%; background: rgba(255,255,255,0.35); border-radius:50%; filter: blur(1px); }
+.desert-palm{ position:absolute; font-size:26px; z-index:3; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.15)); }
+.desert-palm.p1{ right:0%; bottom:36%; font-size:24px; }
+.desert-palm.p2{ right:12%; bottom:40%; font-size:18px; transform: scaleX(-1); }
+.desert-palm.p3{ right:24%; bottom:36%; font-size:22px; }
+.desert-palm.p4{ right:38%; bottom:40%; font-size:16px; transform: scaleX(-1); }
+.desert-palm.p5{ right:46%; bottom:28%; font-size:20px; }
+.desert-palm.p6{ right:44%; bottom:12%; font-size:18px; transform: scaleX(-1); }
+.desert-palm.p7{ right:0%; bottom:18%; font-size:26px; }
+.desert-palm.p8{ right:2%; bottom:4%; font-size:16px; transform: scaleX(-1); }
+.desert-done-badge{ position:absolute; top:10px; right:10px; font-size:36px; opacity:0; transform: scale(.5); transition: all .5s ease; z-index:5; }
+.desert-done-badge.show{ opacity:1; transform: scale(1); }
+.desert-figure-wrap{ position:absolute; width:40px; height:52px; transition: left .8s ease, top .8s ease; z-index:4; }
+.desert-figure-wrap svg{ position:relative; z-index:1; width:100%; height:100%; display:block; }
+.figure-splash{ position:absolute; left:-20%; right:-20%; bottom:-8%; height:52%; background: radial-gradient(circle at 40% 30%, #a6e4f1, #2c7ea3 85%); border-radius:50%; opacity:.88; z-index:2; box-shadow: inset 0 2px 4px rgba(255,255,255,0.35); }
+.desert-figure-wrap svg{ width:100%; height:100%; overflow:visible; }
+.desert-figure-wrap.bob{ animation: figureBob 1.6s ease-in-out infinite; }
+@keyframes figureBob{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-3px);} }
+.desert-figure-wrap.step{ animation: figureStep .4s ease; }
+@keyframes figureStep{ 0%{ transform:translateY(0) rotate(0);} 40%{ transform:translateY(-8px) rotate(-6deg);} 100%{ transform:translateY(0) rotate(0);} }
+.desert-figure-wrap.stumble{ animation: figureStumble .4s ease; }
+@keyframes figureStumble{ 0%,100%{ transform:translateX(0) rotate(0);} 25%{ transform:translateX(-5px) rotate(-8deg);} 75%{ transform:translateX(5px) rotate(8deg);} }
+.desert-progresswrap{ display:flex; align-items:center; gap:8px; margin-top:10px; }
+.desert-progressbar{ flex:1; height:10px; border-radius:999px; background:#eadfca; overflow:hidden; border:1.5px solid var(--border-color); }
+.desert-progressfill{ height:100%; background: linear-gradient(90deg, var(--mustard), var(--teal)); width:0%; transition: width .5s; }
+.desert-stats{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:13px; color:var(--teal-dark); white-space:nowrap; }
+.rword{ font-family:'Baloo 2', sans-serif; font-size:26px; font-weight:800; margin-bottom:4px; color: var(--teal-dark); }
+.flip-note { font-size:12px; color:#6b5b4e; margin-bottom:12px; font-weight: 600; }
+.options{ display:grid; gap:8px; }
+.opt-row{ display:flex; gap:6px; align-items:stretch; }
+.opt-select{ flex:1; position:relative; min-height:54px; perspective:700px; cursor:pointer; background:none; border:0; padding:0; font-family:'Nunito', sans-serif; }
+.flip-inner{ position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .4s; }
+.opt-row.flipped .flip-inner{ transform:rotateY(180deg); }
+.face{ position:absolute; inset:0; display:flex; align-items:center; padding:10px 12px; border-radius:10px; border:2px solid var(--border-color); background:#fff; font-size:13px; font-weight:700; text-align:left; color:var(--ink); backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+.face.az{ transform:rotateY(180deg); background:#fdf7ec; border-color: var(--mustard); }
+.opt-row.correct .face{ background:#e4f2ee; border-color:var(--teal); color: var(--teal-dark); }
+.opt-row.wrong .face{ background:#fdebe6; border-color:var(--coral); }
+.flip-toggle{ flex:0 0 40px; border-radius:10px; border:2px solid var(--border-color); background:#fff; cursor:pointer; font-size:15px; color:var(--teal); display: flex; align-items: center; justify-content: center; }
+.flip-toggle.active{ background:var(--mustard); border-color:var(--mustard); color:#fff; transform:rotate(180deg); }
+.hint{ margin-top:10px; font-size:13px; font-style:italic; color:#6b5b4e; min-height:18px; line-height:1.4; font-weight: 600; }
+.feedback{ margin-top:8px; font-weight:700; font-size:13.5px; min-height:20px; }
+.feedback.good{ color:var(--teal); }.feedback.bad{ color:var(--coral); }
+.finished-note{ margin-top:10px; font-weight:800; font-family:'Baloo 2',sans-serif; color:var(--teal-dark); font-size:15px; display:none; }
+.finished-note.show{ display:block; }
+
+/* Buttons */
+button.primary{ padding:12px 20px; border:0; border-radius:12px; background:var(--teal); color:#fff; font-family:'Baloo 2',sans-serif; font-weight:800; font-size:15px; cursor:pointer; box-shadow: 0 4px 6px rgba(27,115,101,0.15);}
+button.primary:hover:not(:disabled){ background:var(--teal-dark); }
+button.primary:disabled{ opacity:.4; cursor:not-allowed; box-shadow: none; }
+button.secondary{ padding:11px 16px; border:2px solid var(--border-color); border-radius:12px; background:#fff; color:var(--ink); font-family:'Baloo 2',sans-serif; font-weight:800; font-size:14px; cursor:pointer;}
+button.skip{ padding:11px 16px; border:2px dashed var(--border-color); border-radius:12px; background:transparent; color:#8a7a68; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:13px; cursor:pointer; }
+button.skip:hover{ border-color:var(--coral); color:var(--coral); }
+.step-actions{ margin-top:20px; display:flex; justify-content:flex-end; gap:8px; width: 100%; flex-wrap:wrap; }
+.step-actions .spacer{ flex:1; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="/kanan.academy/index.html" style="display: inline-block; margin-bottom: 16px; padding: 8px 18px; background-color: #1b6fa8; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-family: 'Baloo 2', sans-serif; font-size: 14px;">Ana Səhifə</a>
+  <div class="eyebrow">Gündəlik İngiliscə</div>
+  <div class="top-title">Dərs 2</div>
+  <div class="top-sub">İnsan Xarakteri · Character — Öyrən · Birləşdir · Oxu · Yaz · Xilas et</div>
+
+  <div class="stepper" id="stepper"></div>
+
+  <!-- STEP 1: LEARN -->
+  <section class="panel" id="panel-1">
+    <div class="card">
+      <span class="heading-lang">Mərhələ 1 · Xarakter Sözlərini Öyrən</span>
+      <h2 class="panel-title">Step 1 · Learn the character words</h2>
+      <p class="panel-explanation">Sözü eşitmək üçün 🔊 toxun. Tərcümə üçün ⇄ düyməsini sıxın.</p>
+      <div class="learn-grid" id="learnGrid"></div>
+    </div>
+    <div class="step-actions">
+      <button class="skip" id="skip1">Bu mərhələni ötür ⏭</button>
+      <button class="primary" id="toStep2">Davam et / Continue →</button>
+    </div>
+  </section>
+
+  <!-- STEP 2: MATCH -->
+  <section class="panel" id="panel-2">
+    <div class="card">
+      <div class="match-header">
+        <div>
+          <span class="heading-lang">Mərhələ 2 · Sözü Birləşdir</span>
+          <h2 class="panel-title">Step 2 · Vocabulary Match</h2>
+        </div>
+        <div class="round-pill"><span id="roundNum">1</span> / 4</div>
+      </div>
+      <p class="panel-explanation">İngiliscə xarakter sözünə toxun, sonra onun düzgün azərbaycanca tərcüməsini seç.</p>
+      <div class="match-cols">
+        <div class="match-list" id="picCol"></div>
+        <div class="match-list" id="wordCol"></div>
+      </div>
+    </div>
+    <div class="step-actions">
+      <button class="secondary" id="backTo1">← Geri</button>
+      <span class="spacer"></span>
+      <button class="skip" id="skip2">Bu mərhələni ötür ⏭</button>
+      <button class="primary" id="toStep3" disabled>Davam et / Continue →</button>
+    </div>
+  </section>
+
+  <!-- STEP 3: DRAG & DROP STORY -->
+  <section class="panel" id="panel-3">
+    <div class="card">
+      <span class="heading-lang">Mərhələ 3 · Hekayə Tapmacası</span>
+      <h2 class="panel-title">Step 3 · Drag & Drop Story</h2>
+      <p class="panel-explanation">Sözləri boşluqlara sürüşdürün. Telefonda əvvəlcə sözə, sonra boşluğa toxunun. (20 boşluq — sağda tərcümə var.)</p>
+
+      <div class="word-bank" id="hekayeWordBank"></div>
+
+      <div class="story-table" id="storyBox">
+        <div class="story-cell head en">İNGİLİSCƏ</div>
+        <div class="story-cell head az">Azərbaycanca Tərcümə</div>
+
+        <div class="story-cell en"><p>Every person has a unique character. Let's meet some people and see what they are like.</p></div>
+        <div class="story-cell az"><p>Hər insanın özünəməxsus xarakteri var. Gəlin bəzi insanlarla tanış olaq və onların necə olduğuna baxaq.</p></div>
+
+        <div class="story-cell en"><p>Anna is very <span class="drop-zone" data-word="kind"></span> to everyone she meets. She is also <span class="drop-zone" data-word="polite"></span> when she talks to strangers.</p></div>
+        <div class="story-cell az"><p>Anna görüşdüyü hər kəsə qarşı çox mehribandır. O, yad adamlarla danışarkən də nəzakətlidir.</p></div>
+
+        <div class="story-cell en"><p>Her brother Tom is more <span class="drop-zone" data-word="serious"></span>. He is <span class="drop-zone" data-word="quiet"></span> in class, but his teachers say he is very smart.</p></div>
+        <div class="story-cell az"><p>Onun qardaşı Tom daha ciddidir. O, sinifdə sakitdir, amma müəllimləri onun çox ağıllı olduğunu deyir.</p></div>
+
+        <div class="story-cell en"><p>Tom's best friend, Leyla, is <span class="drop-zone" data-word="brave"></span>. She is also <span class="drop-zone" data-word="honest"></span>, so everyone trusts what she says.</p></div>
+        <div class="story-cell az"><p>Tomun ən yaxşı dostu Leyla cəsarətlidir. O, həmçinin dürüstdür, ona görə hamı onun dediklərinə inanır.</p></div>
+
+        <div class="story-cell en"><p>Leyla feels <span class="drop-zone" data-word="confident"></span> when she gives a presentation. Her classmates know she is <span class="drop-zone" data-word="reliable"></span> and never lets them down.</p></div>
+        <div class="story-cell az"><p>Leyla təqdimat edərkən özünə güvənir. Sinif yoldaşları onun etibarlı olduğunu və heç vaxt onları məyus etmədiyini bilirlər.</p></div>
+
+        <div class="story-cell en"><p>Unlike her, Kamran is <span class="drop-zone" data-word="selfish"></span> and rarely shares his things. Still, his mother hopes he will become more <span class="drop-zone" data-word="generous"></span> one day.</p></div>
+        <div class="story-cell az"><p>Onun əksinə, Kamran eqoistdir və nadir hallarda əşyalarını bölüşür. Buna baxmayaraq, anası bir gün onun daha səxavətli olacağına ümid edir.</p></div>
+
+        <div class="story-cell en"><p>Kamran's sister Ayla is very <span class="drop-zone" data-word="determined"></span>. She is also <span class="drop-zone" data-word="outgoing"></span> and quickly makes new friends wherever she goes.</p></div>
+        <div class="story-cell az"><p>Kamranın bacısı Ayla çox qətiyyətlidir. O, həmçinin ünsiyyətcildir və getdiyi hər yerdə tez yeni dostlar qazanır.</p></div>
+
+        <div class="story-cell en"><p>At work, Ayla is <span class="drop-zone" data-word="responsible"></span> for a big project. Her manager also says she is <span class="drop-zone" data-word="creative"></span> and always finds new solutions.</p></div>
+        <div class="story-cell az"><p>İşdə Ayla böyük bir layihəyə görə məsuliyyətlidir. Meneceri həmçinin onun yaradıcı olduğunu və həmişə yeni həllər tapdığını deyir.</p></div>
+
+        <div class="story-cell en"><p>Ayla's colleague Farid is <span class="drop-zone" data-word="thoughtful"></span> and remembers everyone's birthday. He always stays <span class="drop-zone" data-word="calm"></span>, even when problems appear.</p></div>
+        <div class="story-cell az"><p>Aylanın həmkarı Farid düşüncəlidir və hamının doğum gününü xatırlayır. O, problemlər yarandıqda belə həmişə sakit qalır.</p></div>
+
+        <div class="story-cell en"><p>Farid is also <span class="drop-zone" data-word="open-minded"></span> about new ideas from his team. His friends describe him as <span class="drop-zone" data-word="self-disciplined"></span> because he never skips his morning exercise.</p></div>
+        <div class="story-cell az"><p>Farid həmçinin komandasının yeni ideyalarına qarşı açıq fikirlidir. Dostları onu özünüidarəedən adlandırır, çünki o, heç vaxt səhər idmanını buraxmır.</p></div>
+
+        <div class="story-cell en"><p>One more colleague, Sabina, is <span class="drop-zone" data-word="outspoken"></span> and always says what she thinks in meetings. Sometimes people think she is a little <span class="drop-zone" data-word="inconsiderate"></span>, but she means well.</p></div>
+        <div class="story-cell az"><p>Daha bir həmkarı Sabina açıqsözlüdür və iclaslarda həmişə düşündüyünü deyir. Bəzən insanlar onun bir az laqeyd olduğunu düşünür, amma o, yaxşı niyyətlə edir.</p></div>
+
+        <div class="story-cell en"><p>As you can see, every character is different, and that is what makes people interesting!</p></div>
+        <div class="story-cell az"><p>Gördüyünüz kimi, hər xarakter fərqlidir və insanları maraqlı edən də elə budur!</p></div>
+      </div>
+
+      <div class="story-actions">
+        <button class="primary" id="checkStoryBtn">Yoxla / Check Answers</button>
+        <button class="secondary" id="resetStoryBtn">Yenidən Başla / Reset</button>
+      </div>
+    </div>
+    <div class="step-actions">
+      <button class="secondary" id="backTo2_from3">← Geri</button>
+      <span class="spacer"></span>
+      <button class="skip" id="skip3">Bu mərhələni ötür ⏭</button>
+      <button class="primary" id="toStep4" disabled>Davam et / Continue →</button>
+    </div>
+  </section>
+
+  <!-- STEP 4: LISTEN & WRITE -->
+  <section class="panel" id="panel-4">
+    <div class="card">
+      <span class="heading-lang">Mərhələ 4 · Dinlə və Yaz</span>
+      <h2 class="panel-title">Step 4 · Listen & Write</h2>
+      <p class="panel-explanation">Tələffüzü dinləyin və ingiliscə xarakter sözünün düzgün yazılışını daxil edin.</p>
+      <div class="writing-container" id="writingContainer"></div>
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+        <button class="primary" id="checkSpellingBtn">Yoxla / Check Answers</button>
+        <span class="score-display-text" id="writingScoreDisplay"></span>
+      </div>
+    </div>
+    <div class="step-actions">
+      <button class="secondary" id="backTo3">← Geri</button>
+      <span class="spacer"></span>
+      <button class="skip" id="skip4">Bu mərhələni ötür ⏭</button>
+      <button class="primary" id="toStep5" disabled>Davam et / Continue →</button>
+    </div>
+  </section>
+
+  <!-- STEP 5: DESERT CROSSING GAME -->
+  <section class="panel" id="panel-5">
+    <div class="card" style="margin-bottom:14px;">
+      <span class="heading-lang">Mərhələ 5 · Susayan Səyyahı Xilas Et</span>
+      <h2 class="panel-title">Step 5 · Help the Thirsty Traveler</h2>
+      <p class="panel-explanation">Hər xarakter sözünün düzgün mənasını tapın. Doğru cavab verdikcə, səhrada susuz qalan adam qumdüzlər arasından gölə doğru addımlayır. Son sualı da tapanda, suya çatıb hər iki əlini qaldıracaq! Çətin gəlsə, ⇄ düyməsinə sıxın.</p>
+    </div>
+    <main class="desert-main">
+      <div class="card" style="padding:10px;">
+        <div class="desert-scene" id="desertScene">
+          <div class="desert-sun">☀️</div>
+          <div class="dune-layer d1"></div>
+          <div class="dune-layer d2"></div>
+          <div class="dune-layer d3"></div>
+          <div class="desert-foreground"></div>
+          <div class="desert-pond"></div>
+          <div class="desert-palm p1">🌴</div>
+          <div class="desert-palm p2">🌴</div>
+          <div class="desert-palm p3">🌴</div>
+          <div class="desert-palm p4">🌴</div>
+          <div class="desert-palm p5">🌴</div>
+          <div class="desert-palm p6">🌴</div>
+          <div class="desert-palm p7">🌴</div>
+          <div class="desert-palm p8">🌴</div>
+          <div class="desert-done-badge" id="desertDoneBadge">✅</div>
+          <div class="desert-figure-wrap bob" id="desertFigureWrap"></div>
+        </div>
+        <div class="desert-progresswrap">
+          <div class="desert-progressbar"><div class="desert-progressfill" id="desertFill"></div></div>
+          <div class="desert-stats" id="desertStats">0 / 20</div>
+        </div>
+        <div class="finished-note" id="finishedNote">Təbriklər! Səyyah suya çatdı və için! 🎉</div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="rword" id="wordEl"></div>
+          <div class="flip-note">Kömək üçün sətirdəki <b>⇄</b> işarəsinə toxunun.</div>
+          <div class="options" id="optionsEl"></div>
+          <div class="hint" id="hintEl"></div>
+          <div class="feedback" id="feedbackEl"></div>
+          <button class="primary" id="nextBtn" style="width:100%; margin-top:12px;" disabled>Növbəti / Next →</button>
+          <button class="secondary" id="restartDesertBtn" style="width:100%; margin-top:8px;">Yenidən başla / Restart</button>
+        </div>
+      </div>
+    </main>
+    <div class="step-actions">
+      <button class="secondary" id="backTo4">← Geri</button>
+      <span class="spacer"></span>
+      <button class="skip" id="skip5">Dərsi bitir ⏭</button>
+    </div>
+  </section>
+</div>
+
+<script>
+/* ================= WORD LIST & DATA (20 items) ================= */
+const WORDS = [
+  { word:"kind", translation:"mehriban", sentenceEN:"She is very kind to everyone.", sentenceAZ:"O, hər kəsə qarşı çox mehribandır.", options:[{en:"Caring and friendly towards others", az:"Başqalarına qarşı qayğıkeş və mehriban", correct:true},{en:"Being cruel to people", az:"İnsanlara qarşı qəddar olmaq", correct:false},{en:"Never talking to anyone", az:"Heç kimlə danışmamaq", correct:false}] },
+  { word:"serious", translation:"ciddi", sentenceEN:"He is a serious student who studies hard.", sentenceAZ:"O, çox çalışan ciddi bir tələbədir.", options:[{en:"Thoughtful and not joking often", az:"Düşüncəli və az zarafat edən", correct:true},{en:"Always laughing and joking", az:"Həmişə gülən və zarafat edən", correct:false},{en:"Careless about everything", az:"Hər şeyə qarşı laqeyd", correct:false}] },
+  { word:"quiet", translation:"sakit", sentenceEN:"She is quiet in class but smart.", sentenceAZ:"O, sinifdə sakitdir, amma ağıllıdır.", options:[{en:"Not talking much, calm and silent", az:"Az danışan, sakit və səssiz", correct:true},{en:"Very loud and noisy", az:"Çox səs-küylü və hay-küylü", correct:false},{en:"Always arguing with others", az:"Həmişə başqaları ilə mübahisə edən", correct:false}] },
+  { word:"brave", translation:"cəsarətli", sentenceEN:"The firefighter was brave during the fire.", sentenceAZ:"Yanğınsöndürən yanğın zamanı cəsarətli idi.", options:[{en:"Not afraid to face danger", az:"Təhlükə ilə üzləşməkdən qorxmayan", correct:true},{en:"Afraid of everything", az:"Hər şeydən qorxan", correct:false},{en:"Always hiding from problems", az:"Həmişə problemlərdən gizlənən", correct:false}] },
+  { word:"honest", translation:"dürüst", sentenceEN:"He is honest, so people trust him.", sentenceAZ:"O, dürüstdür, ona görə insanlar ona etibar edir.", options:[{en:"Telling the truth and not lying", az:"Həqiqəti deyən və yalan danışmayan", correct:true},{en:"Often lying to others", az:"Tez-tez başqalarına yalan danışan", correct:false},{en:"Hiding facts from friends", az:"Dostlardan faktları gizlədən", correct:false}] },
+  { word:"polite", translation:"nəzakətli", sentenceEN:"The polite waiter greeted us warmly.", sentenceAZ:"Nəzakətli ofisiant bizi səmimiyyətlə qarşıladı.", options:[{en:"Having good manners and respect for others", az:"Yaxşı davranışa və başqalarına hörmətə malik", correct:true},{en:"Being rude to people", az:"İnsanlara qarşı kobud olmaq", correct:false},{en:"Ignoring other people's feelings", az:"Başqalarının hisslərini görməzdən gəlmək", correct:false}] },
+  { word:"confident", translation:"özünə güvənən", sentenceEN:"She felt confident before the interview.", sentenceAZ:"O, müsahibədən əvvəl özünə güvənirdi.", options:[{en:"Believing in your own abilities", az:"Öz bacarıqlarına inanan", correct:true},{en:"Doubting yourself all the time", az:"Həmişə özündən şübhələnən", correct:false},{en:"Being afraid to speak in public", az:"İctimai yerdə danışmaqdan qorxan", correct:false}] },
+  { word:"reliable", translation:"etibarlı", sentenceEN:"My best friend is always reliable.", sentenceAZ:"Ən yaxşı dostum həmişə etibarlıdır.", options:[{en:"Someone you can always trust and depend on", az:"Həmişə etibar edə biləcəyin insan", correct:true},{en:"Someone who often breaks promises", az:"Tez-tez vədini pozan insan", correct:false},{en:"Someone who forgets everything", az:"Hər şeyi unudan insan", correct:false}] },
+  { word:"generous", translation:"səxavətli", sentenceEN:"He is generous and shares what he has.", sentenceAZ:"O, səxavətlidir və malik olduqlarını bölüşür.", options:[{en:"Willing to give and share with others", az:"Başqaları ilə paylaşmağa hazır olan", correct:true},{en:"Keeping everything for yourself", az:"Hər şeyi özün üçün saxlamaq", correct:false},{en:"Never helping others", az:"Heç vaxt başqalarına kömək etməmək", correct:false}] },
+  { word:"selfish", translation:"eqoist", sentenceEN:"He is too selfish to share his toys.", sentenceAZ:"O, oyuncaqlarını bölüşmək üçün çox eqoistdir.", options:[{en:"Caring only about yourself, not others", az:"Yalnız özün haqqında düşünmək, başqaları haqqında yox", correct:true},{en:"Always thinking about other people first", az:"Həmişə əvvəlcə başqaları haqqında düşünmək", correct:false},{en:"Sharing everything you have", az:"Malik olduğun hər şeyi bölüşmək", correct:false}] },
+  { word:"determined", translation:"qətiyyətli", sentenceEN:"She is determined to finish the marathon.", sentenceAZ:"O, marafonu bitirməyə qətiyyətlidir.", options:[{en:"Having a strong will to achieve a goal", az:"Məqsədə çatmaq üçün güclü iradəyə malik", correct:true},{en:"Giving up easily", az:"Asanlıqla təslim olmaq", correct:false},{en:"Not caring about the result", az:"Nəticə ilə maraqlanmamaq", correct:false}] },
+  { word:"outgoing", translation:"ünsiyyətcil", sentenceEN:"He is outgoing and makes friends quickly.", sentenceAZ:"O, ünsiyyətcildir və tez dostlar qazanır.", options:[{en:"Friendly and enjoying being with other people", az:"Mehriban və başqaları ilə olmaqdan zövq alan", correct:true},{en:"Preferring to be alone all the time", az:"Həmişə tək olmağı üstün tutan", correct:false},{en:"Being shy and avoiding people", az:"Utancaq olub insanlardan qaçan", correct:false}] },
+  { word:"responsible", translation:"məsuliyyətli", sentenceEN:"She is responsible for her younger brother.", sentenceAZ:"O, kiçik qardaşına görə məsuliyyətlidir.", options:[{en:"Taking care of duties and being trusted with tasks", az:"Vəzifələrə diqqət yetirən və tapşırıqlara etibar edilən", correct:true},{en:"Never finishing your tasks", az:"Heç vaxt tapşırıqlarını bitirməyən", correct:false},{en:"Blaming others for your mistakes", az:"Öz səhvləri üçün başqalarını günahlandıran", correct:false}] },
+  { word:"creative", translation:"yaradıcı", sentenceEN:"The creative artist painted a beautiful picture.", sentenceAZ:"Yaradıcı rəssam gözəl bir şəkil çəkdi.", options:[{en:"Having new and original ideas", az:"Yeni və orijinal fikirlərə malik olan", correct:true},{en:"Copying other people's ideas", az:"Başqalarının fikirlərini köçürən", correct:false},{en:"Following the same routine every day", az:"Hər gün eyni rutini izləyən", correct:false}] },
+  { word:"thoughtful", translation:"düşüncəli", sentenceEN:"He wrote a thoughtful letter to his mother.", sentenceAZ:"O, anasına düşüncəli bir məktub yazdı.", options:[{en:"Kind and considerate of other people's feelings", az:"Başqalarının hisslərini nəzərə alan və mehriban", correct:true},{en:"Careless about how others feel", az:"Başqalarının hisslərinə laqeyd", correct:false},{en:"Acting without thinking", az:"Düşünmədən hərəkət etmək", correct:false}] },
+  { word:"calm", translation:"soyuqqanlı", sentenceEN:"She stayed calm during the storm.", sentenceAZ:"O, fırtına zamanı sakit qaldı.", options:[{en:"Not nervous or upset, staying peaceful", az:"Narahat olmayan, sakit qalan", correct:true},{en:"Getting angry very easily", az:"Asanlıqla qəzəblənən", correct:false},{en:"Panicking in difficult situations", az:"Çətin vəziyyətlərdə panikaya düşən", correct:false}] },
+  { word:"open-minded", translation:"açıq fikirli", sentenceEN:"A good teacher is open-minded about new ideas.", sentenceAZ:"Yaxşı müəllim yeni fikirlərə qarşı açıq fikirlidir.", options:[{en:"Willing to consider new ideas and opinions", az:"Yeni fikir və rəyləri nəzərə almağa hazır olan", correct:true},{en:"Refusing to change your opinion", az:"Fikrini dəyişməkdən imtina edən", correct:false},{en:"Judging people quickly", az:"İnsanları tez mühakimə edən", correct:false}] },
+  { word:"self-disciplined", translation:"özünüidarəedən", sentenceEN:"He is self-disciplined and studies every day.", sentenceAZ:"O, özünüidarəedəndir və hər gün oxuyur.", options:[{en:"Able to control your own behavior and habits", az:"Öz davranışını və vərdişlərini idarə edə bilən", correct:true},{en:"Doing whatever you want without control", az:"Heç bir nəzarət olmadan istədiyini etmək", correct:false},{en:"Depending on others to finish tasks", az:"Tapşırıqları bitirmək üçün başqalarından asılı olmaq", correct:false}] },
+  { word:"outspoken", translation:"açıqsözlü", sentenceEN:"She is outspoken and shares her opinion freely.", sentenceAZ:"O, açıqsözlüdür və fikrini sərbəst şəkildə bildirir.", options:[{en:"Expressing your opinions honestly and directly", az:"Fikirlərini dürüst və birbaşa ifadə edən", correct:true},{en:"Keeping your opinions to yourself", az:"Fikirlərini özündə saxlayan", correct:false},{en:"Being too shy to speak", az:"Danışmaq üçün çox utancaq olan", correct:false}] },
+  { word:"inconsiderate", translation:"laqeyd", sentenceEN:"It was inconsiderate to make noise so late.", sentenceAZ:"Bu qədər gec səs-küy salmaq laqeydlik idi.", options:[{en:"Not thinking about other people's feelings", az:"Başqalarının hisslərini nəzərə almayan", correct:true},{en:"Always caring about others first", az:"Həmişə əvvəlcə başqaları haqqında düşünən", correct:false},{en:"Being very polite and gentle", az:"Çox nəzakətli və mülayim olmaq", correct:false}] }
+];
+
+/* ================= UTILITIES ================= */
+function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function speak(text){ if(!('speechSynthesis' in window)) return; window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = 'en-US'; u.rate = 0.82; window.speechSynthesis.speak(u);}
+
+/* ================= STEPPER CONFIG ================= */
+const STEP_LABELS = ['Öyrən','Birləşdir','Hekayə','Yaz','Xilas et'];
+let currentStep = 1;
+function renderStepper(){
+  const el = document.getElementById('stepper'); el.innerHTML='';
+  STEP_LABELS.forEach((label,i)=>{
+    const n=i+1;
+    const node=document.createElement('div');
+    node.className='step-node'+(n===currentStep?' active':'')+(n<currentStep?' done':'');
+    node.innerHTML=`<div class="step-circle">${n<currentStep?'✓':n}</div><div class="step-label">${label}</div>`;
+    el.appendChild(node);
+    if(n<STEP_LABELS.length){ const line=document.createElement('div'); line.className='step-line'; el.appendChild(line); }
+  });
+}
+function goToStep(n){
+  currentStep=n;
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+n).classList.add('active');
+  renderStepper();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ================= STEP 1: LEARN ================= */
+function buildLearnStep(){
+  const grid = document.getElementById('learnGrid'); grid.innerHTML='';
+  WORDS.forEach(w=>{
+    const wrapper = document.createElement('div');
+    wrapper.className = 'flip-card-container';
+    wrapper.innerHTML = `
+      <div class="flip-card-inner">
+        <div class="word-card-front">
+          <div class="audio-badge-ui">🔊</div>
+          <div class="w-word">${w.word}</div>
+          <div class="w-sentence">${w.sentenceEN}</div>
+          <div class="card-actions-row">
+            <button class="speak-btn">🔊 Səs</button>
+            <button class="translate-card-btn">⇄ Tərcümə</button>
+          </div>
+        </div>
+        <div class="word-card-back">
+          <div class="audio-badge-ui" style="background:#fff3cd; color:var(--mustard);">⇄</div>
+          <div class="w-word" style="color:var(--mustard); font-size:18px;">${w.translation}</div>
+          <div class="w-sentence">${w.sentenceAZ}</div>
+          <div class="card-actions-row">
+            <button class="translate-card-btn" style="background:var(--teal)">⇄ Orijinal</button>
+          </div>
+        </div>
+      </div>`;
+    wrapper.querySelector('.speak-btn').addEventListener('click',(e)=>{ e.stopPropagation(); speak(w.word); });
+    wrapper.querySelectorAll('.translate-card-btn').forEach(b=>{
+      b.addEventListener('click',(e)=>{ e.stopPropagation(); wrapper.classList.toggle('flipped'); });
+    });
+    grid.appendChild(wrapper);
+  });
+}
+
+/* ================= STEP 2: MATCH ================= */
+let matchRound = 1;
+let selectedTile = null;
+let matchedCountInRound = 0;
+const WORDS_PER_ROUND = 5;
+const TOTAL_ROUNDS = 4;
+
+function buildMatchRound(){
+  const picCol = document.getElementById('picCol'); picCol.innerHTML='';
+  const wordCol = document.getElementById('wordCol'); wordCol.innerHTML='';
+  document.getElementById('roundNum').textContent = matchRound;
+
+  const startIndex = (matchRound - 1) * WORDS_PER_ROUND;
+  const roundWords = WORDS.slice(startIndex, startIndex + WORDS_PER_ROUND);
+
+  const leftItems = shuffle(roundWords);
+  const rightItems = shuffle(roundWords);
+
+  leftItems.forEach(item=>{
+    const tile = document.createElement('div');
+    tile.className = 'match-tile';
+    tile.textContent = item.word;
+    tile.dataset.word = item.word;
+    tile.dataset.type = 'eng';
+    tile.addEventListener('click', ()=>handleTileClick(tile));
+    picCol.appendChild(tile);
+  });
+
+  rightItems.forEach(item=>{
+    const tile = document.createElement('div');
+    tile.className = 'match-tile';
+    tile.textContent = item.translation;
+    tile.dataset.word = item.word;
+    tile.dataset.type = 'az';
+    tile.addEventListener('click', ()=>handleTileClick(tile));
+    wordCol.appendChild(tile);
+  });
+}
+
+function handleTileClick(tile){
+  if(tile.classList.contains('matched')) return;
+  if(selectedTile === tile) { tile.classList.remove('selected'); selectedTile = null; return; }
+
+  if(!selectedTile){
+    selectedTile = tile; tile.classList.add('selected');
+  } else {
+    if(selectedTile.dataset.type !== tile.dataset.type && selectedTile.dataset.word === tile.dataset.word){
+      selectedTile.classList.remove('selected');
+      selectedTile.classList.add('matched');
+      tile.classList.add('matched');
+      selectedTile = null; matchedCountInRound++;
+      if(matchedCountInRound === WORDS_PER_ROUND){
+        setTimeout(()=>{
+          if(matchRound < TOTAL_ROUNDS){
+            matchRound++; matchedCountInRound=0; buildMatchRound();
+          } else {
+            document.getElementById('toStep3').disabled = false;
+          }
+        }, 600);
+      }
+    } else {
+      const first = selectedTile;
+      first.classList.remove('selected'); first.classList.add('wrong');
+      tile.classList.add('wrong'); selectedTile = null;
+      setTimeout(()=>{ first.classList.remove('wrong'); tile.classList.remove('wrong'); }, 400);
+    }
+  }
+}
+
+/* ================= STEP 3: DRAG & DROP STORY LOGIC ================= */
+let selectedStoryWordMobile = null;
+const bankEl = document.getElementById("hekayeWordBank");
+const STORY_WORDS = WORDS.map(w => w.word); // all 20, one blank per word
+
+function initStoryGame() {
+  bankEl.innerHTML = '';
+  selectedStoryWordMobile = null;
+  const shuffled = shuffle(STORY_WORDS);
+
+  shuffled.forEach(word => {
+    const wordEl = document.createElement("div");
+    wordEl.className = "draggable-word";
+    wordEl.draggable = true;
+    wordEl.textContent = word;
+    wordEl.dataset.text = word;
+
+    wordEl.addEventListener("dragstart", (e) => {
+      e.dataTransfer.setData("text/plain", e.target.dataset.text);
+      setTimeout(() => e.target.style.opacity = "0.4", 0);
+    });
+    wordEl.addEventListener("dragend", (e) => e.target.style.opacity = "1");
+
+    wordEl.addEventListener("click", handleStoryMobileSelect);
+    bankEl.appendChild(wordEl);
+  });
+
+  const zones = document.querySelectorAll("#storyBox .drop-zone");
+  zones.forEach(zone => {
+    zone.innerHTML = '';
+    zone.className = "drop-zone";
+
+    zone.addEventListener("dragover", (e) => { e.preventDefault(); zone.classList.add("hover"); });
+    zone.addEventListener("dragleave", () => zone.classList.remove("hover"));
+    zone.addEventListener("drop", handleStoryDrop);
+
+    zone.addEventListener("click", handleStoryMobilePlace);
+  });
+
+  bankEl.addEventListener("dragover", (e) => e.preventDefault());
+  bankEl.addEventListener("drop", (e) => {
+    e.preventDefault();
+    const txt = e.dataTransfer.getData("text/plain");
+    const item = document.querySelector(`.draggable-word[data-text="${txt}"]`);
+    if(item) bankEl.appendChild(item);
+  });
+}
+
+function handleStoryDrop(e) {
+  e.preventDefault();
+  let zone = e.target.classList.contains("drop-zone") ? e.target : e.target.parentElement;
+  zone.classList.remove("hover");
+
+  const txt = e.dataTransfer.getData("text/plain");
+  const item = document.querySelector(`.draggable-word[data-text="${txt}"]`);
+
+  if (item && zone.classList.contains("drop-zone")) {
+    if (zone.children.length > 0) {
+      bankEl.appendChild(zone.children[0]);
+    }
+    zone.appendChild(item);
+  }
+}
+
+function handleStoryMobileSelect(e) {
+  document.querySelectorAll(".draggable-word").forEach(w => w.classList.remove("selected"));
+  if (e.target.parentElement.classList.contains("drop-zone")) {
+    bankEl.appendChild(e.target);
+    selectedStoryWordMobile = null;
+    return;
+  }
+  e.target.classList.add("selected");
+  selectedStoryWordMobile = e.target;
+}
+
+function handleStoryMobilePlace(e) {
+  let zone = e.target.classList.contains("drop-zone") ? e.target : e.target.parentElement;
+  if (selectedStoryWordMobile && zone.classList.contains("drop-zone")) {
+    if (zone.children.length > 0) {
+      bankEl.appendChild(zone.children[0]);
+    }
+    zone.appendChild(selectedStoryWordMobile);
+    selectedStoryWordMobile.classList.remove("selected");
+    selectedStoryWordMobile = null;
+  }
+}
+
+document.getElementById('checkStoryBtn').addEventListener('click', () => {
+  let allCorrect = true;
+  const zones = document.querySelectorAll("#storyBox .drop-zone");
+
+  zones.forEach(zone => {
+    zone.classList.remove("correct", "incorrect");
+    const correctVal = zone.dataset.word;
+
+    if(zone.children.length > 0) {
+      if(zone.children[0].dataset.text === correctVal) {
+        zone.classList.add("correct");
+      } else {
+        zone.classList.add("incorrect");
+        allCorrect = false;
+      }
+    } else {
+      zone.classList.add("incorrect");
+      allCorrect = false;
+    }
+  });
+
+  if(allCorrect) {
+    alert("Təbrik edirik! Bütün boşluqlar düzgün dolduruldu. 🎉");
+    document.getElementById('toStep4').disabled = false;
+  } else {
+    alert("Bəzi səhvlər var. Qırmızı xanalara yenidən baxın.");
+  }
+});
+
+document.getElementById('resetStoryBtn').addEventListener('click', initStoryGame);
+
+/* ================= STEP 4: LISTEN & WRITE ================= */
+function buildWritingStep(){
+  const container = document.getElementById('writingContainer'); container.innerHTML = '';
+  const shuffledWrite = shuffle(WORDS);
+
+  shuffledWrite.forEach((item)=>{
+    const row = document.createElement('div');
+    row.className = 'writing-row';
+    row.innerHTML = `
+      <button class="listen-ui-btn" type="button" data-word="${item.word}">🔊 Dinlə</button>
+      <input type="text" class="spelling-input" data-correct="${item.word}" placeholder="..." autocomplete="off" spellcheck="false" />
+    `;
+    row.querySelector('.listen-ui-btn').addEventListener('click', ()=>speak(item.word));
+    container.appendChild(row);
+  });
+}
+
+document.getElementById('checkSpellingBtn').addEventListener('click', ()=>{
+  const inputs = document.querySelectorAll('.spelling-input');
+  let correctCounter = 0;
+
+  inputs.forEach(input => {
+    const userVal = input.value.trim().toLowerCase();
+    const correctVal = input.dataset.correct.toLowerCase();
+
+    if(userVal === correctVal){
+      input.className = "spelling-input correct";
+      correctCounter++;
+    } else {
+      input.className = "spelling-input wrong";
+      input.value = `${userVal} ✗ (${correctVal})`;
+    }
+  });
+
+  document.getElementById('writingScoreDisplay').textContent = `Nəticə: ${correctCounter} / ${WORDS.length}`;
+  if(correctCounter >= 10){
+    document.getElementById('toStep5').disabled = false;
+  }
+});
+
+/* ================= STEP 5: DESERT CROSSING GAME ================= */
+let desertWords = [];
+let currentDesertIndex = 0;
+let desertCorrect = 0;
+const desertTotal = WORDS.length;
+
+// Path from the top of the dunes down to the pond's edge (matches the reference photo's diagonal trail)
+const START_LEFT = 8, END_LEFT = 63;
+const START_TOP = 30, END_TOP = 60;
+
+function walkSVG(){
+  return `<svg viewBox="0 0 40 52" fill="none" stroke="#2b211a" stroke-width="3" stroke-linecap="round">
+    <circle cx="20" cy="9" r="5.5" fill="#2b211a" stroke="none"></circle>
+    <line x1="20" y1="14" x2="20" y2="34"></line>
+    <line x1="20" y1="18" x2="11" y2="25"></line>
+    <line x1="20" y1="18" x2="29" y2="12"></line>
+    <line x1="20" y1="34" x2="12" y2="49"></line>
+    <line x1="20" y1="34" x2="28" y2="46"></line>
+  </svg>`;
+}
+function raisedArmsSVG(){
+  return `<svg viewBox="0 0 40 52" fill="none" stroke="#2b211a" stroke-width="3" stroke-linecap="round">
+    <circle cx="20" cy="9" r="5.5" fill="#2b211a" stroke="none"></circle>
+    <line x1="20" y1="14" x2="20" y2="34"></line>
+    <line x1="20" y1="17" x2="10" y2="4"></line>
+    <line x1="20" y1="17" x2="30" y2="4"></line>
+    <line x1="20" y1="34" x2="13" y2="49"></line>
+    <line x1="20" y1="34" x2="27" y2="49"></line>
+  </svg>`;
+}
+
+function initDesertGame(){
+  desertWords = shuffle(WORDS);
+  currentDesertIndex = 0;
+  desertCorrect = 0;
+  document.getElementById('desertDoneBadge').classList.remove('show');
+  document.getElementById('finishedNote').classList.remove('show');
+  document.getElementById('desertFigureWrap').innerHTML = walkSVG();
+  updateDesertVisual();
+  showDesertQuestion();
+}
+
+function updateDesertVisual(){
+  const pct = desertCorrect / desertTotal;
+  const wrap = document.getElementById('desertFigureWrap');
+  const leftPos = START_LEFT + (END_LEFT - START_LEFT) * pct;
+  const topPos = START_TOP + (END_TOP - START_TOP) * pct;
+  wrap.style.left = leftPos + '%';
+  wrap.style.top = topPos + '%';
+
+  if(pct >= 1){
+    wrap.innerHTML = raisedArmsSVG() + '<div class="figure-splash"></div>';
+  } else {
+    wrap.innerHTML = walkSVG();
+  }
+
+  document.getElementById('desertFill').style.width = (pct*100) + '%';
+  document.getElementById('desertStats').textContent = desertCorrect + ' / ' + desertTotal;
+
+  if(desertCorrect >= desertTotal){
+    document.getElementById('desertDoneBadge').classList.add('show');
+    document.getElementById('finishedNote').classList.add('show');
+  }
+}
+
+function showDesertQuestion(){
+  document.getElementById('feedbackEl').textContent = '';
+  document.getElementById('feedbackEl').className = 'feedback';
+  document.getElementById('hintEl').innerHTML = '';
+  document.getElementById('nextBtn').disabled = true;
+
+  if(currentDesertIndex >= desertWords.length){
+    document.getElementById('wordEl').textContent = '';
+    document.getElementById('optionsEl').innerHTML = '';
+    return;
+  }
+
+  const currentItem = desertWords[currentDesertIndex];
+  document.getElementById('wordEl').textContent = currentItem.word;
+
+  const optsContainer = document.getElementById('optionsEl'); optsContainer.innerHTML = '';
+  const randomizedOptions = shuffle(currentItem.options);
+
+  randomizedOptions.forEach(opt => {
+    const row = document.createElement('div');
+    row.className = 'opt-row';
+    row.innerHTML = `
+      <button class="opt-select">
+        <div class="flip-inner">
+          <div class="face en">${opt.en}</div>
+          <div class="face az">${opt.az}</div>
+        </div>
+      </button>
+      <button class="flip-toggle" type="button">⇄</button>
+    `;
+    const selectBtn = row.querySelector('.opt-select');
+    const toggleBtn = row.querySelector('.flip-toggle');
+    toggleBtn.addEventListener('click', (e)=>{ e.stopPropagation(); row.classList.toggle('flipped'); toggleBtn.classList.toggle('active'); });
+    selectBtn.addEventListener('click', ()=>handleDesertAnswer(opt, row));
+    optsContainer.appendChild(row);
+  });
+}
+
+function handleDesertAnswer(option, rowEl){
+  if(document.getElementById('nextBtn').disabled === false) return;
+
+  const wrap = document.getElementById('desertFigureWrap');
+
+  if(option.correct){
+    rowEl.classList.add('correct');
+    document.getElementById('feedbackEl').textContent = 'Mükəmməl! Düzgündür 🎉';
+    document.getElementById('feedbackEl').className = 'feedback good';
+
+    desertCorrect++;
+    wrap.classList.remove('step'); void wrap.offsetWidth; wrap.classList.add('step');
+    updateDesertVisual();
+
+    document.getElementById('nextBtn').disabled = false;
+  } else {
+    rowEl.classList.add('wrong');
+    document.getElementById('feedbackEl').textContent = 'Yenidən yoxlayın...';
+    document.getElementById('feedbackEl').className = 'feedback bad';
+    wrap.classList.remove('stumble'); void wrap.offsetWidth; wrap.classList.add('stumble');
+    setTimeout(()=>{ rowEl.classList.remove('wrong'); }, 450);
+  }
+}
+
+document.getElementById('nextBtn').addEventListener('click', ()=>{
+  currentDesertIndex++;
+  showDesertQuestion();
+});
+document.getElementById('restartDesertBtn').addEventListener('click', initDesertGame);
+
+/* ================= ROUTING CONTROLLERS ================= */
+document.getElementById('toStep2').addEventListener('click', ()=> { goToStep(2); buildMatchRound(); });
+document.getElementById('backTo1').addEventListener('click', ()=> goToStep(1));
+document.getElementById('toStep3').addEventListener('click', ()=> { goToStep(3); initStoryGame(); });
+document.getElementById('backTo2_from3').addEventListener('click', ()=> goToStep(2));
+document.getElementById('toStep4').addEventListener('click', ()=> { goToStep(4); buildWritingStep(); });
+document.getElementById('backTo3').addEventListener('click', ()=> goToStep(3));
+document.getElementById('toStep5').addEventListener('click', ()=> { goToStep(5); initDesertGame(); });
+document.getElementById('backTo4').addEventListener('click', ()=> goToStep(4));
+
+/* ================= SKIP BUTTONS ================= */
+document.getElementById('skip1').addEventListener('click', ()=> { goToStep(2); buildMatchRound(); });
+document.getElementById('skip2').addEventListener('click', ()=> { goToStep(3); initStoryGame(); });
+document.getElementById('skip3').addEventListener('click', ()=> { goToStep(4); buildWritingStep(); });
+document.getElementById('skip4').addEventListener('click', ()=> { goToStep(5); initDesertGame(); });
+document.getElementById('skip5').addEventListener('click', ()=> {
+  document.getElementById('finishedNote').textContent = 'Dərs bitdi! İstənilən vaxt yenidən cəhd edə bilərsiniz.';
+  document.getElementById('finishedNote').classList.add('show');
+});
+
+window.onload = () => {
+  renderStepper();
+  goToStep(1);
+  buildLearnStep();
+};
+</script>
+</body>
+</html>
