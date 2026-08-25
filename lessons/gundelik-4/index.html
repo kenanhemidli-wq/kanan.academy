@@ -1,0 +1,858 @@
+
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H5JRTCHBYD"></script>
+<script src="/kanan.academy/analytics.js"></script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Dərs 4 - Sevgi və Münasibətlər Sözləri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --background-beige: #f9f5eb;
+  --panel-bg: #ffffff;
+  --ink: #2b211a;
+  --teal: #1b7365;
+  --teal-dark: #114d43;
+  --coral: #e05326;
+  --mustard: #e6a119;
+  --border-color: #d1c0a5;
+}
+*{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+body{
+  margin:0; min-height:100vh;
+  background: var(--background-beige);
+  font-family:'Nunito', sans-serif; color:var(--ink); padding: 16px 12px 60px;
+}
+.wrap{ max-width:1100px; margin:0 auto; }
+h1,h2,h3{ font-family:'Baloo 2', sans-serif; margin:0; }
+.eyebrow{ text-align:center; font-size:12px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--teal); margin-bottom:4px; }
+.top-title{ font-size:clamp(26px,5vw,36px); font-weight:800; text-align:center; margin-bottom:4px; color: var(--teal-dark); }
+.top-sub{ text-align:center; color:#6b5b4e; font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:1px; margin-bottom:20px; }
+
+/* Stepper */
+.stepper{ display:flex; justify-content:center; align-items:center; margin-bottom:24px; width:100%; overflow-x:auto; padding: 4px 0; }
+.step-node{ display:flex; flex-direction:column; align-items:center; gap:4px; min-width: 65px; }
+.step-circle{
+  width:36px; height:36px; border-radius:50%; background:#fff; border:2px solid var(--border-color);
+  display:flex; align-items:center; justify-content:center; font-family:'Baloo 2',sans-serif; font-weight:800;
+  color:var(--border-color); transition:all .3s; font-size:15px;
+}
+.step-label{ font-size:11px; font-weight:700; color:var(--border-color); text-transform:uppercase; text-align:center; white-space: nowrap; }
+.step-node.active .step-circle{ background:var(--teal); border-color:var(--teal); color:#fff; }
+.step-node.active .step-label{ color:var(--teal-dark); }
+.step-node.done .step-circle{ background:var(--mustard); border-color:var(--mustard); color:#fff; }
+.step-node.done .step-label{ color:var(--mustard); }
+.step-line{ width:clamp(15px, 4vw, 45px); height:3px; background:var(--border-color); margin:0 2px 16px; border-radius:2px; flex-shrink: 0; }
+.step-node.done + .step-line, .step-node.active + .step-line{ background:var(--mustard); }
+
+.panel{ display:none; }.panel.active{ display:block; animation:fadein .3s ease-out; }
+@keyframes fadein{ from{ opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
+.card{ background:var(--panel-bg); border-radius:16px; padding:18px; box-shadow:0 10px 25px rgba(0,0,0,0.06); border: 1px solid rgba(209,192,165,0.4); }
+.heading-lang { font-size: 14px; color: var(--teal); font-weight: 700; text-transform: uppercase; margin-bottom: 2px; display: block; }
+.panel-title { font-size: 22px; font-weight: 800; line-height: 1.2; color: var(--ink); }
+.panel-explanation { color: #5c4d41; margin: 6px 0 16px 0; font-size: 14px; font-weight: 600; line-height: 1.4; }
+
+/* Step 1: Learn */
+.learn-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:16px; margin-top:16px; }
+.flip-card-container { perspective: 1000px; height: 260px; }
+.flip-card-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+.flip-card-container.flipped .flip-card-inner { transform: rotateY(180deg); }
+.word-card-front, .word-card-back { position: absolute; inset: 0; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius:14px; padding:16px; border:2.5px solid var(--border-color); background:#fff; display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center; }
+.word-card-back { transform: rotateY(180deg); background: #fdfaf3; border-color: var(--mustard); }
+.audio-badge-ui { width: 56px; height: 56px; background: #eef7f5; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--teal); }
+.w-word{ font-family:'Baloo 2',sans-serif; font-weight:800; font-size:21px; color: var(--ink); margin-top: 4px; }
+.w-sentence{ font-size:12.5px; color:#4a3e35; line-height:1.4; font-weight: 600; }
+.card-actions-row { width: 100%; display: flex; justify-content: center; gap: 10px; margin-top: 6px; }
+.speak-btn, .translate-card-btn { border:0; background:var(--teal); color:#fff; height:34px; padding: 0 12px; border-radius: 999px; cursor:pointer; font-size:13px; font-weight: 700; display:flex; align-items:center; justify-content:center; gap: 4px;}
+.translate-card-btn { background: var(--mustard); }
+
+/* Step 2: Matching */
+.match-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; width: 100%; }
+.round-pill{ background:var(--ink); color:#fff; font-family:'Baloo 2',sans-serif; font-weight:800; padding:4px 12px; border-radius:999px; font-size:13px; }
+.match-cols{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; width: 100%; }
+.match-list{ display:grid; gap:10px; align-content: start; }
+.match-tile{ background:#fff; border:2px solid var(--border-color); border-radius:12px; padding:8px; cursor:pointer; display:flex; align-items:center; justify-content: center; font-weight:700; min-height:65px; transition:all .15s; text-align: center; font-size: 14px; word-break: break-word;}
+.match-tile.selected{ border-color:var(--teal); background:#e6f4f1; box-shadow: 0 0 0 2px var(--teal); }
+.match-tile.matched{ opacity:.25; pointer-events:none; border-color:transparent; background: #f0f0f0; }
+.match-tile.wrong{ animation:shake .3s; border-color:var(--coral); background:#fdebe6; }
+@keyframes shake{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-4px);} 75%{transform:translateX(4px);} }
+
+/* Step 3: Drag & Drop Story (simplified, side-by-side translation) */
+.word-bank { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 16px 0; min-height: 80px; padding: 14px; background: #f3ece1; border-radius: 12px; border: 2px dashed var(--border-color); max-height: 220px; overflow-y: auto; }
+.draggable-word { background-color: var(--teal); color: white; padding: 4px 10px; border-radius: 16px; cursor: pointer; user-select: none; font-weight: 700; font-size: 11.5px; box-shadow: 0 3px 6px rgba(0,0,0,0.1); transition: all 0.2s; }
+.draggable-word.selected { background-color: var(--mustard); transform: scale(1.05); }
+.story-table{ display:grid; grid-template-columns: 1fr 1fr; gap:8px 14px; align-items:stretch; }
+@media(max-width:800px){ .story-table{ grid-template-columns: 1fr; } }
+.story-cell{ background:#fdfbf7; border:1.5px solid var(--border-color); border-radius:10px; padding:12px 14px; font-size:14px; font-weight:600; line-height:1.7; color:#3d3128; }
+.story-cell p{ margin:0; }
+.story-cell.az{ background-color:#fcf6e8; border-color:var(--mustard); color:#524337; font-size:13px; font-weight:400; }
+.story-cell.head{ background:transparent; border:none; padding:0 2px; font-family:'Baloo 2', sans-serif; font-weight:800; font-size:13px; text-transform:uppercase; letter-spacing:.5px; }
+.story-cell.head.en{ color:var(--teal); text-transform:none; }
+.story-cell.head.az{ color:var(--mustard); }
+.drop-zone { display: inline-block; min-width: 100px; height: 26px; border-bottom: 2px solid var(--ink); margin: 0 2px; vertical-align: middle; text-align: center; background-color: rgba(209,192,165,0.15); border-radius: 4px; transition: all 0.2s; }
+.drop-zone.hover { background-color: #e6f4f1; border-bottom-color: var(--teal); }
+.drop-zone .draggable-word { margin: -9px 0 0 0; display: block; text-align: center; }
+.drop-zone.correct { border-bottom-color: var(--teal); background-color: #e4f2ee; box-shadow: 0 0 0 2px var(--teal); border-radius: 6px; }
+.drop-zone.incorrect { border-bottom-color: var(--coral); background-color: #f8c9bd; box-shadow: 0 0 0 3px var(--coral); border-radius: 6px; }
+.story-actions { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+
+/* Step 4: Listen & Write */
+.writing-container { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; margin-bottom: 16px; }
+.writing-row { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; background: #fdfbf7; padding: 10px; border-radius: 12px; border: 1.5px solid var(--border-color); }
+.listen-ui-btn { background: var(--teal); color: #fff; border: 0; border-radius: 8px; padding: 8px 14px; font-family: 'Baloo 2', sans-serif; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+.spelling-input { width: 100%; padding: 10px; border: 2px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 14px; font-weight: 700; outline: none; }
+.spelling-input.correct { border-color: var(--teal); background: #e4f2ee; color: var(--teal-dark); }
+.spelling-input.wrong { border-color: var(--coral); background: #fdebe6; color: var(--coral); }
+.score-display-text { font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 16px; color: var(--teal-dark); margin-left: auto; display: block; margin-top: 10px; }
+
+/* Step 5: Desert crossing - thirsty traveler */
+main.desert-main{ display:grid; grid-template-columns:1.1fr 1fr; gap:16px; align-items:start; }
+@media(max-width:800px){ main.desert-main{ grid-template-columns:1fr; } }
+.desert-scene{ position:relative; width:100%; aspect-ratio: 4/3; border-radius:16px; overflow:hidden; background: linear-gradient(to bottom, #bfe3f0 0%, #ddeef2 20%, #f6e3ae 38%, #f0d692 100%); }
+.desert-sun{ position:absolute; top:10px; left:14px; font-size:26px; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1)); z-index:1; }
+.dune-layer{ position:absolute; left:-15%; right:-15%; border-radius:50%; z-index:1; }
+.dune-layer.d1{ top:26%; height:20%; background:#e3bd75; opacity:.55; }
+.dune-layer.d2{ left:-25%; right:-8%; top:33%; height:20%; background:#dcae5e; opacity:.65; }
+.dune-layer.d3{ left:-8%; right:-25%; top:40%; height:22%; background:#d3a04d; opacity:.8; }
+.desert-foreground{ position:absolute; left:0; right:0; bottom:0; height:44%; background: linear-gradient(to bottom, #f0d692, #d9a955); z-index:1; }
+.desert-pond{ position:absolute; right:6%; bottom:8%; width:36%; height:24%; background: radial-gradient(circle at 38% 35%, #a6e4f1 0%, #4fa3c7 55%, #2c7ea3 100%); border-radius: 58% 42% 62% 38% / 62% 58% 42% 38%; box-shadow: 0 6px 14px rgba(0,0,0,0.2); z-index:2; }
+.desert-pond::after{ content:''; position:absolute; left:18%; top:14%; width:34%; height:22%; background: rgba(255,255,255,0.35); border-radius:50%; filter: blur(1px); }
+.desert-palm{ position:absolute; font-size:26px; z-index:3; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.15)); }
+.desert-palm.p1{ right:0%; bottom:36%; font-size:24px; }
+.desert-palm.p2{ right:12%; bottom:40%; font-size:18px; transform: scaleX(-1); }
+.desert-palm.p3{ right:24%; bottom:36%; font-size:22px; }
+.desert-palm.p4{ right:38%; bottom:40%; font-size:16px; transform: scaleX(-1); }
+.desert-palm.p5{ right:46%; bottom:28%; font-size:20px; }
+.desert-palm.p6{ right:44%; bottom:12%; font-size:18px; transform: scaleX(-1); }
+.desert-palm.p7{ right:0%; bottom:18%; font-size:26px; }
+.desert-palm.p8{ right:2%; bottom:4%; font-size:16px; transform: scaleX(-1); }
+.desert-done-badge{ position:absolute; top:10px; right:10px; font-size:36px; opacity:0; transform: scale(.5); transition: all .5s ease; z-index:5; }
+.desert-done-badge.show{ opacity:1; transform: scale(1); }
+.desert-figure-wrap{ position:absolute; width:40px; height:52px; transition: left .8s ease, top .8s ease; z-index:4; }
+.desert-figure-wrap svg{ position:relative; z-index:1; width:100%; height:100%; display:block; }
+.figure-splash{ position:absolute; left:-20%; right:-20%; bottom:-8%; height:52%; background: radial-gradient(circle at 40% 30%, #a6e4f1, #2c7ea3 85%); border-radius:50%; opacity:.88; z-index:2; box-shadow: inset 0 2px 4px rgba(255,255,255,0.35); }
+.desert-figure-wrap svg{ width:100%; height:100%; overflow:visible; }
+.desert-figure-wrap.bob{ animation: figureBob 1.6s ease-in-out infinite; }
+@keyframes figureBob{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-3px);} }
+.desert-figure-wrap.step{ animation: figureStep .4s ease; }
+@keyframes figureStep{ 0%{ transform:translateY(0) rotate(0);} 40%{ transform:translateY(-8px) rotate(-6deg);} 100%{ transform:translateY(0) rotate(0);} }
+.desert-figure-wrap.stumble{ animation: figureStumble .4s ease; }
+@keyframes figureStumble{ 0%,100%{ transform:translateX(0) rotate(0);} 25%{ transform:translateX(-5px) rotate(-8deg);} 75%{ transform:translateX(5px) rotate(8deg);} }
+.desert-progresswrap{ display:flex; align-items:center; gap:8px; margin-top:10px; }
+.desert-progressbar{ flex:1; height:10px; border-radius:999px; background:#eadfca; overflow:hidden; border:1.5px solid var(--border-color); }
+.desert-progressfill{ height:100%; background: linear-gradient(90deg, var(--mustard), var(--teal)); width:0%; transition: width .5s; }
+.desert-stats{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:13px; color:var(--teal-dark); white-space:nowrap; }
+.rword{ font-family:'Baloo 2', sans-serif; font-size:26px; font-weight:800; margin-bottom:4px; color: var(--teal-dark); }
+.flip-note { font-size:12px; color:#6b5b4e; margin-bottom:12px; font-weight: 600; }
+.options{ display:grid; gap:8px; }
+.opt-row{ display:flex; gap:6px; align-items:stretch; }
+.opt-select{ flex:1; position:relative; min-height:54px; perspective:700px; cursor:pointer; background:none; border:0; padding:0; font-family:'Nunito', sans-serif; }
+.flip-inner{ position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .4s; }
+.opt-row.flipped .flip-inner{ transform:rotateY(180deg); }
+.face{ position:absolute; inset:0; display:flex; align-items:center; padding:10px 12px; border-radius:10px; border:2px solid var(--border-color); background:#fff; font-size:13px; font-weight:700; text-align:left; color:var(--ink); backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+.face.az{ transform:rotateY(180deg); background:#fdf7ec; border-color: var(--mustard); }
+.opt-row.correct .face{ background:#e4f2ee; border-color:var(--teal); color: var(--teal-dark); }
+.opt-row.wrong .face{ background:#fdebe6; border-color:var(--coral); }
+.flip-toggle{ flex:0 0 40px; border-radius:10px; border:2px solid var(--border-color); background:#fff; cursor:pointer; font-size:15px; color:var(--teal); display: flex; align-items: center; justify-content: center; }
+.flip-toggle.active{ background:var(--mustard); border-color:var(--mustard); color:#fff; transform:rotate(180deg); }
+.hint{ margin-top:10px; font-size:13px; font-style:italic; color:#6b5b4e; min-height:18px; line-height:1.4; font-weight: 600; }
+.feedback{ margin-top:8px; font-weight:700; font-size:13.5px; min-height:20px; }
+.feedback.good{ color:var(--teal); }.feedback.bad{ color:var(--coral); }
+.finished-note{ margin-top:10px; font-weight:800; font-family:'Baloo 2',sans-serif; color:var(--teal-dark); font-size:15px; display:none; }
+.finished-note.show{ display:block; }
+
+/* Buttons */
+button.primary{ padding:12px 20px; border:0; border-radius:12px; background:var(--teal); color:#fff; font-family:'Baloo 2',sans-serif; font-weight:800; font-size:15px; cursor:pointer; box-shadow: 0 4px 6px rgba(27,115,101,0.15);}
+button.primary:hover:not(:disabled){ background:var(--teal-dark); }
+button.primary:disabled{ opacity:.4; cursor:not-allowed; box-shadow: none; }
+button.secondary{ padding:11px 16px; border:2px solid var(--border-color); border-radius:12px; background:#fff; color:var(--ink); font-family:'Baloo 2',sans-serif; font-weight:800; font-size:14px; cursor:pointer;}
+button.skip{ padding:11px 16px; border:2px dashed var(--border-color); border-radius:12px; background:transparent; color:#8a7a68; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:13px; cursor:pointer; }
+button.skip:hover{ border-color:var(--coral); color:var(--coral); }
+.step-actions{ margin-top:20px; display:flex; justify-content:flex-end; gap:8px; width: 100%; flex-wrap:wrap; }
+.step-actions .spacer{ flex:1; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="/kanan.academy/index.html" style="display: inline-block; margin-bottom: 16px; padding: 8px 18px; background-color: #1b6fa8; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-family: 'Baloo 2', sans-serif; font-size: 14px;">Ana Səhifə</a>
+  <div class="eyebrow">Gündəlik İngiliscə</div>
+  <div class="top-title">Dərs 4</div>
+  <div class="top-sub"> Öyrən · Birləşdir · Oxu · Yaz · Xilas et</div>
+
+  <div class="stepper" id="stepper"></div>
+
+  <!-- STEP 1: LEARN -->
+  <section class="panel" id="panel-1">
+    <div class="card">
+      <span class="heading-lang">Mərhələ 1 · Sevgi və Münasibət Sözlərini Öyrən</span>
+      <h2 class="panel-title">Step 1 · Learn the love & relationship words</h2>
+      <p class="panel-explanation">Sözü eşitmək üçün 🔊 toxun. Tərcümə üçün ⇄ düyməsini sıxın.</p>
+      <div class="learn-grid" id="learnGrid"></div>
+    </div>
+    <div class="step-actions">
+      <button class="skip" id="skip1">Bu mərhələni ötür ⏭</button>
+      <button class="primary" id="toStep2">Davam et / Continue →</button>
+    </div>
+  </section>
+
+  <!-- STEP 2: MATCH -->
+  <section class="panel" id="panel-2">
+    <div class="card">
+      <div class="match-header">
+        <div>
+          <span class="heading-lang">Mərhələ 2 · Sözü Birləşdir</span>
+          <h2 class="panel-title">Step 2 · Vocabulary Match</h2>
+        </div>
+        <div class="round-pill"><span id="roundNum">1</span> / 4</div>
+      </div>
+      <p class="panel-explanation">İngiliscə sevgi/münasibət sözünə toxun, sonra onun düzgün azərbaycanca tərcüməsini seç.</p>
+      <div class="match-cols">
+        <div class="match-list" id="picCol"></div>
+        <div class="match-list" id="wordCol"></div>
+      </div>
+    </div>
+    <div class="step-actions">
+      <button class="secondary" id="backTo1">← Geri</button>
+      <span class="spacer"></span>
+      <button class="skip" id="skip2">Bu mərhələni ötür ⏭</button>
+      <button class="primary" id="toStep3" disabled>Davam et / Continue →</button>
+    </div>
+  </section>
+
+  <!-- STEP 3: DRAG & DROP STORY -->
+  <section class="panel" id="panel-3">
+    <div class="card">
+      <span class="heading-lang">Mərhələ 3 · Hekayə Tapmacası</span>
+      <h2 class="panel-title">Step 3 · Drag & Drop Story</h2>
+      <p class="panel-explanation">Sözləri boşluqlara sürüşdürün. Telefonda əvvəlcə sözə, sonra boşluğa toxunun. Aylin və Kamranın sevgi hekayəsini tamamlayın. (20 boşluq — sağda tərcümə var.)</p>
+
+      <div class="word-bank" id="hekayeWordBank"></div>
+
+      <div class="story-table" id="storyBox">
+        <div class="story-cell head en">İNGİLİSCƏ</div>
+        <div class="story-cell head az">Azərbaycanca Tərcümə</div>
+
+        <div class="story-cell en"><p>Every romantic story is different, but many couples go through similar stages, from meeting someone new to building a life together. Let's follow Aylin and Kamran and see how their story unfolds.</p></div>
+        <div class="story-cell az"><p>Hər bir sevgi hekayəsi fərqlidir, lakin bir çox cütlük yeni biri ilə tanış olmaqdan tutmuş birlikdə həyat qurmağa qədər oxşar mərhələlərdən keçir. Gəlin Aylin və Kamranı izləyək və onların hekayəsinin necə inkişaf etdiyini görək.</p></div>
+
+        <div class="story-cell en"><p>Aylin and Kamran met through mutual friends, and soon he asked her on their first <span class="drop-zone" data-word="date"></span>.</p></div>
+        <div class="story-cell az"><p>Aylin və Kamran ortaq dostları vasitəsilə tanış oldular və tezliklə o, onu ilk görüşə dəvət etdi.</p></div>
+
+        <div class="story-cell en"><p>They talked for hours, and by the end of the night, Aylin could feel herself starting to <span class="drop-zone" data-word="fall in love"></span>.</p></div>
+        <div class="story-cell az"><p>Onlar saatlarla söhbət etdilər və gecənin sonunda Aylin özünün aşiq olmağa başladığını hiss etdi.</p></div>
+
+        <div class="story-cell en"><p>Within a few weeks, Kamran proudly called her his <span class="drop-zone" data-word="girlfriend"></span>, and their <span class="drop-zone" data-word="relationship"></span> began to grow quickly.</p></div>
+        <div class="story-cell az"><p>Bir neçə həftə ərzində, Kamran fəxrlə onu öz sevgilisi adlandırdı və onların münasibətləri sürətlə inkişaf etməyə başladı.</p></div>
+
+        <div class="story-cell en"><p>Even though they sometimes argued, they always managed to <span class="drop-zone" data-word="get along"></span> and understand each other.</p></div>
+        <div class="story-cell az"><p>Bəzən mübahisə etsələr də, onlar həmişə yola getməyi və bir-birini anlamağı bacarırdılar.</p></div>
+
+        <div class="story-cell en"><p>Kamran often wrote small notes to express his <span class="drop-zone" data-word="love"></span> for her, and she cherished every one of them.</p></div>
+        <div class="story-cell az"><p>Kamran tez-tez ona olan sevgisini ifadə etmək üçün kiçik qeydlər yazırdı və o, onların hər birini əziz tuturdu.</p></div>
+
+        <div class="story-cell en"><p>After two wonderful years together, Kamran proposed, and Aylin happily agreed to get <span class="drop-zone" data-word="engaged"></span>.</p></div>
+        <div class="story-cell az"><p>Birlikdə keçirdikləri iki gözəl ildən sonra, Kamran evlilik təklif etdi və Aylin xoşbəxtliklə nişanlanmağa razı oldu.</p></div>
+
+        <div class="story-cell en"><p>Six months later, they decided to <span class="drop-zone" data-word="marry"></span> and start planning their <span class="drop-zone" data-word="wedding"></span>.</p></div>
+        <div class="story-cell az"><p>Altı ay sonra, onlar evlənməyə qərar verdilər və toylarını planlaşdırmağa başladılar.</p></div>
+
+        <div class="story-cell en"><p>Everyone said the couple had perfect <span class="drop-zone" data-word="compatibility"></span>, because they shared the same values and dreams.</p></div>
+        <div class="story-cell az"><p>Hamı deyirdi ki, bu cütlüyün mükəmməl uyğunluğu var, çünki onlar eyni dəyərləri və arzuları paylaşırdılar.</p></div>
+
+        <div class="story-cell en"><p>Like any couple, they went through some <span class="drop-zone" data-word="marital problems"></span>, especially when money was tight.</p></div>
+        <div class="story-cell az"><p>Hər hansı bir cütlük kimi, onlar da, xüsusilə pul azlığı olduqda, bəzi ailə problemləri yaşadılar.</p></div>
+
+        <div class="story-cell en"><p>Sadly, a few years into the marriage, Kamran began to <span class="drop-zone" data-word="cheat on someone"></span> — he was secretly seeing another woman.</p></div>
+        <div class="story-cell az"><p>Təəssüf ki, nikahdan bir neçə il sonra, Kamran xəyanət etməyə başladı — o, gizlicə başqa bir qadınla görüşürdü.</p></div>
+
+        <div class="story-cell en"><p>When Aylin discovered his <span class="drop-zone" data-word="infidelity"></span>, she felt completely betrayed.</p></div>
+        <div class="story-cell az"><p>Aylin onun sədaqətsizliyini aşkar etdikdə, özünü tamamilə aldadılmış hiss etdi.</p></div>
+
+        <div class="story-cell en"><p>The <span class="drop-zone" data-word="trust"></span> between them was broken, and for a while they decided to <span class="drop-zone" data-word="separate"></span>.</p></div>
+        <div class="story-cell az"><p>Onların arasındakı etibar qırılmışdı və bir müddət ayrı yaşamağa qərar verdilər.</p></div>
+
+        <div class="story-cell en"><p>They tried counseling, hoping to rebuild their <span class="drop-zone" data-word="commitment"></span> to each other.</p></div>
+        <div class="story-cell az"><p>Onlar bir-birinə olan bağlılıqlarını yenidən qurmaq ümidi ilə ailə məsləhətçisinə müraciət etdilər.</p></div>
+
+        <div class="story-cell en"><p>Unfortunately, the damage was too deep, and they eventually decided to <span class="drop-zone" data-word="break up"></span> for good.</p></div>
+        <div class="story-cell az"><p>Təəssüf ki, dəymiş zərər çox dərin idi və onlar nəhayət tamamilə ayrılmağa qərar verdilər.</p></div>
+
+        <div class="story-cell en"><p>A year later, they officially <span class="drop-zone" data-word="get divorced"></span> and started separate lives.</p></div>
+        <div class="story-cell az"><p>Bir il sonra, onlar rəsmən boşandılar və ayrı həyata başladılar.</p></div>
+
+        <div class="story-cell en"><p>It took Aylin a long time to <span class="drop-zone" data-word="move on"></span>, but slowly she began to feel like herself again.</p></div>
+        <div class="story-cell az"><p>Aylinin keçmişini arxada qoyması uzun vaxt apardı, amma tədricən özünü yenidən əvvəlki kimi hiss etməyə başladı.</p></div>
+
+        <div class="story-cell en"><p>Years later, at a mutual friend's gathering, Aylin and Kamran happened to meet again and finally decided to <span class="drop-zone" data-word="reconcile"></span> as friends.</p></div>
+        <div class="story-cell az"><p>İllər sonra, ortaq bir dostlarının məclisində Aylin və Kamran təsadüfən yenidən rastlaşdılar və nəhayət dost kimi barışmağa qərar verdilər.</p></div>
+
+        <div class="story-cell en"><p>As we can see, love can bring both joy and heartbreak, but every story teaches us something about ourselves.</p></div>
+        <div class="story-cell az"><p>Gördüyümüz kimi, sevgi həm sevinc, həm də ürək ağrısı gətirə bilər, amma hər hekayə bizə özümüz haqqında nəsə öyrədir.</p></div>
+      </div>
+
+      <div class="story-actions">
+        <button class="primary" id="checkStoryBtn">Yoxla / Check Answers</button>
+        <button class="secondary" id="resetStoryBtn">Yenidən Başla / Reset</button>
+      </div>
+    </div>
+    <div class="step-actions">
+      <button class="secondary" id="backTo2_from3">← Geri</button>
+      <span class="spacer"></span>
+      <button class="skip" id="skip3">Bu mərhələni ötür ⏭</button>
+      <button class="primary" id="toStep4" disabled>Davam et / Continue →</button>
+    </div>
+  </section>
+
+  <!-- STEP 4: LISTEN & WRITE -->
+  <section class="panel" id="panel-4">
+    <div class="card">
+      <span class="heading-lang">Mərhələ 4 · Dinlə və Yaz</span>
+      <h2 class="panel-title">Step 4 · Listen & Write</h2>
+      <p class="panel-explanation">Tələffüzü dinləyin və ingiliscə sevgi/münasibət sözünün düzgün yazılışını daxil edin.</p>
+      <div class="writing-container" id="writingContainer"></div>
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+        <button class="primary" id="checkSpellingBtn">Yoxla / Check Answers</button>
+        <span class="score-display-text" id="writingScoreDisplay"></span>
+      </div>
+    </div>
+    <div class="step-actions">
+      <button class="secondary" id="backTo3">← Geri</button>
+      <span class="spacer"></span>
+      <button class="skip" id="skip4">Bu mərhələni ötür ⏭</button>
+      <button class="primary" id="toStep5" disabled>Davam et / Continue →</button>
+    </div>
+  </section>
+
+  <!-- STEP 5: DESERT CROSSING GAME -->
+  <section class="panel" id="panel-5">
+    <div class="card" style="margin-bottom:14px;">
+      <span class="heading-lang">Mərhələ 5 · Susayan Səyyahı Xilas Et</span>
+      <h2 class="panel-title">Step 5 · Help the Thirsty Traveler</h2>
+      <p class="panel-explanation">Hər sevgi/münasibət sözünün düzgün mənasını tapın. Doğru cavab verdikcə, səhrada susuz qalan adam qumdüzlər arasından gölə doğru addımlayır. Son sualı da tapanda, suya çatıb hər iki əlini qaldıracaq! Çətin gəlsə, ⇄ düyməsinə sıxın.</p>
+    </div>
+    <main class="desert-main">
+      <div class="card" style="padding:10px;">
+        <div class="desert-scene" id="desertScene">
+          <div class="desert-sun">☀️</div>
+          <div class="dune-layer d1"></div>
+          <div class="dune-layer d2"></div>
+          <div class="dune-layer d3"></div>
+          <div class="desert-foreground"></div>
+          <div class="desert-pond"></div>
+          <div class="desert-palm p1">🌴</div>
+          <div class="desert-palm p2">🌴</div>
+          <div class="desert-palm p3">🌴</div>
+          <div class="desert-palm p4">🌴</div>
+          <div class="desert-palm p5">🌴</div>
+          <div class="desert-palm p6">🌴</div>
+          <div class="desert-palm p7">🌴</div>
+          <div class="desert-palm p8">🌴</div>
+          <div class="desert-done-badge" id="desertDoneBadge">✅</div>
+          <div class="desert-figure-wrap bob" id="desertFigureWrap"></div>
+        </div>
+        <div class="desert-progresswrap">
+          <div class="desert-progressbar"><div class="desert-progressfill" id="desertFill"></div></div>
+          <div class="desert-stats" id="desertStats">0 / 20</div>
+        </div>
+        <div class="finished-note" id="finishedNote">Təbriklər! Səyyah suya çatdı və için! 🎉</div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="rword" id="wordEl"></div>
+          <div class="flip-note">Kömək üçün sətirdəki <b>⇄</b> işarəsinə toxunun.</div>
+          <div class="options" id="optionsEl"></div>
+          <div class="hint" id="hintEl"></div>
+          <div class="feedback" id="feedbackEl"></div>
+          <button class="primary" id="nextBtn" style="width:100%; margin-top:12px;" disabled>Növbəti / Next →</button>
+          <button class="secondary" id="restartDesertBtn" style="width:100%; margin-top:8px;">Yenidən başla / Restart</button>
+        </div>
+      </div>
+    </main>
+    <div class="step-actions">
+      <button class="secondary" id="backTo4">← Geri</button>
+      <span class="spacer"></span>
+      <button class="skip" id="skip5">Dərsi bitir ⏭</button>
+    </div>
+  </section>
+</div>
+
+<script>
+/* ================= WORD LIST & DATA (20 items) ================= */
+const WORDS = [
+  { word:"date", translation:"görüş", sentenceEN:"They went on a romantic date to the beach at sunset.", sentenceAZ:"Onlar gün batımında sahildə romantik bir görüşə getdilər.", options:[{en:"A planned romantic outing between two people", az:"İki nəfər arasında planlaşdırılmış romantik görüş", correct:true},{en:"A type of fruit", az:"Bir növ meyvə", correct:false},{en:"A document showing when something happened", az:"Bir hadisənin baş verdiyi vaxtı göstərən sənəd", correct:false}] },
+  { word:"wedding", translation:"toy", sentenceEN:"Her wedding was one of the happiest days of her life.", sentenceAZ:"Onun toyu həyatının ən xoşbəxt günlərindən biri idi.", options:[{en:"A ceremony where two people get married", az:"İki insanın evləndiyi mərasim", correct:true},{en:"A large formal meeting for business", az:"Böyük rəsmi iş görüşü", correct:false},{en:"A yearly celebration of someone's birth", az:"Kiminsə doğumunun hər il qeyd olunması", correct:false}] },
+  { word:"separate", translation:"ayrılmaq", sentenceEN:"The couple decided to separate after growing apart.", sentenceAZ:"Cütlük bir-birindən uzaqlaşdıqdan sonra ayrılmağa qərar verdi.", options:[{en:"To stop living together or being a couple", az:"Birlikdə yaşamağı və ya cütlük olmağı dayandırmaq", correct:true},{en:"To become close friends with someone", az:"Kiminləsə yaxın dost olmaq", correct:false},{en:"To celebrate an anniversary together", az:"İllik dönüm gününü birlikdə qeyd etmək", correct:false}] },
+  { word:"love", translation:"sevgi", sentenceEN:"Nothing could compare to the love they shared.", sentenceAZ:"Onların paylaşdığı sevgiylə heç nə müqayisə oluna bilməzdi.", options:[{en:"A deep feeling of affection and care for someone", az:"Kiməsə qarşı dərin sevgi və qayğı hissi", correct:true},{en:"A feeling of anger toward someone", az:"Kiməsə qarşı qəzəb hissi", correct:false},{en:"A formal agreement between two companies", az:"İki şirkət arasında rəsmi razılaşma", correct:false}] },
+  { word:"marry", translation:"evlənmək", sentenceEN:"She always dreamed of marrying her best friend.", sentenceAZ:"O, həmişə ən yaxın dostu ilə evlənməyi arzulayırdı.", options:[{en:"To become someone's husband or wife in a legal ceremony", az:"Rəsmi mərasimdə kiminsə həyat yoldaşı olmaq", correct:true},{en:"To end a relationship completely", az:"Münasibəti tamamilə bitirmək", correct:false},{en:"To meet someone for the first time", az:"Kiminləsə ilk dəfə tanış olmaq", correct:false}] },
+  { word:"girlfriend", translation:"sevgilisi", sentenceEN:"He bought flowers for his girlfriend's birthday.", sentenceAZ:"O, sevgilisinin doğum günü üçün gül aldı.", options:[{en:"A woman someone is romantically dating", az:"Kiminsə romantik münasibətdə olduğu qadın", correct:true},{en:"A close female relative", az:"Yaxın qadın qohum", correct:false},{en:"A woman's boss at work", az:"Qadının işdəki rəhbəri", correct:false}] },
+  { word:"fall in love", translation:"aşiq olmaq", sentenceEN:"It's easy to fall in love with someone who makes you laugh.", sentenceAZ:"Sizi güldürən biri ilə aşiq olmaq asandır.", options:[{en:"To begin having strong romantic feelings for someone", az:"Kiməsə qarşı güclü romantik hisslər yaşamağa başlamaq", correct:true},{en:"To lose interest in a hobby", az:"Bir məşğuliyyətə marağı itirmək", correct:false},{en:"To become tired after work", az:"İşdən sonra yorulmaq", correct:false}] },
+  { word:"relationship", translation:"münasibətlər", sentenceEN:"Good communication keeps a relationship healthy.", sentenceAZ:"Yaxşı ünsiyyət münasibətləri sağlam saxlayır.", options:[{en:"A romantic connection between two people", az:"İki insan arasındakı romantik əlaqə", correct:true},{en:"A business contract", az:"İş müqaviləsi", correct:false},{en:"A short vacation trip", az:"Qısa istirahət səfəri", correct:false}] },
+  { word:"get along", translation:"yola getmək", sentenceEN:"My sister and her husband get along wonderfully.", sentenceAZ:"Bacım və əri bir-biri ilə çox yaxşı yola gedirlər.", options:[{en:"To have a friendly, positive connection with someone", az:"Kiminləsə dostcasına, müsbət münasibətdə olmaq", correct:true},{en:"To argue constantly with someone", az:"Kiminləsə daim mübahisə etmək", correct:false},{en:"To avoid seeing someone", az:"Kiminləsə görüşməkdən qaçmaq", correct:false}] },
+  { word:"break up", translation:"münasibətə son qoymaq", sentenceEN:"They chose to break up rather than keep fighting.", sentenceAZ:"Onlar davamlı mübahisə etmək əvəzinə münasibətlərinə son qoymağı seçdilər.", options:[{en:"To end a romantic relationship", az:"Romantik münasibətə son qoymaq", correct:true},{en:"To start dating someone new", az:"Yeni biri ilə görüşməyə başlamaq", correct:false},{en:"To plan a wedding", az:"Toy planlaşdırmaq", correct:false}] },
+  { word:"get divorced", translation:"boşanmaq", sentenceEN:"Many couples get divorced due to constant disagreements.", sentenceAZ:"Bir çox cütlük davamlı fikir ayrılıqları üzündən boşanır.", options:[{en:"To legally end a marriage", az:"Nikahı qanuni şəkildə bitirmək", correct:true},{en:"To legally begin a marriage", az:"Nikahı qanuni şəkildə başlatmaq", correct:false},{en:"To go on a honeymoon", az:"Bal ayına getmək", correct:false}] },
+  { word:"cheat on someone", translation:"xəyanət etmək", sentenceEN:"It's never okay to cheat on someone you claim to love.", sentenceAZ:"Sevdiyini iddia etdiyin birinə xəyanət etmək heç vaxt doğru deyil.", options:[{en:"To be romantically or sexually unfaithful to a partner", az:"Partnyora qarşı romantik və ya cinsi cəhətdən sadiq olmamaq", correct:true},{en:"To help a partner with a problem", az:"Partnyora problemdə kömək etmək", correct:false},{en:"To surprise a partner with a gift", az:"Partnyoru hədiyyə ilə təəccübləndirmək", correct:false}] },
+  { word:"commitment", translation:"bağlılıq", sentenceEN:"Marriage requires real commitment from both partners.", sentenceAZ:"Nikah hər iki tərəfdən həqiqi bağlılıq tələb edir.", options:[{en:"A promise or dedication to stay loyal in a relationship", az:"Münasibətdə sadiq qalmaq üçün verilən söz və ya bağlılıq", correct:true},{en:"A short romantic trip", az:"Qısa romantik səyahət", correct:false},{en:"A disagreement between partners", az:"Partnyorlar arasında fikir ayrılığı", correct:false}] },
+  { word:"compatibility", translation:"uyğunluq", sentenceEN:"Compatibility isn't just about shared hobbies, but shared values too.", sentenceAZ:"Uyğunluq təkcə ortaq maraqlar deyil, həm də ortaq dəyərlərlə bağlıdır.", options:[{en:"How well two people's personalities and values match", az:"İki insanın xarakter və dəyərlərinin bir-birinə nə dərəcədə uyğun olması", correct:true},{en:"How much money a couple earns together", az:"Bir cütlüyün birlikdə nə qədər pul qazandığı", correct:false},{en:"How long a couple has been together", az:"Bir cütlüyün nə qədər müddətdir birlikdə olması", correct:false}] },
+  { word:"infidelity", translation:"sədaqətsizlik", sentenceEN:"Infidelity is one of the most common reasons for divorce.", sentenceAZ:"Sədaqətsizlik boşanmanın ən çox rast gəlinən səbəblərindən biridir.", options:[{en:"Being unfaithful to a romantic partner", az:"Romantik partnyora qarşı sadiq olmamaq", correct:true},{en:"Being extremely loyal to a partner", az:"Partnyora son dərəcə sadiq olmaq", correct:false},{en:"Planning a surprise anniversary party", az:"Sürpriz ildönümü partisi planlaşdırmaq", correct:false}] },
+  { word:"reconcile", translation:"barışmaq", sentenceEN:"After months apart, the old friends decided to reconcile.", sentenceAZ:"Aylarla ayrı qaldıqdan sonra köhnə dostlar barışmağa qərar verdilər.", options:[{en:"To become friendly again after a disagreement", az:"Fikir ayrılığından sonra yenidən dostcasına münasibətə qayıtmaq", correct:true},{en:"To end a friendship permanently", az:"Dostluğu həmişəlik bitirmək", correct:false},{en:"To meet someone for the first time", az:"Kiminləsə ilk dəfə tanış olmaq", correct:false}] },
+  { word:"move on", translation:"keçmişi arxada qoymaq", sentenceEN:"It's important to move on and focus on your own happiness.", sentenceAZ:"İrəli getmək və öz xoşbəxtliyinə fokuslanmaq vacibdir.", options:[{en:"To stop dwelling on the past and continue with life", az:"Keçmişdə qalmağı dayandırıb həyata davam etmək", correct:true},{en:"To keep thinking about an old relationship", az:"Köhnə münasibət haqqında düşünməyə davam etmək", correct:false},{en:"To move to a new house", az:"Yeni evə köçmək", correct:false}] },
+  { word:"marital problems", translation:"ailə problemləri", sentenceEN:"They went to therapy to work through their marital problems.", sentenceAZ:"Onlar ailə problemlərini həll etmək üçün terapiyaya getdilər.", options:[{en:"Difficulties or conflicts within a marriage", az:"Nikah daxilində olan çətinliklər və ya münaqişələr", correct:true},{en:"Financial success within a marriage", az:"Nikah daxilində maliyyə uğuru", correct:false},{en:"Plans for a couple's future vacation", az:"Cütlüyün gələcək istirahəti üçün planlar", correct:false}] },
+  { word:"trust", translation:"etibar", sentenceEN:"Trust takes years to build and seconds to destroy.", sentenceAZ:"Etibarın qurulması illər, dağılması isə saniyələr çəkir.", options:[{en:"A firm belief in someone's honesty and reliability", az:"Kiminsə dürüstlüyünə və etibarlılığına olan möhkəm inam", correct:true},{en:"A feeling of jealousy toward a partner", az:"Partnyora qarşı qısqanclıq hissi", correct:false},{en:"A formal legal document", az:"Rəsmi hüquqi sənəd", correct:false}] },
+  { word:"engaged", translation:"nişanlı", sentenceEN:"They got engaged during a trip to Paris.", sentenceAZ:"Onlar Parisə səyahət zamanı nişanlandılar.", options:[{en:"Having formally agreed to marry someone", az:"Kiminləsə rəsmi şəkildə evlənməyə razılaşmış olmaq", correct:true},{en:"Already married for many years", az:"Artıq illərdir evli olmaq", correct:false},{en:"Currently single and not dating", az:"Hazırda subay olmaq və heç kimlə görüşməmək", correct:false}] }
+];
+
+/* ================= UTILITIES ================= */
+function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function speak(text){ if(!('speechSynthesis' in window)) return; window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = 'en-US'; u.rate = 0.82; window.speechSynthesis.speak(u);}
+
+/* ================= STEPPER CONFIG ================= */
+const STEP_LABELS = ['Öyrən','Birləşdir','Hekayə','Yaz','Xilas et'];
+let currentStep = 1;
+function renderStepper(){
+  const el = document.getElementById('stepper'); el.innerHTML='';
+  STEP_LABELS.forEach((label,i)=>{
+    const n=i+1;
+    const node=document.createElement('div');
+    node.className='step-node'+(n===currentStep?' active':'')+(n<currentStep?' done':'');
+    node.innerHTML=`<div class="step-circle">${n<currentStep?'✓':n}</div><div class="step-label">${label}</div>`;
+    el.appendChild(node);
+    if(n<STEP_LABELS.length){ const line=document.createElement('div'); line.className='step-line'; el.appendChild(line); }
+  });
+}
+function goToStep(n){
+  currentStep=n;
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+n).classList.add('active');
+  renderStepper();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ================= STEP 1: LEARN ================= */
+function buildLearnStep(){
+  const grid = document.getElementById('learnGrid'); grid.innerHTML='';
+  WORDS.forEach(w=>{
+    const wrapper = document.createElement('div');
+    wrapper.className = 'flip-card-container';
+    wrapper.innerHTML = `
+      <div class="flip-card-inner">
+        <div class="word-card-front">
+          <div class="audio-badge-ui">🔊</div>
+          <div class="w-word">${w.word}</div>
+          <div class="w-sentence">${w.sentenceEN}</div>
+          <div class="card-actions-row">
+            <button class="speak-btn">🔊 Səs</button>
+            <button class="translate-card-btn">⇄ Tərcümə</button>
+          </div>
+        </div>
+        <div class="word-card-back">
+          <div class="audio-badge-ui" style="background:#fff3cd; color:var(--mustard);">⇄</div>
+          <div class="w-word" style="color:var(--mustard); font-size:18px;">${w.translation}</div>
+          <div class="w-sentence">${w.sentenceAZ}</div>
+          <div class="card-actions-row">
+            <button class="translate-card-btn" style="background:var(--teal)">⇄ Orijinal</button>
+          </div>
+        </div>
+      </div>`;
+    wrapper.querySelector('.speak-btn').addEventListener('click',(e)=>{ e.stopPropagation(); speak(w.word); });
+    wrapper.querySelectorAll('.translate-card-btn').forEach(b=>{
+      b.addEventListener('click',(e)=>{ e.stopPropagation(); wrapper.classList.toggle('flipped'); });
+    });
+    grid.appendChild(wrapper);
+  });
+}
+
+/* ================= STEP 2: MATCH ================= */
+let matchRound = 1;
+let selectedTile = null;
+let matchedCountInRound = 0;
+const WORDS_PER_ROUND = 5;
+const TOTAL_ROUNDS = 4;
+
+function buildMatchRound(){
+  const picCol = document.getElementById('picCol'); picCol.innerHTML='';
+  const wordCol = document.getElementById('wordCol'); wordCol.innerHTML='';
+  document.getElementById('roundNum').textContent = matchRound;
+
+  const startIndex = (matchRound - 1) * WORDS_PER_ROUND;
+  const roundWords = WORDS.slice(startIndex, startIndex + WORDS_PER_ROUND);
+
+  const leftItems = shuffle(roundWords);
+  const rightItems = shuffle(roundWords);
+
+  leftItems.forEach(item=>{
+    const tile = document.createElement('div');
+    tile.className = 'match-tile';
+    tile.textContent = item.word;
+    tile.dataset.word = item.word;
+    tile.dataset.type = 'eng';
+    tile.addEventListener('click', ()=>handleTileClick(tile));
+    picCol.appendChild(tile);
+  });
+
+  rightItems.forEach(item=>{
+    const tile = document.createElement('div');
+    tile.className = 'match-tile';
+    tile.textContent = item.translation;
+    tile.dataset.word = item.word;
+    tile.dataset.type = 'az';
+    tile.addEventListener('click', ()=>handleTileClick(tile));
+    wordCol.appendChild(tile);
+  });
+}
+
+function handleTileClick(tile){
+  if(tile.classList.contains('matched')) return;
+  if(selectedTile === tile) { tile.classList.remove('selected'); selectedTile = null; return; }
+
+  if(!selectedTile){
+    selectedTile = tile; tile.classList.add('selected');
+  } else {
+    if(selectedTile.dataset.type !== tile.dataset.type && selectedTile.dataset.word === tile.dataset.word){
+      selectedTile.classList.remove('selected');
+      selectedTile.classList.add('matched');
+      tile.classList.add('matched');
+      selectedTile = null; matchedCountInRound++;
+      if(matchedCountInRound === WORDS_PER_ROUND){
+        setTimeout(()=>{
+          if(matchRound < TOTAL_ROUNDS){
+            matchRound++; matchedCountInRound=0; buildMatchRound();
+          } else {
+            document.getElementById('toStep3').disabled = false;
+          }
+        }, 600);
+      }
+    } else {
+      const first = selectedTile;
+      first.classList.remove('selected'); first.classList.add('wrong');
+      tile.classList.add('wrong'); selectedTile = null;
+      setTimeout(()=>{ first.classList.remove('wrong'); tile.classList.remove('wrong'); }, 400);
+    }
+  }
+}
+
+/* ================= STEP 3: DRAG & DROP STORY LOGIC ================= */
+let selectedStoryWordMobile = null;
+const bankEl = document.getElementById("hekayeWordBank");
+const STORY_WORDS = WORDS.map(w => w.word); // all 20, one blank per word
+
+function initStoryGame() {
+  bankEl.innerHTML = '';
+  selectedStoryWordMobile = null;
+  const shuffled = shuffle(STORY_WORDS);
+
+  shuffled.forEach(word => {
+    const wordEl = document.createElement("div");
+    wordEl.className = "draggable-word";
+    wordEl.draggable = true;
+    wordEl.textContent = word;
+    wordEl.dataset.text = word;
+
+    wordEl.addEventListener("dragstart", (e) => {
+      e.dataTransfer.setData("text/plain", e.target.dataset.text);
+      setTimeout(() => e.target.style.opacity = "0.4", 0);
+    });
+    wordEl.addEventListener("dragend", (e) => e.target.style.opacity = "1");
+
+    wordEl.addEventListener("click", handleStoryMobileSelect);
+    bankEl.appendChild(wordEl);
+  });
+
+  const zones = document.querySelectorAll("#storyBox .drop-zone");
+  zones.forEach(zone => {
+    zone.innerHTML = '';
+    zone.className = "drop-zone";
+
+    zone.addEventListener("dragover", (e) => { e.preventDefault(); zone.classList.add("hover"); });
+    zone.addEventListener("dragleave", () => zone.classList.remove("hover"));
+    zone.addEventListener("drop", handleStoryDrop);
+
+    zone.addEventListener("click", handleStoryMobilePlace);
+  });
+
+  bankEl.addEventListener("dragover", (e) => e.preventDefault());
+  bankEl.addEventListener("drop", (e) => {
+    e.preventDefault();
+    const txt = e.dataTransfer.getData("text/plain");
+    const item = document.querySelector(`.draggable-word[data-text="${txt}"]`);
+    if(item) bankEl.appendChild(item);
+  });
+}
+
+function handleStoryDrop(e) {
+  e.preventDefault();
+  let zone = e.target.classList.contains("drop-zone") ? e.target : e.target.parentElement;
+  zone.classList.remove("hover");
+
+  const txt = e.dataTransfer.getData("text/plain");
+  const item = document.querySelector(`.draggable-word[data-text="${txt}"]`);
+
+  if (item && zone.classList.contains("drop-zone")) {
+    if (zone.children.length > 0) {
+      bankEl.appendChild(zone.children[0]);
+    }
+    zone.appendChild(item);
+  }
+}
+
+function handleStoryMobileSelect(e) {
+  document.querySelectorAll(".draggable-word").forEach(w => w.classList.remove("selected"));
+  if (e.target.parentElement.classList.contains("drop-zone")) {
+    bankEl.appendChild(e.target);
+    selectedStoryWordMobile = null;
+    return;
+  }
+  e.target.classList.add("selected");
+  selectedStoryWordMobile = e.target;
+}
+
+function handleStoryMobilePlace(e) {
+  let zone = e.target.classList.contains("drop-zone") ? e.target : e.target.parentElement;
+  if (selectedStoryWordMobile && zone.classList.contains("drop-zone")) {
+    if (zone.children.length > 0) {
+      bankEl.appendChild(zone.children[0]);
+    }
+    zone.appendChild(selectedStoryWordMobile);
+    selectedStoryWordMobile.classList.remove("selected");
+    selectedStoryWordMobile = null;
+  }
+}
+
+document.getElementById('checkStoryBtn').addEventListener('click', () => {
+  let allCorrect = true;
+  const zones = document.querySelectorAll("#storyBox .drop-zone");
+
+  zones.forEach(zone => {
+    zone.classList.remove("correct", "incorrect");
+    const correctVal = zone.dataset.word;
+
+    if(zone.children.length > 0) {
+      if(zone.children[0].dataset.text === correctVal) {
+        zone.classList.add("correct");
+      } else {
+        zone.classList.add("incorrect");
+        allCorrect = false;
+      }
+    } else {
+      zone.classList.add("incorrect");
+      allCorrect = false;
+    }
+  });
+
+  if(allCorrect) {
+    alert("Təbrik edirik! Bütün boşluqlar düzgün dolduruldu. 🎉");
+    document.getElementById('toStep4').disabled = false;
+  } else {
+    alert("Bəzi səhvlər var. Qırmızı xanalara yenidən baxın.");
+  }
+});
+
+document.getElementById('resetStoryBtn').addEventListener('click', initStoryGame);
+
+/* ================= STEP 4: LISTEN & WRITE ================= */
+function buildWritingStep(){
+  const container = document.getElementById('writingContainer'); container.innerHTML = '';
+  const shuffledWrite = shuffle(WORDS);
+
+  shuffledWrite.forEach((item)=>{
+    const row = document.createElement('div');
+    row.className = 'writing-row';
+    row.innerHTML = `
+      <button class="listen-ui-btn" type="button" data-word="${item.word}">🔊 Dinlə</button>
+      <input type="text" class="spelling-input" data-correct="${item.word}" placeholder="..." autocomplete="off" spellcheck="false" />
+    `;
+    row.querySelector('.listen-ui-btn').addEventListener('click', ()=>speak(item.word));
+    container.appendChild(row);
+  });
+}
+
+document.getElementById('checkSpellingBtn').addEventListener('click', ()=>{
+  const inputs = document.querySelectorAll('.spelling-input');
+  let correctCounter = 0;
+
+  inputs.forEach(input => {
+    const userVal = input.value.trim().toLowerCase();
+    const correctVal = input.dataset.correct.toLowerCase();
+
+    if(userVal === correctVal){
+      input.className = "spelling-input correct";
+      correctCounter++;
+    } else {
+      input.className = "spelling-input wrong";
+      input.value = `${userVal} ✗ (${correctVal})`;
+    }
+  });
+
+  document.getElementById('writingScoreDisplay').textContent = `Nəticə: ${correctCounter} / ${WORDS.length}`;
+  if(correctCounter >= 10){
+    document.getElementById('toStep5').disabled = false;
+  }
+});
+
+/* ================= STEP 5: DESERT CROSSING GAME ================= */
+let desertWords = [];
+let currentDesertIndex = 0;
+let desertCorrect = 0;
+const desertTotal = WORDS.length;
+
+// Path from the top of the dunes down to the pond's edge (matches the reference photo's diagonal trail)
+const START_LEFT = 8, END_LEFT = 63;
+const START_TOP = 30, END_TOP = 60;
+
+function walkSVG(){
+  return `<svg viewBox="0 0 40 52" fill="none" stroke="#2b211a" stroke-width="3" stroke-linecap="round">
+    <circle cx="20" cy="9" r="5.5" fill="#2b211a" stroke="none"></circle>
+    <line x1="20" y1="14" x2="20" y2="34"></line>
+    <line x1="20" y1="18" x2="11" y2="25"></line>
+    <line x1="20" y1="18" x2="29" y2="12"></line>
+    <line x1="20" y1="34" x2="12" y2="49"></line>
+    <line x1="20" y1="34" x2="28" y2="46"></line>
+  </svg>`;
+}
+function raisedArmsSVG(){
+  return `<svg viewBox="0 0 40 52" fill="none" stroke="#2b211a" stroke-width="3" stroke-linecap="round">
+    <circle cx="20" cy="9" r="5.5" fill="#2b211a" stroke="none"></circle>
+    <line x1="20" y1="14" x2="20" y2="34"></line>
+    <line x1="20" y1="17" x2="10" y2="4"></line>
+    <line x1="20" y1="17" x2="30" y2="4"></line>
+    <line x1="20" y1="34" x2="13" y2="49"></line>
+    <line x1="20" y1="34" x2="27" y2="49"></line>
+  </svg>`;
+}
+
+function initDesertGame(){
+  desertWords = shuffle(WORDS);
+  currentDesertIndex = 0;
+  desertCorrect = 0;
+  document.getElementById('desertDoneBadge').classList.remove('show');
+  document.getElementById('finishedNote').classList.remove('show');
+  document.getElementById('desertFigureWrap').innerHTML = walkSVG();
+  updateDesertVisual();
+  showDesertQuestion();
+}
+
+function updateDesertVisual(){
+  const pct = desertCorrect / desertTotal;
+  const wrap = document.getElementById('desertFigureWrap');
+  const leftPos = START_LEFT + (END_LEFT - START_LEFT) * pct;
+  const topPos = START_TOP + (END_TOP - START_TOP) * pct;
+  wrap.style.left = leftPos + '%';
+  wrap.style.top = topPos + '%';
+
+  if(pct >= 1){
+    wrap.innerHTML = raisedArmsSVG() + '<div class="figure-splash"></div>';
+  } else {
+    wrap.innerHTML = walkSVG();
+  }
+
+  document.getElementById('desertFill').style.width = (pct*100) + '%';
+  document.getElementById('desertStats').textContent = desertCorrect + ' / ' + desertTotal;
+
+  if(desertCorrect >= desertTotal){
+    document.getElementById('desertDoneBadge').classList.add('show');
+    document.getElementById('finishedNote').classList.add('show');
+  }
+}
+
+function showDesertQuestion(){
+  document.getElementById('feedbackEl').textContent = '';
+  document.getElementById('feedbackEl').className = 'feedback';
+  document.getElementById('hintEl').innerHTML = '';
+  document.getElementById('nextBtn').disabled = true;
+
+  if(currentDesertIndex >= desertWords.length){
+    document.getElementById('wordEl').textContent = '';
+    document.getElementById('optionsEl').innerHTML = '';
+    return;
+  }
+
+  const currentItem = desertWords[currentDesertIndex];
+  document.getElementById('wordEl').textContent = currentItem.word;
+
+  const optsContainer = document.getElementById('optionsEl'); optsContainer.innerHTML = '';
+  const randomizedOptions = shuffle(currentItem.options);
+
+  randomizedOptions.forEach(opt => {
+    const row = document.createElement('div');
+    row.className = 'opt-row';
+    row.innerHTML = `
+      <button class="opt-select">
+        <div class="flip-inner">
+          <div class="face en">${opt.en}</div>
+          <div class="face az">${opt.az}</div>
+        </div>
+      </button>
+      <button class="flip-toggle" type="button">⇄</button>
+    `;
+    const selectBtn = row.querySelector('.opt-select');
+    const toggleBtn = row.querySelector('.flip-toggle');
+    toggleBtn.addEventListener('click', (e)=>{ e.stopPropagation(); row.classList.toggle('flipped'); toggleBtn.classList.toggle('active'); });
+    selectBtn.addEventListener('click', ()=>handleDesertAnswer(opt, row));
+    optsContainer.appendChild(row);
+  });
+}
+
+function handleDesertAnswer(option, rowEl){
+  if(document.getElementById('nextBtn').disabled === false) return;
+
+  const wrap = document.getElementById('desertFigureWrap');
+
+  if(option.correct){
+    rowEl.classList.add('correct');
+    document.getElementById('feedbackEl').textContent = 'Mükəmməl! Düzgündür 🎉';
+    document.getElementById('feedbackEl').className = 'feedback good';
+
+    desertCorrect++;
+    wrap.classList.remove('step'); void wrap.offsetWidth; wrap.classList.add('step');
+    updateDesertVisual();
+
+    document.getElementById('nextBtn').disabled = false;
+  } else {
+    rowEl.classList.add('wrong');
+    document.getElementById('feedbackEl').textContent = 'Yenidən yoxlayın...';
+    document.getElementById('feedbackEl').className = 'feedback bad';
+    wrap.classList.remove('stumble'); void wrap.offsetWidth; wrap.classList.add('stumble');
+    setTimeout(()=>{ rowEl.classList.remove('wrong'); }, 450);
+  }
+}
+
+document.getElementById('nextBtn').addEventListener('click', ()=>{
+  currentDesertIndex++;
+  showDesertQuestion();
+});
+document.getElementById('restartDesertBtn').addEventListener('click', initDesertGame);
+
+/* ================= ROUTING CONTROLLERS ================= */
+document.getElementById('toStep2').addEventListener('click', ()=> { goToStep(2); buildMatchRound(); });
+document.getElementById('backTo1').addEventListener('click', ()=> goToStep(1));
+document.getElementById('toStep3').addEventListener('click', ()=> { goToStep(3); initStoryGame(); });
+document.getElementById('backTo2_from3').addEventListener('click', ()=> goToStep(2));
+document.getElementById('toStep4').addEventListener('click', ()=> { goToStep(4); buildWritingStep(); });
+document.getElementById('backTo3').addEventListener('click', ()=> goToStep(3));
+document.getElementById('toStep5').addEventListener('click', ()=> { goToStep(5); initDesertGame(); });
+document.getElementById('backTo4').addEventListener('click', ()=> goToStep(4));
+
+/* ================= SKIP BUTTONS ================= */
+document.getElementById('skip1').addEventListener('click', ()=> { goToStep(2); buildMatchRound(); });
+document.getElementById('skip2').addEventListener('click', ()=> { goToStep(3); initStoryGame(); });
+document.getElementById('skip3').addEventListener('click', ()=> { goToStep(4); buildWritingStep(); });
+document.getElementById('skip4').addEventListener('click', ()=> { goToStep(5); initDesertGame(); });
+document.getElementById('skip5').addEventListener('click', ()=> {
+  document.getElementById('finishedNote').textContent = 'Dərs bitdi! İstənilən vaxt yenidən cəhd edə bilərsiniz.';
+  document.getElementById('finishedNote').classList.add('show');
+});
+
+window.onload = () => {
+  renderStepper();
+  goToStep(1);
+  buildLearnStep();
+};
+</script>
+</body>
+</html>
